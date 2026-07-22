@@ -83,6 +83,13 @@ Then:
 
 The browser reads JSON files directly from the selected folder. You do not need to copy generated scenes into `Assets/StreamingAssets` for editor preview.
 
+Scene Browser conveniences:
+
+- `Previous` / `Next`: step through the filtered scene list.
+- `Auto Import On Selection`: immediately imports a scene when you select it.
+- `Reveal JSON`: opens the selected JSON in the system file browser.
+- `Filter`: narrows the scene list by filename.
+
 Recommended settings for visual testing:
 
 - `External Scene Json Path`: usually set automatically by the Scene Browser
