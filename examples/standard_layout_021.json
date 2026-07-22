@@ -1,0 +1,69 @@
+{
+  "id": "cslpelite_layout_021",
+  "objectives": {
+    "safety_compliance": 1.0,
+    "operational_efficiency": 0.7414862720632164,
+    "layout_adaptability": 0.5171581932535482,
+    "combined_score": 0.7775933395950294
+  },
+  "behaviors": {
+    "spatial_organization": 0.4273428567757023,
+    "functional_integration": 0.30731058593897886
+  },
+  "feasibility": {
+    "safe": true,
+    "violations": []
+  },
+  "facilities": [
+    {
+      "type": "core",
+      "x": 0.36963952922169696,
+      "y": 0.46854227363490863,
+      "category": "operational"
+    },
+    {
+      "type": "core",
+      "x": 0.65773584542399,
+      "y": 0.25646279320644344,
+      "category": "operational"
+    },
+    {
+      "type": "crane",
+      "x": 0.6215583745723137,
+      "y": 0.5858528601586314,
+      "category": "equipment"
+    },
+    {
+      "type": "storage",
+      "x": 0.384816874837427,
+      "y": 0.6729114754326999,
+      "category": "operational"
+    },
+    {
+      "type": "rest_area",
+      "x": 0.15463603093943878,
+      "y": 0.539588692886898,
+      "category": "worker"
+    },
+    {
+      "type": "office",
+      "x": 0.39017872495762657,
+      "y": 0.28048476705203296,
+      "category": "worker"
+    }
+  ],
+  "entrances": [
+    {
+      "x": 0.95,
+      "y": 0.8266111159797104
+    },
+    {
+      "x": 0.95,
+      "y": 0.423426431834771
+    },
+    {
+      "x": 0.5821835332484642,
+      "y": 0.05
+    }
+  ]
+}
