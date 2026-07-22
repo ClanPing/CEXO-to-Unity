@@ -125,8 +125,11 @@ public class Vector3Json
 public class ConstructionSceneImporter : MonoBehaviour
 {
     [Header("Scene JSON")]
-    [Tooltip("Drag a JSON asset here, for example a file from Assets/StreamingAssets. If empty, the importer uses the Streaming Assets Json filename below.")]
+    [Tooltip("Optional absolute path to a generated scene JSON outside the Unity Assets folder. Used first when set.")]
+    public string externalSceneJsonPath;
+    [Tooltip("Drag a JSON asset here, for example a file from Assets/StreamingAssets. If External Scene Json Path is empty, this is used next.")]
     public UnityEngine.Object sceneJsonAsset;
+    [Tooltip("Fallback JSON file name inside Assets/StreamingAssets.")]
     public string streamingAssetsJson = "standard_layout_021_unity_scene.json";
 
     [Header("Import Options")]
@@ -173,7 +176,7 @@ public class ConstructionSceneImporter : MonoBehaviour
         string jsonText = ResolveSceneJsonText(out string sourceName);
         if (string.IsNullOrEmpty(jsonText))
         {
-            Debug.LogError($"Scene JSON not found. Requested '{streamingAssetsJson}'. {DescribeStreamingAssets()}");
+            Debug.LogError($"Scene JSON not found. External path '{externalSceneJsonPath}', asset '{(sceneJsonAsset != null ? sceneJsonAsset.name : "<none>")}', StreamingAssets '{streamingAssetsJson}'. {DescribeStreamingAssets()}");
             return;
         }
 
@@ -323,6 +326,19 @@ public class ConstructionSceneImporter : MonoBehaviour
 
     private string ResolveSceneJsonText(out string sourceName)
     {
+        if (!string.IsNullOrWhiteSpace(externalSceneJsonPath))
+        {
+            string expandedPath = Environment.ExpandEnvironmentVariables(externalSceneJsonPath.Trim());
+            sourceName = Path.GetFileName(expandedPath);
+            if (File.Exists(expandedPath))
+            {
+                return File.ReadAllText(expandedPath);
+            }
+
+            Debug.LogError($"External scene JSON path does not exist: {expandedPath}");
+            return null;
+        }
+
         if (sceneJsonAsset != null)
         {
             sourceName = sceneJsonAsset.name;

@@ -66,13 +66,28 @@ Core objects also cycle through compound visual variants when a layout contains 
 Copy these files into the Unity project:
 
 - `unity/ConstructionSceneImporter.cs` -> `Assets/Scripts/ConstructionSceneImporter.cs`
-- `output/bulleen_layout_unity_scene.json` -> `Assets/StreamingAssets/bulleen_layout_unity_scene.json`
-- `output/standard_layout_021_unity_scene.json` -> `Assets/StreamingAssets/standard_layout_021_unity_scene.json`
+- `unity/Editor/ConstructionSceneBrowserWindow.cs` -> `Assets/Editor/ConstructionSceneBrowserWindow.cs`
 
-In Unity, select the `SceneImporter` object and use `Import Scene JSON`.
+In Unity, open:
+
+```text
+Tools -> CEXO to Unity -> Scene Browser
+```
+
+Then:
+
+1. Click `Browse`.
+2. Select a folder of generated scene JSONs, for example `output/batch_safe_ml_guided/scenes`.
+3. Select a JSON scene from the list.
+4. Click `Import Selected Scene`.
+
+The browser reads JSON files directly from the selected folder. You do not need to copy generated scenes into `Assets/StreamingAssets` for editor preview.
+
 Recommended settings for visual testing:
 
-- `Scene Json Asset`: drag the JSON file here, or set `Streaming Assets Json`
+- `External Scene Json Path`: usually set automatically by the Scene Browser
+- `Scene Json Asset`: optional fallback for JSON files imported into Unity
+- `Streaming Assets Json`: optional runtime-style fallback
 - `Clear Existing Generated Objects`: on
 - `Scale To Layout Footprint`: off
 - `Create Site Ground`: on
