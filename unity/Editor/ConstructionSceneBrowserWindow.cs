@@ -15,7 +15,6 @@ public class ConstructionSceneBrowserWindow : EditorWindow
     private Vector2 scrollPosition;
     private int selectedIndex = -1;
     private ConstructionSceneImporter importer;
-    private string statusMessage = "Select a generated scene folder, then click a scene to import it.";
 
     [MenuItem("Tools/CEXO to Unity/Scene Browser")]
     public static void Open()
@@ -68,11 +67,10 @@ public class ConstructionSceneBrowserWindow : EditorWindow
             {
                 importer = FindOrCreateImporter();
                 Selection.activeObject = importer.gameObject;
-                statusMessage = $"Using importer: {importer.name}";
             }
 
-            GUI.enabled = IsSelectionValid();
-            if (GUILayout.Button("Reimport Selected Scene"))
+            GUI.enabled = importer != null && selectedIndex >= 0 && selectedIndex < FilteredPaths().Count;
+            if (GUILayout.Button("Import Selected Scene"))
             {
                 ImportSelectedScene();
             }
@@ -80,19 +78,9 @@ public class ConstructionSceneBrowserWindow : EditorWindow
         }
 
         EditorGUILayout.Space(8f);
-        using (EditorGUI.ChangeCheckScope check = new EditorGUI.ChangeCheckScope())
-        {
-            filterText = EditorGUILayout.TextField("Filter", filterText);
-            if (check.changed)
-            {
-                ClampSelectionToVisibleList();
-            }
-        }
-
+        filterText = EditorGUILayout.TextField("Filter", filterText);
         List<string> visiblePaths = FilteredPaths();
         EditorGUILayout.LabelField($"{visiblePaths.Count} scene JSON files shown / {sceneJsonPaths.Count} found");
-
-        DrawSelectedScenePanel(visiblePaths);
 
         EditorGUILayout.Space(4f);
         scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
@@ -106,19 +94,17 @@ public class ConstructionSceneBrowserWindow : EditorWindow
             {
                 if (GUILayout.Button(Path.GetFileName(path), EditorStyles.label))
                 {
-                    SelectScene(IndexInFullList(path), true);
+                    selectedIndex = IndexInFullList(path);
                 }
 
-                if (GUILayout.Button("Replace", GUILayout.Width(80f)))
+                if (GUILayout.Button("Import", GUILayout.Width(70f)))
                 {
-                    SelectScene(IndexInFullList(path), true);
+                    selectedIndex = IndexInFullList(path);
+                    ImportSelectedScene();
                 }
             }
         }
         EditorGUILayout.EndScrollView();
-
-        EditorGUILayout.Space(6f);
-        EditorGUILayout.HelpBox(statusMessage, MessageType.Info);
     }
 
     private void RefreshSceneList()
@@ -126,46 +112,11 @@ public class ConstructionSceneBrowserWindow : EditorWindow
         sceneJsonPaths.Clear();
         if (string.IsNullOrEmpty(sceneFolder) || !Directory.Exists(sceneFolder))
         {
-            statusMessage = "Scene folder is not set or no longer exists.";
             return;
         }
 
         sceneJsonPaths.AddRange(Directory.GetFiles(sceneFolder, "*.json", SearchOption.TopDirectoryOnly));
         sceneJsonPaths.Sort(StringComparer.OrdinalIgnoreCase);
-        ClampSelectionToVisibleList();
-        statusMessage = $"Found {sceneJsonPaths.Count} generated scene JSON files.";
-    }
-
-    private void DrawSelectedScenePanel(List<string> visiblePaths)
-    {
-        EditorGUILayout.Space(8f);
-        EditorGUILayout.LabelField("Selected Scene", EditorStyles.boldLabel);
-
-        string selectedPath = IsSelectionValid() ? sceneJsonPaths[selectedIndex] : "";
-        EditorGUILayout.SelectableLabel(string.IsNullOrEmpty(selectedPath) ? "<none selected>" : Path.GetFileName(selectedPath), EditorStyles.helpBox, GUILayout.Height(24f));
-
-        using (new EditorGUILayout.HorizontalScope())
-        {
-            GUI.enabled = visiblePaths.Count > 0;
-            if (GUILayout.Button("Previous Scene", GUILayout.Width(120f)))
-            {
-                SelectRelativeVisibleScene(visiblePaths, -1);
-            }
-
-            if (GUILayout.Button("Next Scene", GUILayout.Width(120f)))
-            {
-                SelectRelativeVisibleScene(visiblePaths, 1);
-            }
-            GUI.enabled = true;
-
-            GUILayout.FlexibleSpace();
-            GUI.enabled = IsSelectionValid();
-            if (GUILayout.Button("Reveal JSON", GUILayout.Width(100f)))
-            {
-                EditorUtility.RevealInFinder(sceneJsonPaths[selectedIndex]);
-            }
-            GUI.enabled = true;
-        }
     }
 
     private List<string> FilteredPaths()
@@ -191,54 +142,6 @@ public class ConstructionSceneBrowserWindow : EditorWindow
     private int IndexInFullList(string path)
     {
         return sceneJsonPaths.IndexOf(path);
-    }
-
-    private bool IsSelectionValid()
-    {
-        return selectedIndex >= 0 && selectedIndex < sceneJsonPaths.Count;
-    }
-
-    private void ClampSelectionToVisibleList()
-    {
-        List<string> visiblePaths = FilteredPaths();
-        if (visiblePaths.Count == 0)
-        {
-            selectedIndex = -1;
-            return;
-        }
-
-        if (!IsSelectionValid() || !visiblePaths.Contains(sceneJsonPaths[selectedIndex]))
-        {
-            selectedIndex = IndexInFullList(visiblePaths[0]);
-        }
-    }
-
-    private void SelectScene(int index, bool importAfterSelection)
-    {
-        if (index < 0 || index >= sceneJsonPaths.Count)
-        {
-            return;
-        }
-
-        selectedIndex = index;
-        statusMessage = $"Selected {Path.GetFileName(sceneJsonPaths[selectedIndex])}";
-        if (importAfterSelection)
-        {
-            ImportSelectedScene();
-        }
-    }
-
-    private void SelectRelativeVisibleScene(List<string> visiblePaths, int direction)
-    {
-        if (visiblePaths.Count == 0)
-        {
-            selectedIndex = -1;
-            return;
-        }
-
-        int visibleIndex = IsSelectionValid() ? visiblePaths.IndexOf(sceneJsonPaths[selectedIndex]) : -1;
-        int nextVisibleIndex = visibleIndex < 0 ? 0 : Mathf.Clamp(visibleIndex + direction, 0, visiblePaths.Count - 1);
-        SelectScene(IndexInFullList(visiblePaths[nextVisibleIndex]), true);
     }
 
     private ConstructionSceneImporter FindOrCreateImporter()
@@ -285,7 +188,6 @@ public class ConstructionSceneBrowserWindow : EditorWindow
         importer.ImportScene();
         EditorUtility.SetDirty(importer);
         Selection.activeObject = importer.gameObject;
-        statusMessage = $"Imported {Path.GetFileName(selectedPath)}";
     }
 }
 #endif
