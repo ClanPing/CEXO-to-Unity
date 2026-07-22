@@ -78,15 +78,14 @@ Then:
 
 1. Click `Browse`.
 2. Select a folder of generated scene JSONs, for example `output/batch_safe_ml_guided/scenes`.
-3. Select a JSON scene from the list.
-4. Click `Import Selected Scene`.
+3. Click a JSON scene from the list to replace the current generated scene.
 
 The browser reads JSON files directly from the selected folder. You do not need to copy generated scenes into `Assets/StreamingAssets` for editor preview.
 
 Scene Browser conveniences:
 
-- `Previous` / `Next`: step through the filtered scene list.
-- `Auto Import On Selection`: immediately imports a scene when you select it.
+- `Previous Scene` / `Next Scene`: step through and immediately import scenes in the filtered list.
+- `Reimport Selected Scene`: reloads the current selected scene.
 - `Reveal JSON`: opens the selected JSON in the system file browser.
 - `Filter`: narrows the scene list by filename.
 

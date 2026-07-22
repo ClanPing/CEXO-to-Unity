@@ -187,43 +187,56 @@ public class ConstructionSceneImporter : MonoBehaviour
             return;
         }
 
-        if (clearExistingGeneratedObjects)
-        {
-            ClearExistingRoot();
-        }
-
-        GameObject root = new GameObject(generatedRootName);
+        string finalRootName = generatedRootName;
         if (!string.IsNullOrEmpty(scene.scene_id))
         {
-            root.name = $"{generatedRootName}_{scene.scene_id}";
+            finalRootName = $"{generatedRootName}_{scene.scene_id}";
         }
+
+        GameObject root = new GameObject($"__CEXOImportStaging_{Guid.NewGuid():N}");
         spawned.Clear();
-        float groundY = scene.site != null ? scene.site.ground_y : 0f;
 
-        if (createSiteGround)
+        try
         {
-            CreateSiteGround(scene, root.transform);
-        }
-        CreateSiteVisuals(scene, root.transform);
+            float groundY = scene.site != null ? scene.site.ground_y : 0f;
 
-        foreach (SceneObjectData obj in scene.objects)
-        {
-            GameObject instance = InstantiateSceneObject(obj, root.transform);
-            if (instance != null)
+            if (createSiteGround)
             {
-                if (snapRendererBoundsToGround && obj.placement != null && obj.placement.snap_to_ground)
+                CreateSiteGround(scene, root.transform);
+            }
+            CreateSiteVisuals(scene, root.transform);
+
+            foreach (SceneObjectData obj in scene.objects)
+            {
+                GameObject instance = InstantiateSceneObject(obj, root.transform);
+                if (instance != null)
                 {
-                    SnapInstanceToGround(instance, groundY);
-                }
-                spawned[obj.id] = instance;
-                if (createFootprintMarkers)
-                {
-                    CreateFootprintMarker(obj, root.transform);
+                    if (snapRendererBoundsToGround && obj.placement != null && obj.placement.snap_to_ground)
+                    {
+                        SnapInstanceToGround(instance, groundY);
+                    }
+                    spawned[obj.id] = instance;
+                    if (createFootprintMarkers)
+                    {
+                        CreateFootprintMarker(obj, root.transform);
+                    }
                 }
             }
-        }
 
-        Debug.Log($"Imported {spawned.Count} construction scene objects from {sourceName}.");
+            if (clearExistingGeneratedObjects)
+            {
+                ClearExistingRoot();
+            }
+
+            root.name = finalRootName;
+            Debug.Log($"Imported {spawned.Count} construction scene objects from {sourceName}.");
+        }
+        catch (Exception ex)
+        {
+            DestroyObject(root);
+            spawned.Clear();
+            Debug.LogError($"Failed to import construction scene from {sourceName}: {ex.Message}");
+        }
     }
 
     private void CreateSiteVisuals(ConstructionSceneData scene, Transform parent)

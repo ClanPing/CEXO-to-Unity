@@ -8,7 +8,6 @@ using UnityEngine;
 public class ConstructionSceneBrowserWindow : EditorWindow
 {
     private const string LastFolderKey = "CEXOToUnity.SceneBrowser.LastFolder";
-    private const string AutoImportKey = "CEXOToUnity.SceneBrowser.AutoImport";
 
     private string sceneFolder;
     private string filterText = "";
@@ -16,8 +15,7 @@ public class ConstructionSceneBrowserWindow : EditorWindow
     private Vector2 scrollPosition;
     private int selectedIndex = -1;
     private ConstructionSceneImporter importer;
-    private bool autoImportOnSelection;
-    private string statusMessage = "Select a generated scene folder to begin.";
+    private string statusMessage = "Select a generated scene folder, then click a scene to import it.";
 
     [MenuItem("Tools/CEXO to Unity/Scene Browser")]
     public static void Open()
@@ -30,7 +28,6 @@ public class ConstructionSceneBrowserWindow : EditorWindow
     private void OnEnable()
     {
         sceneFolder = EditorPrefs.GetString(LastFolderKey, "");
-        autoImportOnSelection = EditorPrefs.GetBool(AutoImportKey, false);
         importer = FindImporterInScene();
         if (!string.IsNullOrEmpty(sceneFolder) && Directory.Exists(sceneFolder))
         {
@@ -74,8 +71,8 @@ public class ConstructionSceneBrowserWindow : EditorWindow
                 statusMessage = $"Using importer: {importer.name}";
             }
 
-            GUI.enabled = importer != null && IsSelectionValid();
-            if (GUILayout.Button("Import Selected Scene"))
+            GUI.enabled = IsSelectionValid();
+            if (GUILayout.Button("Reimport Selected Scene"))
             {
                 ImportSelectedScene();
             }
@@ -109,13 +106,12 @@ public class ConstructionSceneBrowserWindow : EditorWindow
             {
                 if (GUILayout.Button(Path.GetFileName(path), EditorStyles.label))
                 {
-                    SelectScene(IndexInFullList(path), autoImportOnSelection);
+                    SelectScene(IndexInFullList(path), true);
                 }
 
-                if (GUILayout.Button("Import", GUILayout.Width(70f)))
+                if (GUILayout.Button("Replace", GUILayout.Width(80f)))
                 {
-                    SelectScene(IndexInFullList(path), false);
-                    ImportSelectedScene();
+                    SelectScene(IndexInFullList(path), true);
                 }
             }
         }
@@ -151,23 +147,16 @@ public class ConstructionSceneBrowserWindow : EditorWindow
         using (new EditorGUILayout.HorizontalScope())
         {
             GUI.enabled = visiblePaths.Count > 0;
-            if (GUILayout.Button("Previous", GUILayout.Width(100f)))
+            if (GUILayout.Button("Previous Scene", GUILayout.Width(120f)))
             {
                 SelectRelativeVisibleScene(visiblePaths, -1);
             }
 
-            if (GUILayout.Button("Next", GUILayout.Width(100f)))
+            if (GUILayout.Button("Next Scene", GUILayout.Width(120f)))
             {
                 SelectRelativeVisibleScene(visiblePaths, 1);
             }
             GUI.enabled = true;
-
-            bool nextAutoImport = GUILayout.Toggle(autoImportOnSelection, "Auto Import On Selection", GUILayout.Width(180f));
-            if (nextAutoImport != autoImportOnSelection)
-            {
-                autoImportOnSelection = nextAutoImport;
-                EditorPrefs.SetBool(AutoImportKey, autoImportOnSelection);
-            }
 
             GUILayout.FlexibleSpace();
             GUI.enabled = IsSelectionValid();
@@ -249,7 +238,7 @@ public class ConstructionSceneBrowserWindow : EditorWindow
 
         int visibleIndex = IsSelectionValid() ? visiblePaths.IndexOf(sceneJsonPaths[selectedIndex]) : -1;
         int nextVisibleIndex = visibleIndex < 0 ? 0 : Mathf.Clamp(visibleIndex + direction, 0, visiblePaths.Count - 1);
-        SelectScene(IndexInFullList(visiblePaths[nextVisibleIndex]), autoImportOnSelection);
+        SelectScene(IndexInFullList(visiblePaths[nextVisibleIndex]), true);
     }
 
     private ConstructionSceneImporter FindOrCreateImporter()
