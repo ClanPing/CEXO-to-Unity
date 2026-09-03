@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { 
+    width: 100%; 
+    height: 100%; 
+    overflow: hidden; 
+    background: #f8f9fa;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  
+  #container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  
+  canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+  #controls {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 12px 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 100;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  
+  #controls h3 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a202c;
+  }
+  
+  #controls div {
+    color: #4a5568;
+    margin: 3px 0;
+  }
+  
+  .btn {
+    background: #ffffff;
+    border: 1px solid #cbd5e0;
+    padding: 6px 12px;
+    margin: 8px 4px 0 0;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+  }
+  
+  .btn:hover {
+    background: #f7fafc;
+    border-color: #4299e1;
+  }
+  
+  #legend {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 12px 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 100;
+    font-size: 12px;
+  }
+  
+  #legend h4 {
+    margin: 0 0 8px 0;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 4px 0;
+  }
+  
+  .color-box {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    border: 1px solid rgba(0,0,0,0.2);
+  }
+</style>
+</head>
+<body>
+  <div id="container"></div>
+  
+  <div id="controls">
+    <h3>🎮 Controls</h3>
+    <div>🖱️ Left Click + Drag: Rotate</div>
+    <div>🖱️ Right Click + Drag: Pan</div>
+    <div>🔄 Scroll: Zoom</div>
+    <button class="btn" onclick="resetView()">Reset View</button>
+    <button class="btn" onclick="toggleWireframe()">Wireframe</button>
+  </div>
+  
+  <div id="legend">
+    <h4>🎨 Facility Types</h4>
+    <div class="legend-item">
+      <div class="color-box" style="background: rgb(230, 50, 50);"></div>
+      <span>Tower Crane</span>
+    </div>
+    <div class="legend-item">
+      <div class="color-box" style="background: rgb(75, 130, 200);"></div>
+      <span>Building Core</span>
+    </div>
+    <div class="legend-item">
+      <div class="color-box" style="background: rgb(50, 180, 75);"></div>
+      <span>Storage</span>
+    </div>
+    <div class="legend-item">
+      <div class="color-box" style="background: rgb(180, 130, 215);"></div>
+      <span>Office</span>
+    </div>
+    <div class="legend-item">
+      <div class="color-box" style="background: rgb(240, 165, 90);"></div>
+      <span>Rest Area</span>
+    </div>
+  </div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+    }
+  }
+  </script>
+
+  <script type="module">
+    import * as THREE from "three";
+    import { OrbitControls } from "https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js";
+    import { OBJLoader } from "https://unpkg.com/three@0.160.0/examples/jsm/loaders/OBJLoader.js";
+    import { PLYLoader } from "https://unpkg.com/three@0.160.0/examples/jsm/loaders/PLYLoader.js";
+
+    const container = document.getElementById('container');
+    
+    // Setup renderer
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    renderer.setPixelRatio(window.devicePixelRatio || 1);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    container.appendChild(renderer.domElement);
+
+    // Setup scene
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xf0f0f5);
+    scene.fog = new THREE.Fog(0xf0f0f5, 50, 200);
+
+    // Setup camera
+    const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 1000);
+    camera.position.set(30, 30, 30);
+    camera.lookAt(0, 0, 0);
+
+    // Setup controls
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.screenSpacePanning = false;
+    controls.minDistance = 5;
+    controls.maxDistance = 100;
+    controls.maxPolarAngle = Math.PI / 2;
+
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    directionalLight.position.set(20, 40, 20);
+    directionalLight.castShadow = true;
+    directionalLight.shadow.camera.left = -30;
+    directionalLight.shadow.camera.right = 30;
+    directionalLight.shadow.camera.top = 30;
+    directionalLight.shadow.camera.bottom = -30;
+    scene.add(directionalLight);
+
+    const fillLight = new THREE.DirectionalLight(0xffffff, 0.3);
+    fillLight.position.set(-20, 10, -20);
+    scene.add(fillLight);
+
+    // Ground plane for site area (30x30m matching layout scale)
+    const groundGeometry = new THREE.PlaneGeometry(30, 30);
+    const groundMaterial = new THREE.MeshStandardMaterial({
+      color: 0xf5f5f5,
+      roughness: 0.9,
+      metalness: 0.1
+    });
+    const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+    ground.rotation.x = -Math.PI / 2;
+    ground.receiveShadow = true;
+    scene.add(ground);
+
+    // Grid helper on top of ground
+    const gridSize = 30;
+    const gridDivisions = 30;
+    const gridHelper = new THREE.GridHelper(gridSize, gridDivisions, 0x888888, 0xcccccc);
+    gridHelper.position.y = 0.01; // Slightly above ground to avoid z-fighting
+    scene.add(gridHelper);
+
+    // Store references for dynamic updates
+    let groundPlane = ground;
+    let grid = gridHelper;
+
+    // Axes helper
+    const axesHelper = new THREE.AxesHelper(5);
+    scene.add(axesHelper);
+
+    // Load layout data from parent window
+    let layoutData = null;
+    let meshes = [];
+    let wireframeMode = false;
+    let currentViewTarget = new THREE.Vector3(0, 0, 0);
+    let currentViewRadius = 45;
+
+    // Listen for messages from Streamlit
+    window.addEventListener('message', (event) => {
+      if (event.data && event.data.type === 'layout_data') {
+        layoutData = event.data.data;
+        loadLayout(layoutData);
+      }
+    });
+
+    // Request layout data from parent
+    window.parent.postMessage({ type: 'request_layout' }, '*');
+
+    function loadLayout(data) {
+      // Clear existing meshes
+      meshes.forEach(mesh => scene.remove(mesh));
+      meshes = [];
+
+      if (!data || !data.facilities) return;
+
+      // Get site dimensions (default to 100m if not specified)
+      const siteWidthM = data.site_width_m || 100.0;
+      const siteLengthM = data.site_length_m || 100.0;
+      
+      // Scale the longest site dimension to a stable viewer size.
+      // The Bulleen boundary occupies only part of the normalized canvas, so
+      // camera fitting below uses the actual layout bounds.
+      const viewerExtent = 46;
+      const unitPerMeter = viewerExtent / Math.max(siteWidthM, siteLengthM);
+      const scale3DWidth = siteWidthM * unitPerMeter;
+      const scale3DLength = siteLengthM * unitPerMeter;
+      const coordinateSpace = data.coordinate_space || 'normalized';
+      
+      // Update ground plane and grid to match site dimensions
+      scene.remove(groundPlane);
+      scene.remove(grid);
+      
+      const newGroundGeometry = new THREE.PlaneGeometry(scale3DWidth, scale3DLength);
+      const newGroundMaterial = new THREE.MeshStandardMaterial({
+        color: 0x7fa35d,
+        roughness: 0.9,
+        metalness: 0.1
+      });
+      groundPlane = new THREE.Mesh(newGroundGeometry, newGroundMaterial);
+      groundPlane.rotation.x = -Math.PI / 2;
+      groundPlane.receiveShadow = true;
+      scene.add(groundPlane);
+      
+      // Create new grid with appropriate divisions
+      const gridDivisions = Math.max(Math.floor(Math.max(scale3DWidth, scale3DLength)), 10);
+      grid = new THREE.GridHelper(Math.max(scale3DWidth, scale3DLength), gridDivisions, 0x888888, 0xcccccc);
+      grid.position.y = 0.01;
+      scene.add(grid);
+
+      function toWorldPosition(x, y) {
+        if (coordinateSpace === 'meters') {
+          return {
+            x: (x - siteWidthM / 2) * unitPerMeter,
+            z: -(y - siteLengthM / 2) * unitPerMeter
+          };
+        }
+        return {
+          x: (x - 0.5) * scale3DWidth,
+          z: -(y - 0.5) * scale3DLength
+        };
+      }
+
+      function pointXY(point) {
+        if (Array.isArray(point)) {
+          return { x: Number(point[0]), y: Number(point[1]) };
+        }
+        if (coordinateSpace === 'meters' && point.x_m !== undefined && point.y_m !== undefined) {
+          return { x: Number(point.x_m), y: Number(point.y_m) };
+        }
+        return { x: Number(point.x), y: Number(point.y) };
+      }
+
+      function toWorldPoint(point) {
+        const xy = pointXY(point);
+        return toWorldPosition(xy.x, xy.y);
+      }
+
+      function toWorldDimensions(width, length) {
+        if (coordinateSpace === 'meters') {
+          return {
+            width: width * unitPerMeter,
+            length: length * unitPerMeter
+          };
+        }
+        return {
+          width: width * scale3DWidth,
+          length: length * scale3DLength
+        };
+      }
+
+      function toWorldMeters(value, minimum = 0.25) {
+        return Math.max((value || 0) * unitPerMeter, minimum);
+      }
+
+      function toWorldRadius(value, fallbackNormalized = 0.14) {
+        if (value) {
+          return coordinateSpace === 'meters'
+            ? value * unitPerMeter
+            : value * scale3DWidth;
+        }
+        return fallbackNormalized * scale3DWidth;
+      }
+
+      function toWorldPoints(points) {
+        return points.map((p) => {
+          const pos = toWorldPoint(p);
+          return new THREE.Vector3(pos.x, 0.03, pos.z);
+        });
+      }
+
+      const viewBounds = {
+        minX: Infinity,
+        maxX: -Infinity,
+        minZ: Infinity,
+        maxZ: -Infinity
+      };
+
+      function includeInViewBounds(x, z) {
+        viewBounds.minX = Math.min(viewBounds.minX, x);
+        viewBounds.maxX = Math.max(viewBounds.maxX, x);
+        viewBounds.minZ = Math.min(viewBounds.minZ, z);
+        viewBounds.maxZ = Math.max(viewBounds.maxZ, z);
+      }
+
+      function includePointsInView(points) {
+        points.forEach((p) => includeInViewBounds(p.x, p.z));
+      }
+
+      // Facility colors
+      const colors = {
+        'crane': new THREE.Color(0xe63232),
+        'core': new THREE.Color(0x4b82c8),
+        'storage': new THREE.Color(0x32b44b),
+        'office': new THREE.Color(0xb482d7),
+        'rest_area': new THREE.Color(0xf0a55a),
+        'rest': new THREE.Color(0xf0a55a)
+      };
+
+      let boundaryPoints = null;
+      if (data.boundary_polygon && data.boundary_polygon.length > 2) {
+        boundaryPoints = toWorldPoints(data.boundary_polygon);
+        includePointsInView(boundaryPoints);
+
+        const dirtShape = new THREE.Shape();
+        dirtShape.moveTo(boundaryPoints[0].x, -boundaryPoints[0].z);
+        for (let i = 1; i < boundaryPoints.length; i++) {
+          dirtShape.lineTo(boundaryPoints[i].x, -boundaryPoints[i].z);
+        }
+        const dirtGeometry = new THREE.ShapeGeometry(dirtShape);
+        const dirtMaterial = new THREE.MeshStandardMaterial({
+          color: 0xb9895b,
+          roughness: 1.0,
+          metalness: 0.0,
+          side: THREE.DoubleSide
+        });
+        const dirtMesh = new THREE.Mesh(dirtGeometry, dirtMaterial);
+        dirtMesh.rotation.x = -Math.PI / 2;
+        dirtMesh.position.y = 0.012;
+        dirtMesh.receiveShadow = true;
+        scene.add(dirtMesh);
+        meshes.push(dirtMesh);
+
+        const softEdgeShape = new THREE.Shape();
+        softEdgeShape.moveTo(boundaryPoints[0].x, -boundaryPoints[0].z);
+        for (let i = 1; i < boundaryPoints.length; i++) {
+          softEdgeShape.lineTo(boundaryPoints[i].x, -boundaryPoints[i].z);
+        }
+        const softEdgeGeometry = new THREE.ShapeGeometry(softEdgeShape);
+        const softEdgeMaterial = new THREE.MeshBasicMaterial({
+          color: 0x9f7a4f,
+          opacity: 0.22,
+          transparent: true,
+          side: THREE.DoubleSide
+        });
+        const softEdgeMesh = new THREE.Mesh(softEdgeGeometry, softEdgeMaterial);
+        softEdgeMesh.scale.set(1.018, 1.018, 1);
+        softEdgeMesh.rotation.x = -Math.PI / 2;
+        softEdgeMesh.position.y = 0.011;
+        scene.add(softEdgeMesh);
+        meshes.push(softEdgeMesh);
+
+        const boundaryGeometry = new THREE.BufferGeometry().setFromPoints(boundaryPoints);
+        const boundaryMaterial = new THREE.LineBasicMaterial({ color: 0x6f4e2f, linewidth: 2 });
+        const boundaryLine = new THREE.LineLoop(boundaryGeometry, boundaryMaterial);
+        boundaryLine.position.y = 0.04;
+        scene.add(boundaryLine);
+        meshes.push(boundaryLine);
+      } else {
+        includeInViewBounds(-scale3DWidth / 2, -scale3DLength / 2);
+        includeInViewBounds(scale3DWidth / 2, scale3DLength / 2);
+      }
+
+      if (data.exclusion_zones && data.exclusion_zones.length) {
+        const zoneMaterial = new THREE.MeshStandardMaterial({
+          color: 0xf2d400,
+          opacity: 0.78,
+          transparent: true,
+          roughness: 0.9,
+          metalness: 0.1,
+          side: THREE.DoubleSide
+        });
+        const zoneEdgeMaterial = new THREE.LineBasicMaterial({ color: 0xb59b00 });
+
+        data.exclusion_zones.forEach((zone) => {
+          const polygon = zone.polygon || [];
+          if (polygon.length < 3) return;
+
+          const worldPoints = toWorldPoints(polygon);
+          includePointsInView(worldPoints);
+          const shape = new THREE.Shape();
+          shape.moveTo(worldPoints[0].x, -worldPoints[0].z);
+          for (let i = 1; i < worldPoints.length; i++) {
+            shape.lineTo(worldPoints[i].x, -worldPoints[i].z);
+          }
+
+          const zoneGeometry = new THREE.ShapeGeometry(shape);
+          const zoneMesh = new THREE.Mesh(zoneGeometry, zoneMaterial);
+          zoneMesh.rotation.x = -Math.PI / 2;
+          zoneMesh.position.y = 0.02;
+          scene.add(zoneMesh);
+          meshes.push(zoneMesh);
+
+          const edgePoints = worldPoints.map((point) => new THREE.Vector3(point.x, 0.06, point.z));
+          const edgeGeometry = new THREE.BufferGeometry().setFromPoints(edgePoints);
+          const edgeLine = new THREE.LineLoop(edgeGeometry, zoneEdgeMaterial);
+          scene.add(edgeLine);
+          meshes.push(edgeLine);
+        });
+      }
+
+      function createCylinderBetween(start, end, radius, material) {
+        const direction = new THREE.Vector3().subVectors(end, start);
+        const length = direction.length();
+        if (length <= 0.001) return null;
+
+        const geometry = new THREE.CylinderGeometry(radius, radius, length, 8);
+        const cylinder = new THREE.Mesh(geometry, material);
+        cylinder.position.copy(start).add(end).multiplyScalar(0.5);
+        cylinder.quaternion.setFromUnitVectors(
+          new THREE.Vector3(0, 1, 0),
+          direction.clone().normalize()
+        );
+        cylinder.castShadow = true;
+        return cylinder;
+      }
+
+      function addBoundaryFence(points) {
+        if (!points || points.length < 2) return;
+
+        const fenceMaterial = new THREE.MeshStandardMaterial({
+          color: 0x5f6368,
+          metalness: 0.35,
+          roughness: 0.45
+        });
+        const postRadius = 0.045;
+        const railRadius = 0.022;
+        const fenceHeight = toWorldMeters(2.2, 0.85);
+        const lowerRail = fenceHeight * 0.42;
+        const upperRail = fenceHeight * 0.82;
+
+        const entrances = data.entrances || [];
+        const entrancePositions = entrances.map((entrance) => toWorldPoint(entrance));
+        const gateHalfWidth = Math.max(Math.min(scale3DWidth, scale3DLength) * 0.055, 1.35);
+
+        function entranceGapForSegment(index, start, end) {
+          const segment = end.clone().sub(start);
+          const lengthSq = segment.lengthSq();
+          if (lengthSq === 0) return [];
+
+          return entrancePositions
+            .map((entrance) => {
+              let bestIndex = -1;
+              let bestDistance = Infinity;
+              let bestT = 0;
+
+              for (let k = 0; k < points.length; k++) {
+                const a = points[k];
+                const b = points[(k + 1) % points.length];
+                const ab = b.clone().sub(a);
+                const abLengthSq = ab.lengthSq();
+                if (abLengthSq === 0) continue;
+
+                const t = Math.max(0, Math.min(1, ((entrance.x - a.x) * ab.x + (entrance.z - a.z) * ab.z) / abLengthSq));
+                const projectedX = a.x + ab.x * t;
+                const projectedZ = a.z + ab.z * t;
+                const dx = entrance.x - projectedX;
+                const dz = entrance.z - projectedZ;
+                const distance = dx * dx + dz * dz;
+
+                if (distance < bestDistance) {
+                  bestDistance = distance;
+                  bestIndex = k;
+                  bestT = t;
+                }
+              }
+
+              if (bestIndex !== index) return null;
+              const segmentLength = Math.sqrt(lengthSq);
+              const halfT = Math.min(0.45, gateHalfWidth / segmentLength);
+              return { start: Math.max(0, bestT - halfT), end: Math.min(1, bestT + halfT) };
+            })
+            .filter(Boolean);
+        }
+
+        function inEntranceGap(t, gaps) {
+          return gaps.some((gap) => t >= gap.start && t <= gap.end);
+        }
+
+        for (let i = 0; i < points.length; i++) {
+          const p1 = points[i];
+          const p2 = points[(i + 1) % points.length];
+          const segmentLength = p1.distanceTo(p2);
+          const divisions = Math.max(Math.ceil(segmentLength / 1.6), 1);
+          const entranceGaps = entranceGapForSegment(i, p1, p2);
+
+          for (let j = 0; j <= divisions; j++) {
+            const t = j / divisions;
+            const x = p1.x + (p2.x - p1.x) * t;
+            const z = p1.z + (p2.z - p1.z) * t;
+            if (inEntranceGap(t, entranceGaps)) continue;
+
+            const post = new THREE.Mesh(
+              new THREE.CylinderGeometry(postRadius, postRadius, fenceHeight, 8),
+              fenceMaterial
+            );
+            post.position.set(x, fenceHeight / 2, z);
+            post.castShadow = true;
+            scene.add(post);
+            meshes.push(post);
+          }
+
+          for (let j = 0; j < divisions; j++) {
+            const t1 = j / divisions;
+            const t2 = (j + 1) / divisions;
+            const midT = (t1 + t2) / 2;
+            if (inEntranceGap(midT, entranceGaps)) continue;
+
+            [lowerRail, upperRail].forEach((height) => {
+              const start = new THREE.Vector3(
+                p1.x + (p2.x - p1.x) * t1,
+                height,
+                p1.z + (p2.z - p1.z) * t1
+              );
+              const end = new THREE.Vector3(
+                p1.x + (p2.x - p1.x) * t2,
+                height,
+                p1.z + (p2.z - p1.z) * t2
+              );
+              const rail = createCylinderBetween(start, end, railRadius, fenceMaterial);
+              if (rail) {
+                scene.add(rail);
+                meshes.push(rail);
+              }
+            });
+          }
+        }
+      }
+
+      function fitViewToBounds() {
+        if (!Number.isFinite(viewBounds.minX)) return;
+
+        const centerX = (viewBounds.minX + viewBounds.maxX) / 2;
+        const centerZ = (viewBounds.minZ + viewBounds.maxZ) / 2;
+        const spanX = Math.max(viewBounds.maxX - viewBounds.minX, 8);
+        const spanZ = Math.max(viewBounds.maxZ - viewBounds.minZ, 8);
+        currentViewTarget = new THREE.Vector3(centerX, 0, centerZ);
+        currentViewRadius = Math.max(spanX, spanZ) * 1.15;
+        controls.minDistance = Math.max(currentViewRadius * 0.08, 3);
+        controls.maxDistance = Math.max(currentViewRadius * 4.0, 80);
+        scene.fog.near = currentViewRadius * 1.8;
+        scene.fog.far = currentViewRadius * 6.0;
+      }
+
+      // Helper function to create tower crane shape
+      function createTowerCrane(color, craneHeight = 8, jibLength = 6) {
+        const group = new THREE.Group();
+        
+        // Scale factors based on height
+        const towerWidth = craneHeight * 0.1; // Tower width proportional to height
+        const jibThickness = craneHeight * 0.0625; // Jib thickness (0.5 for 8m height)
+        const counterJibLength = jibLength * 0.33; // Counter-jib is 1/3 of main jib
+        
+        // Tower (vertical mast)
+        const towerGeometry = new THREE.BoxGeometry(towerWidth, craneHeight, towerWidth);
+        const towerMaterial = new THREE.MeshStandardMaterial({
+          color: color,
+          metalness: 0.3,
+          roughness: 0.5
+        });
+        const tower = new THREE.Mesh(towerGeometry, towerMaterial);
+        tower.position.y = craneHeight / 2;
+        tower.castShadow = true;
+        group.add(tower);
+        
+        // Jib (horizontal boom) - longer on one side
+        const jibGeometry = new THREE.BoxGeometry(jibLength, jibThickness, jibThickness);
+        const jib = new THREE.Mesh(jibGeometry, towerMaterial);
+        jib.position.set(jibLength / 2 - counterJibLength / 2, craneHeight, 0);
+        jib.castShadow = true;
+        group.add(jib);
+        
+        // Counter-jib (shorter back boom)
+        const counterJibGeometry = new THREE.BoxGeometry(counterJibLength, jibThickness, jibThickness);
+        const counterJib = new THREE.Mesh(counterJibGeometry, towerMaterial);
+        counterJib.position.set(-counterJibLength / 2 - counterJibLength / 2, craneHeight, 0);
+        counterJib.castShadow = true;
+        group.add(counterJib);
+        
+        // Cabin
+        const cabinSize = craneHeight * 0.125; // Cabin size proportional to height
+        const cabinGeometry = new THREE.BoxGeometry(cabinSize, cabinSize * 1.2, cabinSize);
+        const cabin = new THREE.Mesh(cabinGeometry, towerMaterial);
+        cabin.position.set(0, craneHeight + cabinSize * 0.6, 0);
+        cabin.castShadow = true;
+        group.add(cabin);
+        
+        // Hook (at end of jib)
+        const hookHeight = craneHeight * 0.1875; // Hook height proportional
+        const hookGeometry = new THREE.CylinderGeometry(hookHeight * 0.1, hookHeight * 0.1, hookHeight, 8);
+        const hookMaterial = new THREE.MeshStandardMaterial({
+          color: 0xffdd00,
+          metalness: 0.5,
+          roughness: 0.3
+        });
+        const hook = new THREE.Mesh(hookGeometry, hookMaterial);
+        hook.position.set(jibLength - counterJibLength, craneHeight - hookHeight / 2, 0);
+        hook.castShadow = true;
+        group.add(hook);
+        
+        return group;
+      }
+
+      // Helper function to create building core with scaffolding
+      function createBuildingCore(color, width, depth, height) {
+        const group = new THREE.Group();
+        
+        // Concrete core structure (semi-transparent to show unfinished)
+        const coreGeometry = new THREE.BoxGeometry(width, height, depth);
+        const coreMaterial = new THREE.MeshStandardMaterial({
+          color: color,
+          metalness: 0.1,
+          roughness: 0.8,
+          opacity: 0.6,
+          transparent: true
+        });
+        const core = new THREE.Mesh(coreGeometry, coreMaterial);
+        core.position.y = height / 2;
+        core.castShadow = true;
+        core.receiveShadow = true;
+        group.add(core);
+        
+        // Scaffolding material
+        const scaffoldMaterial = new THREE.MeshStandardMaterial({
+          color: 0xcccccc,
+          metalness: 0.7,
+          roughness: 0.3
+        });
+        
+        // Vertical scaffolding poles at corners
+        const poleRadius = 0.1;
+        const poleGeometry = new THREE.CylinderGeometry(poleRadius, poleRadius, height, 8);
+        
+        const corners = [
+          [width/2 + 0.3, depth/2 + 0.3],
+          [width/2 + 0.3, -depth/2 - 0.3],
+          [-width/2 - 0.3, depth/2 + 0.3],
+          [-width/2 - 0.3, -depth/2 - 0.3]
+        ];
+        
+        corners.forEach(([x, z]) => {
+          const pole = new THREE.Mesh(poleGeometry, scaffoldMaterial);
+          pole.position.set(x, height / 2, z);
+          pole.castShadow = true;
+          group.add(pole);
+        });
+        
+        // Horizontal scaffolding bars (multiple levels)
+        const barRadius = 0.08;
+        const levels = 4;
+        
+        for (let i = 0; i <= levels; i++) {
+          const y = (height / levels) * i;
+          
+          // Front and back horizontal bars (along X axis)
+          for (let side of [-1, 1]) {
+            const barGeometry = new THREE.CylinderGeometry(barRadius, barRadius, width, 8);
+            const bar = new THREE.Mesh(barGeometry, scaffoldMaterial);
+            bar.position.set(0, y, side * (depth/2 + 0.3));
+            bar.rotation.z = Math.PI / 2;
+            bar.castShadow = true;
+            group.add(bar);
+          }
+          
+          // Left and right horizontal bars (along Z axis)
+          for (let side of [-1, 1]) {
+            const barGeometry = new THREE.CylinderGeometry(barRadius, barRadius, depth, 8);
+            const bar = new THREE.Mesh(barGeometry, scaffoldMaterial);
+            bar.position.set(side * (width/2 + 0.3), y, 0);
+            bar.rotation.x = Math.PI / 2;
+            bar.castShadow = true;
+            group.add(bar);
+          }
+        }
+        
+        // Diagonal bracing on each face
+        const diagLength = Math.sqrt((height/2) * (height/2) + (width/2) * (width/2));
+        
+        // Front and back faces
+        for (let z of [-1, 1]) {
+          for (let xSign of [-1, 1]) {
+            const braceGeometry = new THREE.CylinderGeometry(0.06, 0.06, diagLength, 8);
+            const brace = new THREE.Mesh(braceGeometry, scaffoldMaterial);
+            brace.position.set(xSign * width/4, height/2, z * (depth/2 + 0.3));
+            brace.rotation.z = xSign * Math.atan(height / width);
+            brace.castShadow = true;
+            group.add(brace);
+          }
+        }
+        
+        return group;
+      }
+
+      // Helper function to create storage as two construction containers
+      function createStorageArea(color, width, depth, height = 4.0) {
+        const group = new THREE.Group();
+        
+        // Base slab to indicate the allocated storage footprint.
+        const planeGeometry = new THREE.BoxGeometry(width, 0.05, depth);
+        const planeMaterial = new THREE.MeshStandardMaterial({
+          color: color,
+          metalness: 0.1,
+          roughness: 0.8,
+          opacity: 0.28,
+          transparent: true
+        });
+        const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+        plane.position.y = 0.025;
+        plane.receiveShadow = true;
+        group.add(plane);
+
+        const containerHeight = Math.max(height * 0.45, 0.26);
+        const placeAlongX = width >= depth;
+        const containerWidth = placeAlongX ? width * 0.43 : width * 0.78;
+        const containerDepth = placeAlongX ? depth * 0.84 : depth * 0.43;
+        const gap = (placeAlongX ? width : depth) * 0.04;
+        const offset = (placeAlongX ? containerWidth : containerDepth) / 2 + gap / 2;
+
+        const containerMaterial = new THREE.MeshStandardMaterial({
+          color: color,
+          metalness: 0.45,
+          roughness: 0.52
+        });
+        const ribMaterial = new THREE.MeshStandardMaterial({
+          color: new THREE.Color(color).multiplyScalar(0.72),
+          metalness: 0.5,
+          roughness: 0.5
+        });
+        const doorMaterial = new THREE.MeshStandardMaterial({
+          color: 0xe8f5e9,
+          metalness: 0.35,
+          roughness: 0.45
+        });
+
+        function addContainer(x, z) {
+          const containerGroup = new THREE.Group();
+
+          const body = new THREE.Mesh(
+            new THREE.BoxGeometry(containerWidth, containerHeight, containerDepth),
+            containerMaterial
+          );
+          body.position.y = containerHeight / 2 + 0.05;
+          body.castShadow = true;
+          body.receiveShadow = true;
+          containerGroup.add(body);
+
+          const ribCount = 5;
+          const ribThickness = Math.max(Math.min(containerWidth, containerDepth) * 0.035, 0.018);
+          for (let i = 1; i < ribCount; i++) {
+            const t = i / ribCount - 0.5;
+            const rib = new THREE.Mesh(
+              new THREE.BoxGeometry(ribThickness, containerHeight * 0.92, containerDepth * 1.03),
+              ribMaterial
+            );
+            rib.position.set(t * containerWidth, containerHeight / 2 + 0.05, 0);
+            containerGroup.add(rib);
+          }
+
+          const door = new THREE.Mesh(
+            new THREE.BoxGeometry(containerWidth * 0.76, containerHeight * 0.62, ribThickness),
+            doorMaterial
+          );
+          door.position.set(0, containerHeight * 0.48 + 0.05, containerDepth / 2 + ribThickness);
+          containerGroup.add(door);
+
+          const handle = new THREE.Mesh(
+            new THREE.BoxGeometry(ribThickness, containerHeight * 0.24, ribThickness),
+            ribMaterial
+          );
+          handle.position.set(containerWidth * 0.12, containerHeight * 0.48 + 0.05, containerDepth / 2 + ribThickness * 2.1);
+          containerGroup.add(handle);
+
+          containerGroup.position.set(x, 0, z);
+          group.add(containerGroup);
+        }
+
+        if (placeAlongX) {
+          addContainer(-offset, 0);
+          addContainer(offset, 0);
+        } else {
+          addContainer(0, -offset);
+          addContainer(0, offset);
+        }
+        
+        return group;
+      }
+
+      // Helper function to create portable container office
+      function createPortableOffice(color, width, depth, height) {
+        const group = new THREE.Group();
+        
+        // Main container body
+        const containerGeometry = new THREE.BoxGeometry(width, height, depth);
+        const containerMaterial = new THREE.MeshStandardMaterial({
+          color: color,
+          metalness: 0.4,
+          roughness: 0.6
+        });
+        const container = new THREE.Mesh(containerGeometry, containerMaterial);
+        container.position.y = height / 2;
+        container.castShadow = true;
+        container.receiveShadow = true;
+        group.add(container);
+        
+        // Corrugated metal texture lines
+        const lineColor = new THREE.Color(color).multiplyScalar(0.8);
+        const lineMaterial = new THREE.MeshStandardMaterial({
+          color: lineColor,
+          metalness: 0.5,
+          roughness: 0.5
+        });
+        
+        // Vertical ribs on sides
+        for (let i = 0; i < 8; i++) {
+          const zPos = -depth/2 + (depth / 8) * i;
+          const ribGeometry = new THREE.BoxGeometry(width, height, 0.03);
+          const rib = new THREE.Mesh(ribGeometry, lineMaterial);
+          rib.position.set(0, height / 2, zPos);
+          group.add(rib);
+        }
+        
+        // Door on front
+        const doorGeometry = new THREE.BoxGeometry(1, height * 0.8, 0.05);
+        const doorMaterial = new THREE.MeshStandardMaterial({
+          color: 0xffffff,
+          metalness: 0.3,
+          roughness: 0.7
+        });
+        const door = new THREE.Mesh(doorGeometry, doorMaterial);
+        door.position.set(-width * 0.25, height * 0.5, depth / 2 + 0.02);
+        door.castShadow = true;
+        group.add(door);
+        
+        // Windows
+        const windowMaterial = new THREE.MeshStandardMaterial({
+          color: 0x87ceeb,
+          metalness: 0.8,
+          roughness: 0.1,
+          transparent: true,
+          opacity: 0.7
+        });
+        
+        // Two windows on front
+        for (let i = 0; i < 2; i++) {
+          const windowGeometry = new THREE.BoxGeometry(0.6, 0.5, 0.05);
+          const window = new THREE.Mesh(windowGeometry, windowMaterial);
+          window.position.set(width * 0.15 + i * 0.8, height * 0.6, depth / 2 + 0.02);
+          group.add(window);
+        }
+        
+        // AC unit on side
+        const acGeometry = new THREE.BoxGeometry(0.4, 0.3, 0.25);
+        const acMaterial = new THREE.MeshStandardMaterial({
+          color: 0xcccccc,
+          metalness: 0.6,
+          roughness: 0.4
+        });
+        const ac = new THREE.Mesh(acGeometry, acMaterial);
+        ac.position.set(width / 2 + 0.15, height * 0.7, 0);
+        ac.castShadow = true;
+        group.add(ac);
+        
+        // Support legs at corners
+        const legMaterial = new THREE.MeshStandardMaterial({
+          color: 0x333333,
+          metalness: 0.7,
+          roughness: 0.3
+        });
+        
+        const legPositions = [
+          [width/2 - 0.2, depth/2 - 0.2],
+          [width/2 - 0.2, -depth/2 + 0.2],
+          [-width/2 + 0.2, depth/2 - 0.2],
+          [-width/2 + 0.2, -depth/2 + 0.2]
+        ];
+        
+        legPositions.forEach(([x, z]) => {
+          const legGeometry = new THREE.BoxGeometry(0.15, 0.3, 0.15);
+          const leg = new THREE.Mesh(legGeometry, legMaterial);
+          leg.position.set(x, 0.15, z);
+          leg.castShadow = true;
+          group.add(leg);
+        });
+        
+        return group;
+      }
+
+      // Helper function to create canopy tent for rest area
+      function createCanopyTent(color, width, depth, height) {
+        const group = new THREE.Group();
+        
+        // Support poles at corners
+        const poleMaterial = new THREE.MeshStandardMaterial({
+          color: 0x666666,
+          metalness: 0.7,
+          roughness: 0.3
+        });
+        
+        const poleHeight = height;
+        const poleRadius = 0.08;
+        const poleGeometry = new THREE.CylinderGeometry(poleRadius, poleRadius, poleHeight, 8);
+        
+        const polePositions = [
+          [width/2 - 0.1, depth/2 - 0.1],
+          [width/2 - 0.1, -depth/2 + 0.1],
+          [-width/2 + 0.1, depth/2 - 0.1],
+          [-width/2 + 0.1, -depth/2 + 0.1]
+        ];
+        
+        polePositions.forEach(([x, z]) => {
+          const pole = new THREE.Mesh(poleGeometry, poleMaterial);
+          pole.position.set(x, poleHeight / 2, z);
+          pole.castShadow = true;
+          group.add(pole);
+        });
+        
+        // Canopy top (pyramid/tent shape)
+        const canopyMaterial = new THREE.MeshStandardMaterial({
+          color: color,
+          metalness: 0.1,
+          roughness: 0.9,
+          side: THREE.DoubleSide
+        });
+        
+        // Create sloped roof with 4 triangular faces
+        const peakHeight = poleHeight + 0.5;
+        const canopyGeometry = new THREE.BufferGeometry();
+        
+        // Peak point at center top
+        const peak = [0, peakHeight, 0];
+        
+        // Corner points at pole tops
+        const corners = polePositions.map(([x, z]) => [x, poleHeight, z]);
+        
+        // Create vertices for triangular faces
+        const vertices = new Float32Array([
+          // Front face
+          ...peak, ...corners[0], ...corners[2],
+          // Right face
+          ...peak, ...corners[1], ...corners[0],
+          // Back face
+          ...peak, ...corners[3], ...corners[1],
+          // Left face
+          ...peak, ...corners[2], ...corners[3]
+        ]);
+        
+        canopyGeometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+        canopyGeometry.computeVertexNormals();
+        
+        const canopy = new THREE.Mesh(canopyGeometry, canopyMaterial);
+        canopy.castShadow = true;
+        canopy.receiveShadow = true;
+        group.add(canopy);
+        
+        // Add side curtains (partial, hanging from top)
+        const curtainMaterial = new THREE.MeshStandardMaterial({
+          color: new THREE.Color(color).multiplyScalar(0.9),
+          metalness: 0.1,
+          roughness: 0.9,
+          transparent: true,
+          opacity: 0.7,
+          side: THREE.DoubleSide
+        });
+        
+        // Back curtain
+        const curtainGeometry = new THREE.PlaneGeometry(width - 0.2, poleHeight * 0.6);
+        const backCurtain = new THREE.Mesh(curtainGeometry, curtainMaterial);
+        backCurtain.position.set(0, poleHeight * 0.7, -depth/2 + 0.1);
+        group.add(backCurtain);
+        
+        // Picnic table/benches inside
+        const tableMaterial = new THREE.MeshStandardMaterial({
+          color: 0x8b6f47,
+          metalness: 0.1,
+          roughness: 0.8
+        });
+        
+        // Table top
+        const tableGeometry = new THREE.BoxGeometry(width * 0.6, 0.05, depth * 0.4);
+        const table = new THREE.Mesh(tableGeometry, tableMaterial);
+        table.position.set(0, poleHeight * 0.3, 0);
+        table.castShadow = true;
+        table.receiveShadow = true;
+        group.add(table);
+        
+        // Table legs
+        const legGeometry = new THREE.CylinderGeometry(0.05, 0.05, poleHeight * 0.3, 8);
+        [[-1, -1], [-1, 1], [1, -1], [1, 1]].forEach(([xSign, zSign]) => {
+          const leg = new THREE.Mesh(legGeometry, tableMaterial);
+          leg.position.set(xSign * width * 0.25, poleHeight * 0.15, zSign * depth * 0.15);
+          leg.castShadow = true;
+          group.add(leg);
+        });
+        
+        // Benches on sides
+        const benchGeometry = new THREE.BoxGeometry(width * 0.5, 0.04, depth * 0.15);
+        [-1, 1].forEach(sign => {
+          const bench = new THREE.Mesh(benchGeometry, tableMaterial);
+          bench.position.set(0, poleHeight * 0.15, sign * depth * 0.3);
+          bench.castShadow = true;
+          bench.receiveShadow = true;
+          group.add(bench);
+        });
+        
+        return group;
+      }
+
+      // Create facilities with proper dimensions
+      data.facilities.forEach(facility => {
+        const type = facility.type.split('_')[0];
+        const pos = toWorldPosition(facility.x, facility.y);
+        const x = pos.x;
+        const z = pos.z;
+        
+        let facilityObject;
+        let labelHeight;
+        
+        // Get normalized dimensions from facility data (default to reasonable values if missing)
+        const facilityWidth = facility.width || 0.15;
+        const facilityLength = facility.length || 0.15;
+        const worldDims = toWorldDimensions(facilityWidth, facilityLength);
+        const realWidth = worldDims.width;
+        const realDepth = worldDims.length;
+        includeInViewBounds(x - realWidth / 2, z - realDepth / 2);
+        includeInViewBounds(x + realWidth / 2, z + realDepth / 2);
+        
+        // Extract base type for crane special handling
+        const baseType = type.split('_')[0];
+        
+        if (baseType === 'crane') {
+          // Cranes are intentionally drawn taller/longer than the small
+          // normalized footprint so they read as reach equipment in 3D.
+          const craneHeight = toWorldMeters(facility.height_m || 3.0, 0.9) * 2.8;
+          const craneJibLength = toWorldMeters(facility.jib_length_m || 6.0, 1.2) * 2.2;
+          
+          // Create crane shape with custom dimensions
+          facilityObject = createTowerCrane(colors[baseType] || colors[type], craneHeight, craneJibLength);
+          facilityObject.position.set(x, 0, z);
+          labelHeight = craneHeight + 0.8;
+          
+          const dangerRadius = toWorldRadius(facility.danger_radius, 0.14);
+          const circleThickness = Math.max(dangerRadius * 0.025, 0.04);
+          const circleGeometry = new THREE.RingGeometry(dangerRadius - circleThickness, dangerRadius, 64);
+          const circleMaterial = new THREE.MeshBasicMaterial({
+            color: 0xff0000,
+            side: THREE.DoubleSide,
+            transparent: true,
+            opacity: 0.4
+          });
+          const dangerCircle = new THREE.Mesh(circleGeometry, circleMaterial);
+          dangerCircle.rotation.x = -Math.PI / 2;
+          dangerCircle.position.set(x, 0.05, z); // Slightly above ground
+          scene.add(dangerCircle);
+          meshes.push(dangerCircle);
+        } else if (baseType === 'core') {
+          // Create building core with scaffolding using custom dimensions
+          const height = toWorldMeters(facility.height_m || 3.0, 0.7);
+          facilityObject = createBuildingCore(colors[baseType] || colors[type], realWidth, realDepth, height);
+          facilityObject.position.set(x, 0, z);
+          labelHeight = height + 0.45;
+        } else if (baseType === 'storage') {
+          // Create storage area with pipes and materials using custom dimensions
+          const height = toWorldMeters(facility.height_m || 3.0, 0.45);
+          facilityObject = createStorageArea(colors[baseType] || colors[type], realWidth, realDepth, height);
+          facilityObject.position.set(x, 0, z);
+          labelHeight = height + 0.4;
+        } else if (baseType === 'office') {
+          // Create portable container office using custom dimensions
+          const height = toWorldMeters(facility.height_m || 3.0, 0.5);
+          facilityObject = createPortableOffice(colors[baseType] || colors[type], realWidth, realDepth, height);
+          facilityObject.position.set(x, 0, z);
+          labelHeight = height + 0.4;
+        } else if (baseType === 'rest_area' || baseType === 'rest') {
+          // Create canopy tent for rest area using custom dimensions
+          const height = toWorldMeters(facility.height_m || 2.5, 0.45);
+          facilityObject = createCanopyTent(colors[baseType] || colors[type], realWidth, realDepth, height);
+          facilityObject.position.set(x, 0, z);
+          labelHeight = height + 0.4;
+        } else {
+          // Generic facility with custom dimensions
+          const height = toWorldMeters(facility.height_m || 3.0, 0.5);
+          
+          const geometry = new THREE.BoxGeometry(realWidth, height, realDepth);
+          const material = new THREE.MeshStandardMaterial({
+            color: colors[type] || 0x808080,
+            metalness: 0.1,
+            roughness: 0.7
+          });
+          
+          facilityObject = new THREE.Mesh(geometry, material);
+          facilityObject.position.set(x, height / 2, z);
+          facilityObject.castShadow = true;
+          facilityObject.receiveShadow = true;
+          labelHeight = height + 0.4;
+        }
+        
+        scene.add(facilityObject);
+        meshes.push(facilityObject);
+
+        // Add label
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = 128;
+        canvas.height = 32;
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, 128, 32);
+        ctx.fillStyle = 'black';
+        ctx.font = 'bold 16px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(type.toUpperCase(), 64, 22);
+        
+        const texture = new THREE.CanvasTexture(canvas);
+        const labelMaterial = new THREE.SpriteMaterial({ map: texture });
+        const label = new THREE.Sprite(labelMaterial);
+        label.position.set(x, labelHeight, z);
+        label.scale.set(1.6, 0.4, 1);
+        scene.add(label);
+        meshes.push(label);
+      });
+
+      if (boundaryPoints && boundaryPoints.length > 2) {
+        addBoundaryFence(boundaryPoints);
+        fitViewToBounds();
+        window.resetView();
+        return;
+      }
+
+      // Add boundary fence
+      const boundaryMargin = 0.08; // From config
+      const fenceHeight = 2.5;
+      const fenceThickness = 0.1;
+      const fenceMaterial = new THREE.MeshStandardMaterial({
+        color: 0x666666,
+        metalness: 0.6,
+        roughness: 0.4
+      });
+      
+      // Calculate fence positions (accounting for boundary margin)
+      const fenceInset = boundaryMargin * 30; // Convert to world units
+      const fenceExtent = 15 - fenceInset; // Distance from center to fence
+      
+      // Create fence posts and panels
+      const postRadius = 0.08;
+      const postGeometry = new THREE.CylinderGeometry(postRadius, postRadius, fenceHeight, 8);
+      const panelHeight = fenceHeight - 0.3;
+      
+      // Helper function to create chain-link fence panel
+      function createFencePanel(width) {
+        const group = new THREE.Group();
+        
+        // Vertical wires
+        const wireCount = Math.floor(width / 0.3);
+        for (let i = 0; i <= wireCount; i++) {
+          const wireGeometry = new THREE.CylinderGeometry(0.02, 0.02, panelHeight, 6);
+          const wire = new THREE.Mesh(wireGeometry, fenceMaterial);
+          wire.position.set(-width/2 + (i * width / wireCount), panelHeight/2 + 0.15, 0);
+          group.add(wire);
+        }
+        
+        // Horizontal wires
+        for (let i = 0; i <= 5; i++) {
+          const wireGeometry = new THREE.CylinderGeometry(0.02, 0.02, width, 6);
+          const wire = new THREE.Mesh(wireGeometry, fenceMaterial);
+          wire.position.set(0, 0.15 + (i * panelHeight / 5), 0);
+          wire.rotation.z = Math.PI / 2;
+          group.add(wire);
+        }
+        
+        return group;
+      }
+      
+      // Build fence segments with gates at entrances
+      const entrances = data.entrances || [];
+      const entrancePositions = entrances.map(e => {
+        const pos = toWorldPosition(e.x, e.y);
+        return { x: pos.x, z: pos.z };
+      });
+      
+      // Fence extent based on actual site dimensions (slightly beyond boundary)
+      const fenceExtentX = scale3DWidth / 2 + 1;
+      const fenceExtentZ = scale3DLength / 2 + 1;
+      
+      const gateHalfWidth = Math.max(Math.min(scale3DWidth, scale3DLength) * 0.06, 1.6);
+      const fenceGaps = entrancePositions.map((entrance) => {
+        const distances = [
+          { side: 'top', value: Math.abs(entrance.z + fenceExtentZ) },
+          { side: 'bottom', value: Math.abs(entrance.z - fenceExtentZ) },
+          { side: 'left', value: Math.abs(entrance.x + fenceExtentX) },
+          { side: 'right', value: Math.abs(entrance.x - fenceExtentX) }
+        ].sort((a, b) => a.value - b.value);
+        const side = distances[0].side;
+        return {
+          side,
+          x: Math.max(-fenceExtentX + gateHalfWidth, Math.min(fenceExtentX - gateHalfWidth, entrance.x)),
+          z: Math.max(-fenceExtentZ + gateHalfWidth, Math.min(fenceExtentZ - gateHalfWidth, entrance.z))
+        };
+      });
+
+      function isHorizontalGate(side, x) {
+        return fenceGaps.some((gap) => gap.side === side && Math.abs(x - gap.x) <= gateHalfWidth);
+      }
+
+      function isVerticalGate(side, z) {
+        return fenceGaps.some((gap) => gap.side === side && Math.abs(z - gap.z) <= gateHalfWidth);
+      }
+      
+      const segmentLength = 2;
+      
+      // Top fence (along -Z edge)
+      for (let x = -fenceExtentX; x <= fenceExtentX; x += segmentLength) {
+        const nextX = Math.min(x + segmentLength, fenceExtentX);
+        const segmentWidth = nextX - x;
+        
+        if (!isHorizontalGate('top', x + segmentWidth / 2)) {
+          // Add post at current position
+          const post = new THREE.Mesh(postGeometry, fenceMaterial);
+          post.position.set(x, fenceHeight / 2, -fenceExtentZ);
+          scene.add(post);
+          meshes.push(post);
+          
+          // Add panel between this post and next
+          if (nextX <= fenceExtentX) {
+            const panel = createFencePanel(segmentWidth);
+            panel.position.set(x + segmentWidth / 2, 0, -fenceExtentZ);
+            scene.add(panel);
+            meshes.push(panel);
+          }
+        } else {
+          // Leave entrance as open space.
+          x += 3 - segmentLength; // Skip entrance area (3m wide opening)
+        }
+      }
+      
+      // Bottom fence (along +Z edge)
+      for (let x = -fenceExtentX; x <= fenceExtentX; x += segmentLength) {
+        const nextX = Math.min(x + segmentLength, fenceExtentX);
+        const segmentWidth = nextX - x;
+        
+        if (!isHorizontalGate('bottom', x + segmentWidth / 2)) {
+          const post = new THREE.Mesh(postGeometry, fenceMaterial);
+          post.position.set(x, fenceHeight / 2, fenceExtentZ);
+          scene.add(post);
+          meshes.push(post);
+          
+          if (nextX <= fenceExtentX) {
+            const panel = createFencePanel(segmentWidth);
+            panel.position.set(x + segmentWidth / 2, 0, fenceExtentZ);
+            scene.add(panel);
+            meshes.push(panel);
+          }
+        }
+      }
+      
+      // Left fence (along -X edge)
+      for (let z = -fenceExtentZ; z <= fenceExtentZ; z += segmentLength) {
+        const nextZ = Math.min(z + segmentLength, fenceExtentZ);
+        const segmentWidth = nextZ - z;
+        
+        if (!isVerticalGate('left', z + segmentWidth / 2)) {
+          const post = new THREE.Mesh(postGeometry, fenceMaterial);
+          post.position.set(-fenceExtentX, fenceHeight / 2, z);
+          scene.add(post);
+          meshes.push(post);
+          
+          if (nextZ <= fenceExtentZ) {
+            const panel = createFencePanel(segmentWidth);
+            panel.position.set(-fenceExtentX, 0, z + segmentWidth / 2);
+            panel.rotation.y = Math.PI / 2;
+            scene.add(panel);
+            meshes.push(panel);
+          }
+        }
+      }
+      
+      // Right fence (along +X edge)
+      for (let z = -fenceExtentZ; z <= fenceExtentZ; z += segmentLength) {
+        const nextZ = Math.min(z + segmentLength, fenceExtentZ);
+        const segmentWidth = nextZ - z;
+        
+        if (!isVerticalGate('right', z + segmentWidth / 2)) {
+          const post = new THREE.Mesh(postGeometry, fenceMaterial);
+          post.position.set(fenceExtentX, fenceHeight / 2, z);
+          scene.add(post);
+          meshes.push(post);
+          
+          if (nextZ <= fenceExtentZ) {
+            const panel = createFencePanel(segmentWidth);
+            panel.position.set(fenceExtentX, 0, z + segmentWidth / 2);
+            panel.rotation.y = Math.PI / 2;
+            scene.add(panel);
+            meshes.push(panel);
+          }
+        }
+      }
+      
+      // Add corner posts to complete the perimeter
+      const cornerPositions = [
+        [-fenceExtentX, -fenceExtentZ],
+        [fenceExtentX, -fenceExtentZ],
+        [-fenceExtentX, fenceExtentZ],
+        [fenceExtentX, fenceExtentZ]
+      ];
+      
+      cornerPositions.forEach(([x, z]) => {
+        const post = new THREE.Mesh(postGeometry, fenceMaterial);
+        post.position.set(x, fenceHeight / 2, z);
+        scene.add(post);
+        meshes.push(post);
+      });
+
+      fitViewToBounds();
+
+      // Fit camera
+      window.resetView();
+    }
+
+    window.resetView = function() {
+      const distance = currentViewRadius;
+      camera.position.set(
+        currentViewTarget.x + distance * 0.9,
+        Math.max(distance * 0.75, 22),
+        currentViewTarget.z + distance * 0.9
+      );
+      camera.lookAt(currentViewTarget);
+      controls.target.copy(currentViewTarget);
+      controls.update();
+    };
+
+    window.toggleWireframe = function() {
+      wireframeMode = !wireframeMode;
+      meshes.forEach(mesh => {
+        if (mesh.material && mesh.material.wireframe !== undefined) {
+          mesh.material.wireframe = wireframeMode;
+        }
+      });
+    };
+
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    // Handle resize
+    function onResize() {
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    }
+
+    window.addEventListener('resize', onResize);
+    onResize();
+    animate();
+
+    // Initial load attempt (for testing)
+    setTimeout(() => {
+      if (!layoutData) {
+        // Fallback test data
+        loadLayout({
+          facilities: [
+            { type: 'core', x: 0.5, y: 0.5 },
+            { type: 'crane', x: 0.3, y: 0.7 }
+          ],
+          entrances: [
+            { x: 0.1, y: 0.1 }
+          ]
+        });
+      }
+    }, 100);
+  </script>
+</body>
+</html>

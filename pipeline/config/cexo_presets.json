@@ -1,0 +1,96 @@
+{
+  "facility_labels_2d": {
+    "core": "C",
+    "crane": "CR",
+    "storage": "S",
+    "office": "OF",
+    "rest_area": "RA"
+  },
+  "facility_full_labels": {
+    "core": "Building Core",
+    "crane": "Tower Crane",
+    "storage": "Storage",
+    "office": "Office",
+    "rest_area": "Rest Area"
+  },
+  "facility_colors_2d": {
+    "core": "#4e79a7",
+    "crane": "#e15759",
+    "storage": "#59a14f",
+    "office": "#af7aa1",
+    "rest_area": "#ff9d9a"
+  },
+  "presets": {
+    "standard": {
+      "display_name": "Standard case study",
+      "source": "ClanPing/CEXO core/config.py",
+      "site_width_m": 100.0,
+      "site_length_m": 100.0,
+      "algorithm_defaults": {
+        "boundary_margin": 0.08,
+        "entrance_clearance": 0.15,
+        "crane_safety_distance": 0.30,
+        "min_entrances": 1,
+        "max_entrances": 3,
+        "iterations": 15000,
+        "grid_size": 20,
+        "initial_population": 500,
+        "pareto_size": 12,
+        "export_count": 50
+      },
+      "facility_specs": {
+        "core": {"w": 0.20, "d": 0.20, "height_m": 5.0, "category": "operational", "quantity": 1},
+        "crane": {"w": 0.10, "d": 0.10, "height_m": 8.0, "category": "equipment", "quantity": 1, "danger_radius": 0.25},
+        "storage": {"w": 0.20, "d": 0.15, "height_m": 4.0, "category": "operational", "quantity": 1},
+        "office": {"w": 0.15, "d": 0.12, "height_m": 3.0, "category": "worker", "quantity": 1},
+        "rest_area": {"w": 0.18, "d": 0.10, "height_m": 2.5, "category": "worker", "quantity": 1}
+      },
+      "boundary_polygon": [[0.0, 0.0], [1.0, 0.0], [1.0, 1.0], [0.0, 1.0]],
+      "entrances": [[0.5, 0.0]],
+      "road_centerlines": []
+    },
+    "bulleen": {
+      "display_name": "Bulleen case study",
+      "source": "ClanPing/CEXO examples/bulleen_study/core/config.py",
+      "site_width_m": 300.0,
+      "site_length_m": 250.0,
+      "road_corridor_width": 0.010,
+      "algorithm_defaults": {
+        "boundary_margin": 0.03,
+        "entrance_clearance": 0.08,
+        "crane_safety_distance": 0.18,
+        "min_entrances": 3,
+        "max_entrances": 3,
+        "iterations": 15000,
+        "grid_size": 20,
+        "initial_population": 500,
+        "pareto_size": 12,
+        "export_count": 50
+      },
+      "facility_specs": {
+        "core": {"w": 0.11, "d": 0.08, "height_m": 3.0, "category": "operational", "quantity": 2},
+        "crane": {"w": 0.03, "d": 0.03, "height_m": 3.0, "category": "equipment", "quantity": 2, "danger_radius": 0.14, "optimal_reach": 0.20, "operating_radius": 0.26},
+        "storage": {"w": 0.04, "d": 0.025, "height_m": 3.0, "category": "operational", "quantity": 10},
+        "office": {"w": 0.04, "d": 0.025, "height_m": 3.0, "category": "worker", "quantity": 5},
+        "rest_area": {"w": 0.035, "d": 0.025, "height_m": 2.5, "category": "worker", "quantity": 4}
+      },
+      "boundary_polygon": [
+        [0.16, 0.36], [0.25, 0.30], [0.39, 0.27], [0.56, 0.21],
+        [0.73, 0.18], [0.83, 0.26], [0.88, 0.40], [0.85, 0.55],
+        [0.82, 0.70], [0.71, 0.82], [0.59, 0.76], [0.48, 0.68],
+        [0.36, 0.71], [0.25, 0.74], [0.22, 0.61], [0.14, 0.51]
+      ],
+      "entrances": [[0.15, 0.43], [0.765, 0.77], [0.775, 0.225]],
+      "road_centerlines": [
+        [[0.145, 0.510], [0.205, 0.535], [0.285, 0.505], [0.380, 0.490]],
+        [[0.155, 0.405], [0.220, 0.405], [0.290, 0.400], [0.340, 0.405]],
+        [[0.340, 0.405], [0.360, 0.435], [0.375, 0.490], [0.390, 0.580], [0.430, 0.680]],
+        [[0.340, 0.405], [0.450, 0.420], [0.560, 0.420], [0.640, 0.410], [0.690, 0.390]],
+        [[0.340, 0.405], [0.355, 0.370], [0.430, 0.335], [0.530, 0.300], [0.650, 0.295], [0.725, 0.320], [0.690, 0.390]],
+        [[0.430, 0.680], [0.505, 0.655], [0.570, 0.620], [0.650, 0.590], [0.735, 0.570], [0.780, 0.600], [0.820, 0.700]],
+        [[0.820, 0.700], [0.790, 0.620], [0.730, 0.535], [0.700, 0.465], [0.690, 0.390]],
+        [[0.690, 0.390], [0.735, 0.330], [0.840, 0.290]]
+      ]
+    }
+  }
+}

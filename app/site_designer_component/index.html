@@ -1,0 +1,612 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --card: #ffffff;
+    --ink: #18202b;
+    --muted: #687386;
+    --line: #dce1e8;
+    --soft: #eef2f7;
+    --accent: #2266d6;
+    --accent2: #f59e0b;
+    --danger: #c2410c;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  .app { max-width: 1180px; margin: 0 auto; padding: 10px 4px 22px; }
+  .hero, .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+  .hero { padding: 16px 18px; margin-bottom: 14px; }
+  .card { padding: 14px; }
+  h1 { font-size: 25px; line-height: 1.2; margin: 0 0 6px; letter-spacing: 0; }
+  h2 { font-size: 17px; margin: 0 0 12px; letter-spacing: 0; }
+  h3 { font-size: 14px; margin: 0 0 10px; letter-spacing: 0; }
+  p { margin: 0; color: var(--muted); line-height: 1.55; }
+  .grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(330px, 0.9fr); gap: 14px; align-items: start; }
+  .section-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+  button { border: 1px solid var(--line); background: #fff; color: var(--ink); border-radius: 8px; padding: 8px 10px; font-weight: 650; cursor: pointer; }
+  button.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button.warn { color: var(--danger); }
+  button.warn.active { background: var(--danger); border-color: var(--danger); color: #fff; }
+  button:disabled { opacity: 0.45; cursor: not-allowed; }
+  label { display: block; font-size: 12px; color: var(--muted); font-weight: 700; margin-bottom: 5px; }
+  input[type="number"], input[type="text"] { width: 100%; border: 1px solid var(--line); background: #fff; color: var(--ink); border-radius: 8px; padding: 8px 9px; font: inherit; }
+  input[type="range"] { width: 100%; }
+  .input-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-bottom: 10px; }
+  .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 10px 0; }
+  .metric { background: var(--soft); border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
+  .metric span { display: block; color: var(--muted); font-size: 11px; font-weight: 700; }
+  .metric strong { display: block; margin-top: 4px; font-size: 18px; }
+  .canvas-wrap { background: linear-gradient(180deg, #fbfcfe 0%, #f0f3f8 100%); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  svg { width: 100%; height: 560px; display: block; touch-action: none; }
+  .grid-line { stroke: #e6eaf0; stroke-width: 1; }
+  .edge-hit { stroke: transparent; stroke-width: 18; cursor: pointer; }
+  .edge-hit:hover { stroke: rgba(34, 102, 214, 0.16); }
+  body[data-tool="addVertex"] .edge-hit { cursor: copy; }
+  body[data-tool="dragEdge"] .edge-hit { cursor: move; }
+  body[data-tool="addEntrance"] .edge-hit { cursor: crosshair; }
+  body[data-tool="delete"] .vertex, body[data-tool="delete"] .entrance { cursor: not-allowed; }
+  .edge-guide { stroke: #f59e0b; stroke-width: 4; pointer-events: none; }
+  .edge-line { stroke: #1d4ed8; stroke-width: 2.4; fill: none; }
+  .poly-fill { fill: rgba(34, 102, 214, 0.08); stroke: none; }
+  .road-zone { fill: rgba(247, 223, 62, 0.42); stroke: #c9a400; stroke-width: 1.5; pointer-events: none; }
+  .vertex { fill: #fff; stroke: #1d4ed8; stroke-width: 3; cursor: grab; }
+  .vertex.selected { fill: var(--accent2); stroke: #7c2d12; }
+  .entrance { fill: #0f766e; stroke: #fff; stroke-width: 2; cursor: grab; }
+  .entrance.selected { fill: var(--accent2); stroke: #7c2d12; }
+  .entrance-label { fill: #0f172a; font-size: 12px; font-weight: 800; pointer-events: none; }
+  .facility-card { border: 1px solid var(--line); border-radius: 10px; padding: 11px; background: #fff; margin-bottom: 10px; }
+  .facility-title { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+  .facility-title strong { text-transform: capitalize; }
+  .pill { display: inline-flex; align-items: center; border-radius: 999px; background: #e0edff; color: #1e40af; padding: 3px 8px; font-size: 11px; font-weight: 800; }
+  .small-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; margin-top: 9px; }
+  .desc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+  .check { display: flex; gap: 8px; align-items: center; border: 1px solid var(--line); border-radius: 9px; padding: 8px; color: var(--ink); font-size: 13px; }
+  .check input { width: auto; }
+  .hint { color: var(--muted); font-size: 12px; line-height: 1.45; }
+  .legend { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .legend span { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--muted); font-weight: 700; }
+  .swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+  @media (max-width: 900px) { .grid, .section-grid { grid-template-columns: 1fr; } svg { height: 480px; } }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="hero">
+    <h1>Stage 1 Site Designer</h1>
+    <p>Define the site boundary, move entrances along boundary edges, set facility demand, then run layout generation directly below.</p>
+  </div>
+  <div class="grid">
+    <section class="card">
+      <h2>1. Site editor</h2>
+      <div class="toolbar">
+        <button id="selectTool" class="active">Select</button>
+        <button id="addVertexTool">Add vertex</button>
+        <button id="dragEdgeTool">Drag edge</button>
+        <button id="addEntranceTool">Add entrance</button>
+        <button id="deleteTool" class="warn">Delete</button>
+        <button id="undoBtn">Undo</button>
+        <button id="redoBtn">Redo</button>
+        <button id="resetBtn">Reset preset</button>
+      </div>
+      <div class="input-row">
+        <div><label for="siteWidth">Workspace width (m)</label><input id="siteWidth" type="number" min="20" max="2000" step="5"></div>
+        <div><label for="siteLength">Workspace length (m)</label><input id="siteLength" type="number" min="20" max="2000" step="5"></div>
+      </div>
+      <div class="canvas-wrap">
+        <svg id="editor" viewBox="0 0 900 560" aria-label="Draggable site boundary editor">
+          <g id="gridLayer"></g><g id="roadLayer"></g><g id="boundaryLayer"></g><g id="vertexLayer"></g><g id="entranceLayer"></g>
+        </svg>
+      </div>
+      <div class="legend" id="facilityLegend"></div>
+      <div class="metric-grid">
+        <div class="metric"><span>Boundary area</span><strong id="areaValue">0 m2</strong></div>
+        <div class="metric" id="entranceMetricBlock"><span id="entranceMetricLabel">Entrances</span><strong id="entranceMetric">0</strong></div>
+        <div class="metric"><span>Selected</span><strong id="selectedValue">none</strong></div>
+      </div>
+    </section>
+    <aside class="card">
+      <h2>Project setup</h2>
+      <div class="input-row">
+        <div><label for="projectName">Project name</label><input id="projectName" type="text"></div>
+        <div id="entranceCountBlock"><label for="entranceCount">Entrances</label><input id="entranceCount" type="number" min="0" max="8" step="1"></div>
+      </div>
+      <p class="hint" id="entranceHint">Entrances are part of the layout calculation. Drag green markers along the boundary to define access positions.</p>
+      <div class="metric-grid">
+        <div class="metric"><span>Facilities</span><strong id="facilityCount">0</strong></div>
+        <div class="metric"><span>Buffered demand</span><strong id="demandValue">0 m2</strong></div>
+        <div class="metric"><span>Crowding</span><strong id="crowdingValue">0%</strong></div>
+      </div>
+    </aside>
+  </div>
+  <div class="section-grid">
+    <section class="card"><h2>2. Facility requirements</h2><div id="facilityControls"></div></section>
+    <section class="card">
+      <h2>3. Optimisation intent</h2>
+      <div class="input-row">
+        <div><label>Safety priority</label><input id="safetyWeight" type="range" min="0" max="100" value="40"></div>
+        <div><label>Efficiency priority</label><input id="efficiencyWeight" type="range" min="0" max="100" value="35"></div>
+      </div>
+      <div class="input-row">
+        <div><label>Adaptability priority</label><input id="adaptabilityWeight" type="range" min="0" max="100" value="25"></div>
+        <div><label for="layoutCount">Layouts to generate</label><input id="layoutCount" type="number" min="1" max="500" step="1" value="20"></div>
+      </div>
+      <h3>Behavioural descriptors</h3>
+      <div class="desc-grid" id="descriptorControls"></div>
+    </section>
+  </div>
+</div>
+<script>
+const Streamlit = {
+  setComponentReady: () => window.parent.postMessage({isStreamlitMessage: true, type: "streamlit:componentReady", apiVersion: 1}, "*"),
+  setFrameHeight: (height) => window.parent.postMessage({isStreamlitMessage: true, type: "streamlit:setFrameHeight", height}, "*"),
+  setComponentValue: (value) => window.parent.postMessage({isStreamlitMessage: true, type: "streamlit:setComponentValue", value}, "*"),
+};
+const svg = document.getElementById("editor");
+const gridLayer = document.getElementById("gridLayer");
+const roadLayer = document.getElementById("roadLayer");
+const boundaryLayer = document.getElementById("boundaryLayer");
+const vertexLayer = document.getElementById("vertexLayer");
+const entranceLayer = document.getElementById("entranceLayer");
+const margin = 46;
+const plot = { x: margin, y: margin, w: 900 - margin * 2, h: 560 - margin * 2 };
+const facilityColors = { core: "#4e79a7", crane: "#e15759", storage: "#59a14f", office: "#af7aa1", rest_area: "#ff9d9a" };
+const facilityLabels = { core: "C", crane: "CR", storage: "S", office: "OF", rest_area: "RA" };
+const facilityFullLabels = { core: "Building Core", crane: "Tower Crane", storage: "Storage", office: "Office", rest_area: "Rest Area" };
+const descriptors = [["latent_bd1","Latent BD 1"],["latent_bd2","Latent BD 2"],["facility_distribution","Facility distribution"],["storage_clustering","Storage clustering"],["access_route_structure","Access route structure"],["crane_core_relationship","Crane-core relation"]];
+let initialized = false;
+let history = [];
+let future = [];
+let sendTimer = null;
+let state = {};
+
+function init(args) {
+  if (initialized) return;
+  initialized = true;
+  state = {
+    projectName: args.projectName || "new_construction_site",
+    preset: args.preset || "Standard 021",
+    tool: "select",
+    siteWidth: Number(args.siteWidth || 120),
+    siteLength: Number(args.siteLength || 120),
+    points: (args.boundary || []).map(p => ({x: Number(p.x), y: Number(p.y)})),
+    initialPoints: (args.boundary || []).map(p => ({x: Number(p.x), y: Number(p.y)})),
+    initialEntrances: (args.initialEntrances || []).map(p => ({x: Number(p.x), y: Number(p.y)})),
+    entranceEditingEnabled: args.entranceEditingEnabled !== false,
+    exclusionZones: (args.initialExclusionZones || []).map((zone, index) => ({
+      name: zone.name || `exclusion_${String(index).padStart(2, "0")}`,
+      polygon: (zone.polygon || []).map(p => ({x_m: Number(p.x_m), y_m: Number(p.y_m)})),
+    })),
+    algorithmDefaults: args.algorithmDefaults || {},
+    entrances: [],
+    selectedVertex: 0,
+    selectedEntrance: null,
+    selectedEdge: null,
+    draggingVertex: null,
+    draggingEntrance: null,
+    draggingEdge: null,
+    edgeDragStart: null,
+    edgeDragOriginal: null,
+    facilities: {},
+    descriptors: Object.fromEntries(descriptors.map((d, i) => [d[0], i < 4])),
+  };
+  for (const [name, cfg] of Object.entries(args.facilityTypes || {})) {
+    state.facilities[name] = {
+      quantity: Number(cfg.quantity ?? 0),
+      width_m: Number(cfg.width_m || 5),
+      length_m: Number(cfg.length_m || 5),
+      height_m: Number(cfg.height_m || 3),
+      clearance_radius_m: Number(cfg.clearance_radius_m || 1),
+      danger_radius_m: Number(cfg.danger_radius_m || 0),
+      optimal_reach_m: Number(cfg.optimal_reach_m || 0),
+      operating_radius_m: Number(cfg.operating_radius_m || 0),
+      crane_safety_distance_m: Number(cfg.crane_safety_distance_m || 0),
+    };
+  }
+  document.getElementById("projectName").value = state.projectName;
+  document.getElementById("siteWidth").value = state.siteWidth;
+  document.getElementById("siteLength").value = state.siteLength;
+  document.getElementById("addEntranceTool").style.display = state.entranceEditingEnabled ? "" : "none";
+  document.getElementById("entranceCountBlock").style.display = state.entranceEditingEnabled ? "" : "none";
+  document.getElementById("entranceHint").textContent = state.entranceEditingEnabled
+    ? "Entrances are part of the layout calculation. Drag green markers along the boundary to define access positions."
+    : "Entrances are randomised during optimisation for this preset.";
+  document.getElementById("entranceMetricLabel").textContent = state.entranceEditingEnabled ? "Entrances" : "Entrance mode";
+  document.getElementById("entranceCount").value = state.entranceEditingEnabled ? (state.initialEntrances.length || (state.preset.toLowerCase().includes("bulleen") ? 3 : 1)) : 0;
+  document.getElementById("layoutCount").value = Number(state.algorithmDefaults.export_count || state.algorithmDefaults.target_layout_count || 20);
+  state.entrances = !state.entranceEditingEnabled
+    ? []
+    : state.initialEntrances.length
+    ? state.initialEntrances.map(projectToClosestBoundary)
+    : defaultEntrances(Number(document.getElementById("entranceCount").value || 0));
+  state.selectedEntrance = state.entrances.length ? 0 : null;
+  document.body.dataset.tool = state.tool;
+  bindEvents();
+  renderFacilities();
+  renderDescriptors();
+  renderLegend();
+  render();
+}
+
+function cloneState() { return JSON.parse(JSON.stringify({siteWidth: state.siteWidth, siteLength: state.siteLength, points: state.points, entrances: state.entrances, facilities: state.facilities, selectedVertex: state.selectedVertex, selectedEntrance: state.selectedEntrance, selectedEdge: state.selectedEdge})); }
+function restoreSnapshot(snapshot) {
+  Object.assign(state, snapshot);
+  document.getElementById("siteWidth").value = state.siteWidth;
+  document.getElementById("siteLength").value = state.siteLength;
+  document.getElementById("entranceCount").value = state.entrances.length;
+  renderFacilities(); render();
+}
+function pushHistory() { history.push(cloneState()); if (history.length > 80) history.shift(); future = []; updateHistoryButtons(); }
+function updateHistoryButtons() { updateToolButtons(); }
+function undo() { if (!history.length) return; future.push(cloneState()); restoreSnapshot(history.pop()); updateHistoryButtons(); }
+function redo() { if (!future.length) return; history.push(cloneState()); restoreSnapshot(future.pop()); updateHistoryButtons(); }
+function setTool(tool) {
+  if (!state.entranceEditingEnabled && tool === "addEntrance") tool = "select";
+  state.tool = tool;
+  document.body.dataset.tool = tool;
+  updateToolButtons();
+}
+function updateToolButtons() {
+  document.getElementById("undoBtn").disabled = history.length === 0;
+  document.getElementById("redoBtn").disabled = future.length === 0;
+  for (const [id, tool] of [["selectTool","select"],["addVertexTool","addVertex"],["dragEdgeTool","dragEdge"],["addEntranceTool","addEntrance"],["deleteTool","delete"]]) {
+    document.getElementById(id).classList.toggle("active", state.tool === tool);
+  }
+}
+function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+function fmt(v, digits = 1) { return Number(v).toFixed(digits); }
+function worldToSvg(p) { return {x: plot.x + (p.x / state.siteWidth) * plot.w, y: plot.y + plot.h - (p.y / state.siteLength) * plot.h}; }
+function svgToWorld(clientX, clientY) {
+  const rect = svg.getBoundingClientRect();
+  const sx = (clientX - rect.left) * (900 / rect.width);
+  const sy = (clientY - rect.top) * (560 / rect.height);
+  return {x: clamp(((sx - plot.x) / plot.w) * state.siteWidth, 0, state.siteWidth), y: clamp(((plot.y + plot.h - sy) / plot.h) * state.siteLength, 0, state.siteLength)};
+}
+function polygonArea(points) {
+  let area = 0;
+  for (let i = 0; i < points.length; i++) {
+    const a = points[i], b = points[(i + 1) % points.length];
+    area += a.x * b.y - b.x * a.y;
+  }
+  return Math.abs(area) / 2;
+}
+function segmentPoint(edgeIndex, t) { const a = state.points[edgeIndex % state.points.length], b = state.points[(edgeIndex + 1) % state.points.length]; return {x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t}; }
+function longestLowEdgeIndex() {
+  let best = 0, bestScore = Infinity;
+  for (let i = 0; i < state.points.length; i++) {
+    const a = state.points[i], b = state.points[(i + 1) % state.points.length];
+    const score = (a.y + b.y) / 2 - Math.hypot(b.x - a.x, b.y - a.y) * 0.08;
+    if (score < bestScore) { bestScore = score; best = i; }
+  }
+  return best;
+}
+function defaultEntrances(count) { const edge = longestLowEdgeIndex(); return Array.from({length: count}, (_, i) => ({edge, t: count === 1 ? 0.5 : 0.2 + (0.6 * i) / (count - 1)})); }
+function projectToClosestBoundary(point) {
+  let best = {edge: 0, t: 0, dist: Infinity};
+  for (let i = 0; i < state.points.length; i++) {
+    const a = state.points[i], b = state.points[(i + 1) % state.points.length];
+    const vx = b.x - a.x, vy = b.y - a.y, denom = vx * vx + vy * vy || 1;
+    const t = clamp(((point.x - a.x) * vx + (point.y - a.y) * vy) / denom, 0, 1);
+    const x = a.x + vx * t, y = a.y + vy * t, dist = Math.hypot(point.x - x, point.y - y);
+    if (dist < best.dist) best = {edge: i, t, dist};
+  }
+  return {edge: best.edge, t: best.t};
+}
+function projectPointToEdge(edgeIndex, point) {
+  const a = state.points[edgeIndex], b = state.points[(edgeIndex + 1) % state.points.length];
+  const vx = b.x - a.x, vy = b.y - a.y, denom = vx * vx + vy * vy || 1;
+  return {edge: edgeIndex, t: clamp(((point.x - a.x) * vx + (point.y - a.y) * vy) / denom, 0, 1)};
+}
+function resetBoundaryForPreset() {
+  pushHistory();
+  state.points = state.initialPoints.length
+    ? state.initialPoints.map(p => ({x: clamp(p.x, 0, state.siteWidth), y: clamp(p.y, 0, state.siteLength)}))
+    : [{x:0,y:0},{x:state.siteWidth,y:0},{x:state.siteWidth,y:state.siteLength},{x:0,y:state.siteLength}];
+  state.entrances = !state.entranceEditingEnabled
+    ? []
+    : state.initialEntrances.length
+    ? state.initialEntrances.map(projectToClosestBoundary)
+    : defaultEntrances(Number(document.getElementById("entranceCount").value || 0));
+  document.getElementById("entranceCount").value = state.entrances.length;
+  state.selectedVertex = 0; state.selectedEdge = null; state.selectedEntrance = state.entrances.length ? 0 : null; render();
+}
+function drawGrid() {
+  gridLayer.innerHTML = "";
+  for (let i = 0; i <= 8; i++) {
+    const x = plot.x + (i / 8) * plot.w, y = plot.y + (i / 8) * plot.h;
+    gridLayer.insertAdjacentHTML("beforeend", `<line class="grid-line" x1="${x}" y1="${plot.y}" x2="${x}" y2="${plot.y + plot.h}"></line><line class="grid-line" x1="${plot.x}" y1="${y}" x2="${plot.x + plot.w}" y2="${y}"></line>`);
+  }
+  gridLayer.insertAdjacentHTML("beforeend", `<rect x="${plot.x}" y="${plot.y}" width="${plot.w}" height="${plot.h}" fill="none" stroke="#b8c2d0" stroke-width="1.5"></rect>`);
+}
+function renderRoads() {
+  roadLayer.innerHTML = "";
+  for (const zone of state.exclusionZones || []) {
+    const polygon = (zone.polygon || []).map(p => worldToSvg({x: Number(p.x_m), y: Number(p.y_m)}));
+    if (polygon.length < 3) continue;
+    const pointsText = polygon.map(p => `${p.x},${p.y}`).join(" ");
+    roadLayer.insertAdjacentHTML("beforeend", `<polygon class="road-zone" points="${pointsText}"></polygon>`);
+  }
+}
+function renderBoundary() {
+  boundaryLayer.innerHTML = ""; vertexLayer.innerHTML = ""; entranceLayer.innerHTML = "";
+  const svgPoints = state.points.map(worldToSvg), pointsText = svgPoints.map(p => `${p.x},${p.y}`).join(" ");
+  boundaryLayer.insertAdjacentHTML("beforeend", `<polygon class="poly-fill" points="${pointsText}"></polygon><polyline class="edge-line" points="${pointsText} ${svgPoints[0].x},${svgPoints[0].y}"></polyline>`);
+  for (let i = 0; i < svgPoints.length; i++) {
+    const a = svgPoints[i], b = svgPoints[(i + 1) % svgPoints.length];
+    if (i === state.selectedEdge) boundaryLayer.insertAdjacentHTML("beforeend", `<line class="edge-guide" x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}"></line>`);
+    boundaryLayer.insertAdjacentHTML("beforeend", `<line class="edge-hit" data-edge="${i}" x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}"></line>`);
+  }
+  svgPoints.forEach((p, i) => vertexLayer.insertAdjacentHTML("beforeend", `<circle class="${i === state.selectedVertex ? "vertex selected" : "vertex"}" data-index="${i}" cx="${p.x}" cy="${p.y}" r="7"></circle>`));
+  if (state.entranceEditingEnabled) {
+    state.entrances.forEach((entrance, i) => {
+      entrance.edge = clamp(entrance.edge, 0, state.points.length - 1); entrance.t = clamp(entrance.t, 0, 1);
+      const p = worldToSvg(segmentPoint(entrance.edge, entrance.t));
+      entranceLayer.insertAdjacentHTML("beforeend", `<circle class="${i === state.selectedEntrance ? "entrance selected" : "entrance"}" data-entrance="${i}" cx="${p.x}" cy="${p.y}" r="10"></circle><text class="entrance-label" x="${p.x + 13}" y="${p.y - 11}">E${i + 1}</text>`);
+    });
+  }
+}
+function renderFacilities() {
+  const parent = document.getElementById("facilityControls"); parent.innerHTML = "";
+  for (const [name, cfg] of Object.entries(state.facilities)) {
+    parent.insertAdjacentHTML("beforeend", `<div class="facility-card"><div class="facility-title"><strong>${name.replace("_", " ")}</strong><span class="pill" id="${name}_qty_label">${cfg.quantity}</span></div><label for="${name}_qty">Quantity</label><input id="${name}_qty" data-fac="${name}" data-field="quantity" type="range" min="0" max="20" step="1" value="${cfg.quantity}"><div class="small-grid"><div><label>Width</label><input data-fac="${name}" data-field="width_m" type="number" min="1" step="0.5" value="${cfg.width_m}"></div><div><label>Length</label><input data-fac="${name}" data-field="length_m" type="number" min="1" step="0.5" value="${cfg.length_m}"></div><div><label>Clearance</label><input data-fac="${name}" data-field="clearance_radius_m" type="number" min="0" step="0.5" value="${cfg.clearance_radius_m}"></div></div></div>`);
+  }
+  parent.querySelectorAll("input").forEach(input => {
+    input.addEventListener("change", event => { const el = event.target; pushHistory(); state.facilities[el.dataset.fac][el.dataset.field] = Number(el.value); if (el.dataset.field === "quantity") document.getElementById(`${el.dataset.fac}_qty_label`).textContent = String(el.value); render(); });
+    input.addEventListener("input", event => { const el = event.target; state.facilities[el.dataset.fac][el.dataset.field] = Number(el.value); if (el.dataset.field === "quantity") document.getElementById(`${el.dataset.fac}_qty_label`).textContent = String(el.value); render(); });
+  });
+}
+function renderLegend() {
+  const parent = document.getElementById("facilityLegend");
+  parent.innerHTML = "";
+  for (const name of Object.keys(state.facilities)) {
+    parent.insertAdjacentHTML("beforeend", `<span><i class="swatch" style="background:${facilityColors[name] || "#64748b"}"></i>${facilityLabels[name] || name}: ${facilityFullLabels[name] || name.replace("_", " ")}</span>`);
+  }
+  if ((state.exclusionZones || []).length) {
+    parent.insertAdjacentHTML("beforeend", `<span><i class="swatch" style="background:#f7df3e"></i>road / access no-go</span>`);
+  }
+}
+function renderDescriptors() {
+  const parent = document.getElementById("descriptorControls"); parent.innerHTML = "";
+  descriptors.forEach(([key, label]) => {
+    parent.insertAdjacentHTML("beforeend", `<label class="check"><input id="desc_${key}" type="checkbox" ${state.descriptors[key] ? "checked" : ""}> ${label}</label>`);
+    document.getElementById(`desc_${key}`).addEventListener("change", event => { state.descriptors[key] = event.target.checked; sendValue(); });
+  });
+}
+function updateSummary() {
+  const area = polygonArea(state.points); let facilityCount = 0, demand = 0;
+  for (const cfg of Object.values(state.facilities)) { facilityCount += Number(cfg.quantity); demand += Number(cfg.quantity) * (Number(cfg.width_m) + Number(cfg.clearance_radius_m) * 2) * (Number(cfg.length_m) + Number(cfg.clearance_radius_m) * 2); }
+  const selected = state.selectedEntrance != null ? `entrance ${state.selectedEntrance + 1}` : (state.selectedEdge != null ? `edge ${state.selectedEdge + 1}` : `vertex ${state.selectedVertex + 1}`);
+  document.getElementById("areaValue").textContent = `${fmt(area, 0)} m2`; document.getElementById("entranceMetric").textContent = state.entranceEditingEnabled ? String(state.entrances.length) : "Random"; document.getElementById("selectedValue").textContent = selected; document.getElementById("facilityCount").textContent = String(facilityCount); document.getElementById("demandValue").textContent = `${fmt(demand, 0)} m2`; document.getElementById("crowdingValue").textContent = `${fmt(area > 0 ? demand / area * 100 : 0, 0)}%`; updateHistoryButtons();
+}
+function exportObject() {
+  const total = Number(document.getElementById("safetyWeight").value) + Number(document.getElementById("efficiencyWeight").value) + Number(document.getElementById("adaptabilityWeight").value);
+  const norm = v => total > 0 ? Number((Number(v) / total).toFixed(4)) : 0;
+  const entrances = state.entranceEditingEnabled ? state.entrances.map((entrance, i) => { const p = segmentPoint(entrance.edge, entrance.t); return {name: `entrance_${String(i).padStart(2, "0")}`, edge_index: entrance.edge, edge_t: Number(fmt(entrance.t, 4)), x_m: Number(fmt(p.x, 2)), y_m: Number(fmt(p.y, 2)), x: Number(fmt(p.x / state.siteWidth, 5)), y: Number(fmt(p.y / state.siteLength, 5))}; }) : [];
+  const boundaryArea = polygonArea(state.points);
+  let bufferedDemand = 0; for (const cfg of Object.values(state.facilities)) bufferedDemand += Number(cfg.quantity) * (Number(cfg.width_m) + Number(cfg.clearance_radius_m) * 2) * (Number(cfg.length_m) + Number(cfg.clearance_radius_m) * 2);
+  const exclusionZones = (state.exclusionZones || []).map((zone, index) => ({
+    name: zone.name || `exclusion_${String(index).padStart(2, "0")}`,
+    polygon: (zone.polygon || []).map(p => ({
+      x_m: Number(fmt(p.x_m, 2)),
+      y_m: Number(fmt(p.y_m, 2)),
+      x: Number(fmt(p.x_m / state.siteWidth, 5)),
+      y: Number(fmt(p.y_m / state.siteLength, 5)),
+    })),
+  }));
+  const optimisation = Object.assign({}, state.algorithmDefaults || {}, {
+    target_layout_count: Number(document.getElementById("layoutCount").value || 20),
+    intended_solver_stage: "multi_objective_quality_diversity_layout_generation",
+  });
+  return {schema: "stage1_problem_definition_v1", project_name: document.getElementById("projectName").value || state.projectName, preset: state.preset, created_at: new Date().toISOString(), coordinate_space: "metres_with_normalised_export", site_width_m: Number(fmt(state.siteWidth, 2)), site_length_m: Number(fmt(state.siteLength, 2)), boundary_polygon_world_m: state.points.map(p => ({x_m: Number(fmt(p.x, 2)), y_m: Number(fmt(p.y, 2))})), boundary_polygon: state.points.map(p => ({x: Number(fmt(p.x / state.siteWidth, 5)), y: Number(fmt(p.y / state.siteLength, 5))})), entrances, exclusion_zones: exclusionZones, facility_requirements: state.facilities, objectives: {safety: norm(document.getElementById("safetyWeight").value), efficiency: norm(document.getElementById("efficiencyWeight").value), adaptability: norm(document.getElementById("adaptabilityWeight").value)}, behavioural_descriptors: Object.keys(state.descriptors).filter(key => state.descriptors[key]), optimisation, summary: {boundary_area_m2: Number(fmt(boundaryArea, 2)), buffered_facility_demand_m2: Number(fmt(bufferedDemand, 2)), crowding_ratio: boundaryArea > 0 ? Number(fmt(bufferedDemand / boundaryArea, 4)) : null}};
+}
+function sendValue() {
+  Streamlit.setComponentValue(exportObject());
+  updateFrameHeight();
+}
+function scheduleSendValue() {
+  if (sendTimer) clearTimeout(sendTimer);
+  sendTimer = setTimeout(sendValue, 220);
+  updateFrameHeight();
+}
+function updateFrameHeight() {
+  const app = document.querySelector(".app");
+  const height = app ? Math.ceil(app.getBoundingClientRect().height) + 24 : 1180;
+  Streamlit.setFrameHeight(height);
+}
+function render() { drawGrid(); renderRoads(); renderBoundary(); updateSummary(); scheduleSendValue(); }
+function syncEntranceCount() {
+  if (!state.entranceEditingEnabled) return;
+  const count = Number(document.getElementById("entranceCount").value || 0); pushHistory();
+  if (count > state.entrances.length) { const generated = defaultEntrances(count); while (state.entrances.length < count) state.entrances.push(generated[state.entrances.length]); } else state.entrances = state.entrances.slice(0, count);
+  state.selectedEntrance = state.entrances.length ? Math.min(state.selectedEntrance ?? 0, state.entrances.length - 1) : null; state.selectedEdge = null; render();
+}
+function bindEvents() {
+  document.getElementById("siteWidth").addEventListener("change", e => {
+    pushHistory();
+    const previous = state.siteWidth || 1;
+    state.siteWidth = Number(e.target.value || state.siteWidth);
+    state.points.forEach(p => p.x = clamp(p.x * state.siteWidth / previous, 0, state.siteWidth));
+    state.initialPoints.forEach(p => p.x = clamp(p.x * state.siteWidth / previous, 0, state.siteWidth));
+    state.initialEntrances.forEach(p => p.x = clamp(p.x * state.siteWidth / previous, 0, state.siteWidth));
+    (state.exclusionZones || []).forEach(zone => (zone.polygon || []).forEach(p => p.x_m = clamp(p.x_m * state.siteWidth / previous, 0, state.siteWidth)));
+    render();
+  });
+  document.getElementById("siteLength").addEventListener("change", e => {
+    pushHistory();
+    const previous = state.siteLength || 1;
+    state.siteLength = Number(e.target.value || state.siteLength);
+    state.points.forEach(p => p.y = clamp(p.y * state.siteLength / previous, 0, state.siteLength));
+    state.initialPoints.forEach(p => p.y = clamp(p.y * state.siteLength / previous, 0, state.siteLength));
+    state.initialEntrances.forEach(p => p.y = clamp(p.y * state.siteLength / previous, 0, state.siteLength));
+    (state.exclusionZones || []).forEach(zone => (zone.polygon || []).forEach(p => p.y_m = clamp(p.y_m * state.siteLength / previous, 0, state.siteLength)));
+    render();
+  });
+  document.getElementById("projectName").addEventListener("input", sendValue);
+  document.getElementById("safetyWeight").addEventListener("input", sendValue);
+  document.getElementById("efficiencyWeight").addEventListener("input", sendValue);
+  document.getElementById("adaptabilityWeight").addEventListener("input", sendValue);
+  document.getElementById("layoutCount").addEventListener("input", sendValue);
+  document.getElementById("entranceCount").addEventListener("change", syncEntranceCount);
+  document.getElementById("resetBtn").addEventListener("click", resetBoundaryForPreset);
+  document.getElementById("undoBtn").addEventListener("click", undo);
+  document.getElementById("redoBtn").addEventListener("click", redo);
+  document.getElementById("selectTool").addEventListener("click", () => setTool("select"));
+  document.getElementById("addVertexTool").addEventListener("click", () => setTool("addVertex"));
+  document.getElementById("dragEdgeTool").addEventListener("click", () => setTool("dragEdge"));
+  document.getElementById("addEntranceTool").addEventListener("click", () => setTool("addEntrance"));
+  document.getElementById("deleteTool").addEventListener("click", () => setTool("delete"));
+  document.addEventListener("keydown", e => { if (!e.ctrlKey && !e.metaKey) return; if (e.key.toLowerCase() === "z") { e.preventDefault(); e.shiftKey ? redo() : undo(); } if (e.key.toLowerCase() === "y") { e.preventDefault(); redo(); } });
+  svg.addEventListener("pointerdown", event => {
+    const target = event.target;
+    if (target.classList.contains("vertex")) {
+      if (state.tool === "delete") {
+        if (state.points.length <= 3) return;
+        pushHistory();
+        const index = Number(target.dataset.index);
+        const entrancePoints = state.entrances.map(e => segmentPoint(e.edge, e.t));
+        state.points.splice(index, 1);
+        state.selectedVertex = Math.min(index, state.points.length - 1);
+        state.selectedEntrance = null;
+        state.selectedEdge = null;
+        state.entrances = entrancePoints.map(projectToClosestBoundary);
+        render();
+        return;
+      }
+      if (state.tool !== "select") return;
+      pushHistory();
+      state.draggingVertex = Number(target.dataset.index);
+      state.selectedVertex = state.draggingVertex;
+      state.selectedEntrance = null;
+      state.selectedEdge = null;
+      target.setPointerCapture(event.pointerId);
+      render();
+    } else if (target.classList.contains("entrance")) {
+      if (state.tool === "delete") {
+        pushHistory();
+        const index = Number(target.dataset.entrance);
+        state.entrances.splice(index, 1);
+        document.getElementById("entranceCount").value = state.entrances.length;
+        state.selectedEntrance = state.entrances.length ? Math.min(index, state.entrances.length - 1) : null;
+        state.selectedVertex = null;
+        state.selectedEdge = null;
+        render();
+        return;
+      }
+      if (state.tool !== "select") return;
+      pushHistory();
+      state.draggingEntrance = Number(target.dataset.entrance);
+      state.selectedEntrance = state.draggingEntrance;
+      state.selectedVertex = null;
+      state.selectedEdge = null;
+      target.setPointerCapture(event.pointerId);
+      render();
+    } else if (target.classList.contains("edge-hit")) {
+      const edgeIndex = Number(target.dataset.edge);
+      if (state.tool === "addVertex") {
+        pushHistory();
+        const worldPoint = svgToWorld(event.clientX, event.clientY);
+        const projected = segmentPoint(edgeIndex, projectPointToEdge(edgeIndex, worldPoint).t);
+        const entrancePoints = state.entrances.map(e => segmentPoint(e.edge, e.t));
+        state.points.splice(edgeIndex + 1, 0, projected);
+        state.entrances = entrancePoints.map(projectToClosestBoundary);
+        state.selectedVertex = edgeIndex + 1;
+        state.selectedEdge = null;
+        state.selectedEntrance = null;
+        render();
+        return;
+      }
+      if (state.tool === "addEntrance") {
+        pushHistory();
+        state.entrances.push(projectPointToEdge(edgeIndex, svgToWorld(event.clientX, event.clientY)));
+        document.getElementById("entranceCount").value = state.entrances.length;
+        state.selectedEntrance = state.entrances.length - 1;
+        state.selectedVertex = null;
+        state.selectedEdge = null;
+        render();
+        return;
+      }
+      if (state.tool !== "dragEdge") {
+        if (state.tool === "select") {
+          state.selectedEdge = edgeIndex;
+          state.selectedVertex = null;
+          state.selectedEntrance = null;
+          render();
+        }
+        return;
+      }
+      pushHistory();
+      state.draggingEdge = edgeIndex;
+      state.selectedEdge = state.draggingEdge;
+      state.selectedVertex = null;
+      state.selectedEntrance = null;
+      state.edgeDragStart = svgToWorld(event.clientX, event.clientY);
+      const a = state.points[state.draggingEdge], b = state.points[(state.draggingEdge + 1) % state.points.length];
+      state.edgeDragOriginal = [{x: a.x, y: a.y}, {x: b.x, y: b.y}];
+      target.setPointerCapture(event.pointerId);
+      render();
+    }
+  });
+  svg.addEventListener("pointermove", event => {
+    if (state.draggingVertex != null) {
+      state.points[state.draggingVertex] = svgToWorld(event.clientX, event.clientY);
+      render();
+    } else if (state.draggingEntrance != null) {
+      state.entrances[state.draggingEntrance] = projectToClosestBoundary(svgToWorld(event.clientX, event.clientY));
+      render();
+    } else if (state.draggingEdge != null && state.edgeDragStart && state.edgeDragOriginal) {
+      const current = svgToWorld(event.clientX, event.clientY);
+      let dx = current.x - state.edgeDragStart.x;
+      let dy = current.y - state.edgeDragStart.y;
+      const [originalA, originalB] = state.edgeDragOriginal;
+      const edgeW = Math.abs(originalB.x - originalA.x);
+      const edgeH = Math.abs(originalB.y - originalA.y);
+      if (edgeW > edgeH * 1.5) dx = 0;
+      else if (edgeH > edgeW * 1.5) dy = 0;
+      const aIndex = state.draggingEdge, bIndex = (state.draggingEdge + 1) % state.points.length;
+      state.points[aIndex] = {x: clamp(originalA.x + dx, 0, state.siteWidth), y: clamp(originalA.y + dy, 0, state.siteLength)};
+      state.points[bIndex] = {x: clamp(originalB.x + dx, 0, state.siteWidth), y: clamp(originalB.y + dy, 0, state.siteLength)};
+      render();
+    }
+  });
+  svg.addEventListener("pointerup", () => {
+    state.draggingVertex = null;
+    state.draggingEntrance = null;
+    state.draggingEdge = null;
+    state.edgeDragStart = null;
+    state.edgeDragOriginal = null;
+    sendValue();
+  });
+  svg.addEventListener("click", event => {
+    if (state.tool !== "select") return;
+    const target = event.target;
+    if (target.classList.contains("edge-hit")) {
+      state.selectedEdge = Number(target.dataset.edge);
+      state.selectedVertex = null;
+      state.selectedEntrance = null;
+      render();
+    } else if (target.classList.contains("vertex")) {
+      state.selectedVertex = Number(target.dataset.index);
+      state.selectedEdge = null;
+      state.selectedEntrance = null;
+      render();
+    } else if (target.classList.contains("entrance")) {
+      state.selectedEntrance = Number(target.dataset.entrance);
+      state.selectedVertex = null;
+      state.selectedEdge = null;
+      render();
+    }
+  });
+}
+window.addEventListener("message", event => { if (event.data.type === "streamlit:render") init(event.data.args); });
+Streamlit.setComponentReady();
+</script>
+</body>
+</html>

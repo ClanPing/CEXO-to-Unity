@@ -1,0 +1,59 @@
+{
+  "site": {
+    "default_width_m": 120.0,
+    "default_length_m": 120.0,
+    "ground_y": 0.0
+  },
+  "facility_types": {
+    "core": {
+      "width_m": 9.0,
+      "length_m": 12.0,
+      "height_m": 8.0,
+      "default_rotation_deg": 0.0,
+      "clearance_radius_m": 3.0,
+      "relation_role": "support_or_anchor",
+      "support_type": "structural_grounded",
+      "functional_policy": "nearest_crane_or_entrance"
+    },
+    "crane": {
+      "width_m": 8.0,
+      "length_m": 8.0,
+      "height_m": 35.0,
+      "default_rotation_deg": 0.0,
+      "clearance_radius_m": 18.0,
+      "relation_role": "major_anchor",
+      "support_type": "heavy_grounded",
+      "functional_policy": "nearest_core"
+    },
+    "storage": {
+      "width_m": 10.0,
+      "length_m": 8.0,
+      "height_m": 3.0,
+      "default_rotation_deg": 0.0,
+      "clearance_radius_m": 2.0,
+      "relation_role": "dependent",
+      "support_type": "grounded",
+      "functional_policy": "nearest_crane_or_core"
+    },
+    "office": {
+      "width_m": 12.0,
+      "length_m": 7.5,
+      "height_m": 3.0,
+      "default_rotation_deg": 0.0,
+      "clearance_radius_m": 1.5,
+      "relation_role": "support_or_anchor",
+      "support_type": "grounded",
+      "functional_policy": "nearest_entrance"
+    },
+    "rest_area": {
+      "width_m": 8.0,
+      "length_m": 6.0,
+      "height_m": 3.0,
+      "default_rotation_deg": 0.0,
+      "clearance_radius_m": 1.5,
+      "relation_role": "dependent",
+      "support_type": "grounded",
+      "functional_policy": "nearest_office_or_entrance"
+    }
+  }
+}

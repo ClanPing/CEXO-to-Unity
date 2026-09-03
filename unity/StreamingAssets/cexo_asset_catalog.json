@@ -1,0 +1,100 @@
+{
+  "entries": [
+    {
+      "name": "COMPOSITE_TowerCrane",
+      "category": "crane",
+      "construction_class": "crane",
+      "source_path": "",
+      "path": "",
+      "assembly_type": "compound_prefab"
+    },
+    {
+      "name": "COMPOSITE_ConstructionCore",
+      "category": "core",
+      "construction_class": "building_element",
+      "source_path": "",
+      "path": "",
+      "assembly_type": "compound_prefab"
+    },
+    {
+      "name": "COMPOSITE_ConstructionCore_Walls",
+      "category": "core",
+      "construction_class": "building_element",
+      "source_path": "",
+      "path": "",
+      "assembly_type": "compound_prefab"
+    },
+    {
+      "name": "COMPOSITE_ConstructionCore_Lift",
+      "category": "core",
+      "construction_class": "building_element",
+      "source_path": "",
+      "path": "",
+      "assembly_type": "compound_prefab"
+    },
+    {
+      "name": "SM_CargoContainer01",
+      "category": "office",
+      "construction_class": "container",
+      "source_path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_CargoContainer01.prefab",
+      "path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_CargoContainer01.prefab",
+      "assembly_type": "single_prefab"
+    },
+    {
+      "name": "SM_CargoContainer02",
+      "category": "office",
+      "construction_class": "container",
+      "source_path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_CargoContainer02.prefab",
+      "path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_CargoContainer02.prefab",
+      "assembly_type": "single_prefab"
+    },
+    {
+      "name": "SM_CargoContainer03",
+      "category": "office",
+      "construction_class": "container",
+      "source_path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_CargoContainer03.prefab",
+      "path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_CargoContainer03.prefab",
+      "assembly_type": "single_prefab"
+    },
+    {
+      "name": "SM_CargoContainer04",
+      "category": "office",
+      "construction_class": "container",
+      "source_path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_CargoContainer04.prefab",
+      "path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_CargoContainer04.prefab",
+      "assembly_type": "single_prefab"
+    },
+    {
+      "name": "SM_CargoContainer05",
+      "category": "office",
+      "construction_class": "container",
+      "source_path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_CargoContainer05.prefab",
+      "path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_CargoContainer05.prefab",
+      "assembly_type": "single_prefab"
+    },
+    {
+      "name": "SM_RoadBlock04",
+      "category": "boundary",
+      "construction_class": "road_block",
+      "source_path": "Assets/ConstructionSite/Prefab/Fence/SM_RoadBlock04.prefab",
+      "path": "Assets/ConstructionSite/Prefab/Fence/SM_RoadBlock04.prefab",
+      "assembly_type": "single_prefab"
+    },
+    {
+      "name": "SM_Fence05",
+      "category": "boundary",
+      "construction_class": "fence",
+      "source_path": "Assets/ConstructionSite/Prefab/Fence/SM_Fence05.prefab",
+      "path": "Assets/ConstructionSite/Prefab/Fence/SM_Fence05.prefab",
+      "assembly_type": "single_prefab"
+    },
+    {
+      "name": "SM_TrafficCone",
+      "category": "accessory",
+      "construction_class": "traffic_control",
+      "source_path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_TrafficCone.prefab",
+      "path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_TrafficCone.prefab",
+      "assembly_type": "single_prefab"
+    }
+  ]
+}

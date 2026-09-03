@@ -1,0 +1,6105 @@
+{
+  "scene_id": "cslpelite_layout_021_scene",
+  "pipeline": {
+    "name": "pair2scene-lite-construction",
+    "version": "0.1.0",
+    "description": "Raw construction layout JSON -> semantic prefab selection -> relation-ordered 3D scene JSON"
+  },
+  "source_layout": {
+    "path": "C:/Users/Ping/Documents/Visual studio code repo/2026/codex_pair2scene/standard_layout_021.json",
+    "id": "cslpelite_layout_021",
+    "objectives": {
+      "safety_compliance": 1.0,
+      "operational_efficiency": 0.7414862720632164,
+      "layout_adaptability": 0.5171581932535482,
+      "combined_score": 0.7775933395950294
+    },
+    "behaviors": {
+      "spatial_organization": 0.4273428567757023,
+      "functional_integration": 0.30731058593897886
+    },
+    "feasibility": {
+      "safe": true,
+      "violations": []
+    }
+  },
+  "site": {
+    "coordinate_space": "normalized",
+    "bounds": {
+      "min_x": 0.0,
+      "max_x": 120.0,
+      "min_z": 0.0,
+      "max_z": 120.0
+    },
+    "ground_y": 0.0,
+    "boundary_polygon": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        120.0,
+        0.0
+      ],
+      [
+        120.0,
+        120.0
+      ],
+      [
+        0.0,
+        120.0
+      ]
+    ],
+    "exclusion_zones": [],
+    "anchors": {
+      "scene_root": "scene_root",
+      "ground": "ground_00",
+      "entrances": [
+        {
+          "id": "entrance_00",
+          "index": 0,
+          "normalized": {
+            "x": 0.95,
+            "y": 0.8266111159797104
+          },
+          "world": {
+            "x": 114.0,
+            "z": 99.19333391756524
+          }
+        },
+        {
+          "id": "entrance_01",
+          "index": 1,
+          "normalized": {
+            "x": 0.95,
+            "y": 0.423426431834771
+          },
+          "world": {
+            "x": 114.0,
+            "z": 50.811171820172525
+          }
+        },
+        {
+          "id": "entrance_02",
+          "index": 2,
+          "normalized": {
+            "x": 0.5821835332484642,
+            "y": 0.05
+          },
+          "world": {
+            "x": 69.8620239898157,
+            "z": 6.0
+          }
+        }
+      ]
+    }
+  },
+  "site_visuals": {
+    "boundary_points": [
+      {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      {
+        "x": 120.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      {
+        "x": 120.0,
+        "y": 0.0,
+        "z": 120.0
+      },
+      {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 120.0
+      }
+    ],
+    "road_zones": [],
+    "entrances": [
+      {
+        "id": "entrance_00",
+        "position": {
+          "x": 114.0,
+          "y": 0.0,
+          "z": 99.19333391756524
+        }
+      },
+      {
+        "id": "entrance_01",
+        "position": {
+          "x": 114.0,
+          "y": 0.0,
+          "z": 50.811171820172525
+        }
+      },
+      {
+        "id": "entrance_02",
+        "position": {
+          "x": 69.8620239898157,
+          "y": 0.0,
+          "z": 6.0
+        }
+      }
+    ]
+  },
+  "objects": [
+    {
+      "id": "obj_0001",
+      "source": {
+        "facility_index": 0,
+        "facility_type": "core",
+        "category": "operational",
+        "kind": "primary",
+        "visual_variant": "COMPOSITE_ConstructionCore"
+      },
+      "prefab": {
+        "name": "COMPOSITE_ConstructionCore",
+        "path": "",
+        "construction_class": "building_element",
+        "relation_role": "support_or_anchor",
+        "suggested_support_type": "structural_grounded",
+        "selection_score": 998.0,
+        "assembly_type": "compound_prefab",
+        "children": [
+          {
+            "name": "SM_ConcreteFloor01_floor_a",
+            "path": "Assets/ConstructionSite/Prefab/Building/SM_ConcreteFloor01.prefab",
+            "position": {
+              "x": -2.0,
+              "y": 0.0,
+              "z": -2.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_ConcreteFloor01_floor_b",
+            "path": "Assets/ConstructionSite/Prefab/Building/SM_ConcreteFloor01.prefab",
+            "position": {
+              "x": 2.0,
+              "y": 0.0,
+              "z": -2.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_ConcreteFloor01_floor_c",
+            "path": "Assets/ConstructionSite/Prefab/Building/SM_ConcreteFloor01.prefab",
+            "position": {
+              "x": -2.0,
+              "y": 0.0,
+              "z": 2.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_ConcreteFloor01_floor_d",
+            "path": "Assets/ConstructionSite/Prefab/Building/SM_ConcreteFloor01.prefab",
+            "position": {
+              "x": 2.0,
+              "y": 0.0,
+              "z": 2.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_Formwork03_core_frame",
+            "path": "Assets/ConstructionSite/Prefab/Building/SM_Formwork03.prefab",
+            "position": {
+              "x": 0.0,
+              "y": 0.2,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_Formwork02_side_frame",
+            "path": "Assets/ConstructionSite/Prefab/Building/SM_Formwork02.prefab",
+            "position": {
+              "x": 3.4,
+              "y": 0.2,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_Scaffolding23_front_bay",
+            "path": "Assets/ConstructionSite/Prefab/Building/Scaffolding/SM_Scaffolding23.prefab",
+            "position": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": -4.5
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 90.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_Scaffolding23_back_bay",
+            "path": "Assets/ConstructionSite/Prefab/Building/Scaffolding/SM_Scaffolding23.prefab",
+            "position": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 4.5
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 90.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_Scaffolding20_left_bay",
+            "path": "Assets/ConstructionSite/Prefab/Building/Scaffolding/SM_Scaffolding20.prefab",
+            "position": {
+              "x": -4.5,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_Scaffolding20_right_bay",
+            "path": "Assets/ConstructionSite/Prefab/Building/Scaffolding/SM_Scaffolding20.prefab",
+            "position": {
+              "x": 4.5,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_Tarp09_top_cover",
+            "path": "Assets/ConstructionSite/Prefab/Building/SM_Tarp09.prefab",
+            "position": {
+              "x": 0.0,
+              "y": 6.3,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        ]
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 9.0,
+          "y": 8.0,
+          "z": 12.0
+        },
+        "prefab_bbox_size": {
+          "x": 8.0,
+          "y": 8.0,
+          "z": 10.0
+        },
+        "scale_policy": "fit_facility_footprint",
+        "clearance_radius_m": 3.0,
+        "placement_notes": "compiled from raw optimized layout"
+      },
+      "transform": {
+        "position": {
+          "x": 44.356743506603635,
+          "y": 0.0,
+          "z": 56.225072836189035
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          39.856743506603635,
+          50.225072836189035
+        ],
+        [
+          48.856743506603635,
+          50.225072836189035
+        ],
+        [
+          48.856743506603635,
+          62.225072836189035
+        ],
+        [
+          39.856743506603635,
+          62.225072836189035
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0011"
+      }
+    },
+    {
+      "id": "obj_0002",
+      "source": {
+        "facility_index": 1,
+        "facility_type": "core",
+        "category": "operational",
+        "kind": "primary",
+        "visual_variant": "COMPOSITE_ConstructionCore_Walls"
+      },
+      "prefab": {
+        "name": "COMPOSITE_ConstructionCore_Walls",
+        "path": "",
+        "construction_class": "building_element",
+        "relation_role": "support_or_anchor",
+        "suggested_support_type": "structural_grounded",
+        "selection_score": 997.0,
+        "assembly_type": "compound_prefab",
+        "children": [
+          {
+            "name": "SM_ConcreteFloor01_floor_a",
+            "path": "Assets/ConstructionSite/Prefab/Building/SM_ConcreteFloor01.prefab",
+            "position": {
+              "x": -2.0,
+              "y": 0.0,
+              "z": -2.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_ConcreteFloor01_floor_b",
+            "path": "Assets/ConstructionSite/Prefab/Building/SM_ConcreteFloor01.prefab",
+            "position": {
+              "x": 2.0,
+              "y": 0.0,
+              "z": -2.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_ConcreteFloor01_floor_c",
+            "path": "Assets/ConstructionSite/Prefab/Building/SM_ConcreteFloor01.prefab",
+            "position": {
+              "x": -2.0,
+              "y": 0.0,
+              "z": 2.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_ConcreteFloor01_floor_d",
+            "path": "Assets/ConstructionSite/Prefab/Building/SM_ConcreteFloor01.prefab",
+            "position": {
+              "x": 2.0,
+              "y": 0.0,
+              "z": 2.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_ConcreteWall02_wall_front",
+            "path": "Assets/ConstructionSite/Prefab/Building/SM_ConcreteWall02.prefab",
+            "position": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": -4.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 90.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_ConcreteWall02_wall_back",
+            "path": "Assets/ConstructionSite/Prefab/Building/SM_ConcreteWall02.prefab",
+            "position": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 4.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 90.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_ConcreteWall02_wall_left",
+            "path": "Assets/ConstructionSite/Prefab/Building/SM_ConcreteWall02.prefab",
+            "position": {
+              "x": -4.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_ConcreteWall02_wall_right_open",
+            "path": "Assets/ConstructionSite/Prefab/Building/SM_ConcreteWall02.prefab",
+            "position": {
+              "x": 4.0,
+              "y": 0.0,
+              "z": -1.8
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_ConcreteColumn01_column_a",
+            "path": "Assets/ConstructionSite/Prefab/Building/SM_ConcreteColumn01.prefab",
+            "position": {
+              "x": -3.4,
+              "y": 0.0,
+              "z": -3.4
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_ConcreteColumn01_column_b",
+            "path": "Assets/ConstructionSite/Prefab/Building/SM_ConcreteColumn01.prefab",
+            "position": {
+              "x": 3.4,
+              "y": 0.0,
+              "z": -3.4
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_ConcreteColumn01_column_c",
+            "path": "Assets/ConstructionSite/Prefab/Building/SM_ConcreteColumn01.prefab",
+            "position": {
+              "x": -3.4,
+              "y": 0.0,
+              "z": 3.4
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_Formwork04_inner_formwork",
+            "path": "Assets/ConstructionSite/Prefab/Building/SM_Formwork04.prefab",
+            "position": {
+              "x": 0.0,
+              "y": 0.2,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_Scaffolding21_access_bay",
+            "path": "Assets/ConstructionSite/Prefab/Building/Scaffolding/SM_Scaffolding21.prefab",
+            "position": {
+              "x": 4.7,
+              "y": 0.0,
+              "z": 2.8
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        ]
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 9.0,
+          "y": 8.0,
+          "z": 12.0
+        },
+        "prefab_bbox_size": {
+          "x": 8.0,
+          "y": 8.0,
+          "z": 10.0
+        },
+        "scale_policy": "fit_facility_footprint",
+        "clearance_radius_m": 3.0,
+        "placement_notes": "compiled from raw optimized layout"
+      },
+      "transform": {
+        "position": {
+          "x": 78.9283014508788,
+          "y": 0.0,
+          "z": 30.77553518477321
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          74.4283014508788,
+          24.77553518477321
+        ],
+        [
+          83.4283014508788,
+          24.77553518477321
+        ],
+        [
+          83.4283014508788,
+          36.77553518477321
+        ],
+        [
+          74.4283014508788,
+          36.77553518477321
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0041"
+      }
+    },
+    {
+      "id": "obj_0003",
+      "source": {
+        "facility_index": 2,
+        "facility_type": "crane",
+        "category": "equipment",
+        "kind": "primary",
+        "visual_variant": "COMPOSITE_TowerCrane"
+      },
+      "prefab": {
+        "name": "COMPOSITE_TowerCrane",
+        "path": "",
+        "construction_class": "crane",
+        "relation_role": "major_anchor",
+        "suggested_support_type": "heavy_grounded",
+        "selection_score": 999.0,
+        "assembly_type": "compound_prefab",
+        "children": [
+          {
+            "name": "SM_TowerCrane01_base",
+            "path": "Assets/ConstructionSite/Prefab/TowerCrane/SM_TowerCrane01.prefab",
+            "position": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_TowerCrane02_mast_01",
+            "path": "Assets/ConstructionSite/Prefab/TowerCrane/SM_TowerCrane02.prefab",
+            "position": {
+              "x": 0.0,
+              "y": 4.5,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_TowerCrane02_mast_02",
+            "path": "Assets/ConstructionSite/Prefab/TowerCrane/SM_TowerCrane02.prefab",
+            "position": {
+              "x": 0.0,
+              "y": 9.1,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_TowerCrane02_mast_03",
+            "path": "Assets/ConstructionSite/Prefab/TowerCrane/SM_TowerCrane02.prefab",
+            "position": {
+              "x": 0.0,
+              "y": 13.7,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_TowerCrane02_mast_04",
+            "path": "Assets/ConstructionSite/Prefab/TowerCrane/SM_TowerCrane02.prefab",
+            "position": {
+              "x": 0.0,
+              "y": 18.3,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_TowerCrane02_mast_05",
+            "path": "Assets/ConstructionSite/Prefab/TowerCrane/SM_TowerCrane02.prefab",
+            "position": {
+              "x": 0.0,
+              "y": 22.9,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_TowerCrane06_upper_jib",
+            "path": "Assets/ConstructionSite/Prefab/TowerCrane/SM_TowerCrane06.prefab",
+            "position": {
+              "x": 0.0,
+              "y": 28.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          },
+          {
+            "name": "SM_TowerCrane13_hook_line",
+            "path": "Assets/ConstructionSite/Prefab/TowerCrane/SM_TowerCrane13.prefab",
+            "position": {
+              "x": 0.0,
+              "y": 23.5,
+              "z": 17.5
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        ]
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 8.0,
+          "y": 35.0,
+          "z": 8.0
+        },
+        "prefab_bbox_size": {
+          "x": 8.0,
+          "y": 36.0,
+          "z": 52.0
+        },
+        "scale_policy": "fit_facility_footprint",
+        "clearance_radius_m": 18.0,
+        "placement_notes": "compiled from raw optimized layout"
+      },
+      "transform": {
+        "position": {
+          "x": 74.58700494867765,
+          "y": 0.0,
+          "z": 70.30234321903576
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          70.58700494867765,
+          66.30234321903576
+        ],
+        [
+          78.58700494867765,
+          66.30234321903576
+        ],
+        [
+          78.58700494867765,
+          74.30234321903576
+        ],
+        [
+          70.58700494867765,
+          74.30234321903576
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0028"
+      }
+    },
+    {
+      "id": "obj_0004",
+      "source": {
+        "facility_index": 3,
+        "facility_type": "storage",
+        "category": "operational",
+        "kind": "primary",
+        "visual_variant": "SM_StoragePipe03_2"
+      },
+      "prefab": {
+        "name": "SM_StoragePipe03_2",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_StoragePipe03_2.prefab",
+        "construction_class": "material",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 15.25,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 10.0,
+          "y": 3.0,
+          "z": 8.0
+        },
+        "prefab_bbox_size": {
+          "x": 7.0296,
+          "y": 2.0269,
+          "z": 2.6638
+        },
+        "scale_policy": "fit_facility_footprint",
+        "clearance_radius_m": 2.0,
+        "placement_notes": "compiled from raw optimized layout"
+      },
+      "transform": {
+        "position": {
+          "x": 46.17802498049124,
+          "y": 0.0,
+          "z": 80.74937705192399
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          41.17802498049124,
+          76.74937705192399
+        ],
+        [
+          51.17802498049124,
+          76.74937705192399
+        ],
+        [
+          51.17802498049124,
+          84.74937705192399
+        ],
+        [
+          41.17802498049124,
+          84.74937705192399
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0031"
+      }
+    },
+    {
+      "id": "obj_0005",
+      "source": {
+        "facility_index": 4,
+        "facility_type": "rest_area",
+        "category": "worker",
+        "kind": "primary",
+        "visual_variant": "SM_Biotoilet"
+      },
+      "prefab": {
+        "name": "SM_Biotoilet",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_Biotoilet.prefab",
+        "construction_class": "toilet",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 13.25,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 8.0,
+          "y": 3.0,
+          "z": 6.0
+        },
+        "prefab_bbox_size": {
+          "x": 1.1802,
+          "y": 2.4793,
+          "z": 1.2
+        },
+        "scale_policy": "fit_facility_footprint",
+        "clearance_radius_m": 1.5,
+        "placement_notes": "compiled from raw optimized layout"
+      },
+      "transform": {
+        "position": {
+          "x": 18.556323712732656,
+          "y": 0.0,
+          "z": 64.75064314642776
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          14.556323712732656,
+          61.75064314642776
+        ],
+        [
+          22.556323712732656,
+          61.75064314642776
+        ],
+        [
+          22.556323712732656,
+          67.75064314642776
+        ],
+        [
+          14.556323712732656,
+          67.75064314642776
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0024"
+      }
+    },
+    {
+      "id": "obj_0006",
+      "source": {
+        "facility_index": 5,
+        "facility_type": "office",
+        "category": "worker",
+        "kind": "primary",
+        "visual_variant": "SM_CargoContainer01"
+      },
+      "prefab": {
+        "name": "SM_CargoContainer01",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_CargoContainer01.prefab",
+        "construction_class": "container",
+        "relation_role": "support_or_anchor",
+        "suggested_support_type": "grounded",
+        "selection_score": 13.25,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 12.0,
+          "y": 3.0,
+          "z": 7.5
+        },
+        "prefab_bbox_size": {
+          "x": 2.4627,
+          "y": 2.6221,
+          "z": 6.1934
+        },
+        "scale_policy": "fit_facility_footprint",
+        "clearance_radius_m": 1.5,
+        "placement_notes": "compiled from raw optimized layout"
+      },
+      "transform": {
+        "position": {
+          "x": 46.821446994915185,
+          "y": 0.0,
+          "z": 33.658172046243955
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          40.821446994915185,
+          29.908172046243955
+        ],
+        [
+          52.821446994915185,
+          29.908172046243955
+        ],
+        [
+          52.821446994915185,
+          37.408172046243955
+        ],
+        [
+          40.821446994915185,
+          37.408172046243955
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "entrance_02"
+      }
+    },
+    {
+      "id": "obj_0007",
+      "source": {
+        "facility_index": 0,
+        "facility_type": "core",
+        "category": "operational",
+        "kind": "accessory",
+        "parent_id": "obj_0001",
+        "accessory_type": "floodlight"
+      },
+      "prefab": {
+        "name": "SM_FloodlightTower03",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_FloodlightTower03.prefab",
+        "construction_class": "light",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 2.1487,
+          "y": 11.8591,
+          "z": 2.8312
+        },
+        "prefab_bbox_size": {
+          "x": 2.1487,
+          "y": 11.8591,
+          "z": 2.8312
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.25,
+        "placement_notes": "visual enrichment accessory"
+      },
+      "transform": {
+        "position": {
+          "x": 51.856743506603635,
+          "y": 0.0,
+          "z": 65.22507283618904
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 30.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          51.63412911404782,
+          63.46195227459179
+        ],
+        [
+          53.494957899159445,
+          64.53630227459179
+        ],
+        [
+          52.07935789915945,
+          66.9881933977863
+        ],
+        [
+          50.218529114047826,
+          65.9138433977863
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0001"
+      }
+    },
+    {
+      "id": "obj_0008",
+      "source": {
+        "facility_index": 0,
+        "facility_type": "core",
+        "category": "operational",
+        "kind": "accessory",
+        "parent_id": "obj_0001",
+        "accessory_type": "toolbox"
+      },
+      "prefab": {
+        "name": "SM_ToolBox",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_ToolBox.prefab",
+        "construction_class": "small_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.7284,
+          "y": 0.3437,
+          "z": 0.259
+        },
+        "prefab_bbox_size": {
+          "x": 0.7284,
+          "y": 0.3437,
+          "z": 0.259
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.25,
+        "placement_notes": "visual enrichment accessory"
+      },
+      "transform": {
+        "position": {
+          "x": 38.856743506603635,
+          "y": 0.0,
+          "z": 55.605024046144194
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          38.49254350660364,
+          55.475524046144194
+        ],
+        [
+          39.22094350660363,
+          55.475524046144194
+        ],
+        [
+          39.22094350660363,
+          55.734524046144195
+        ],
+        [
+          38.49254350660364,
+          55.734524046144195
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0001"
+      }
+    },
+    {
+      "id": "obj_0009",
+      "source": {
+        "facility_index": 0,
+        "facility_type": "core",
+        "category": "operational",
+        "kind": "accessory",
+        "parent_id": "obj_0001",
+        "accessory_type": "dirt_decal"
+      },
+      "prefab": {
+        "name": "Dirt",
+        "path": "Assets/ConstructionSite/Prefab/Decal/Dirt.prefab",
+        "construction_class": "ground_detail",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 2.5
+        },
+        "prefab_bbox_size": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 2.5
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.25,
+        "placement_notes": "visual enrichment accessory"
+      },
+      "transform": {
+        "position": {
+          "x": 48.83558884075727,
+          "y": 0.0,
+          "z": 49.02507283618903
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 29.052743177116664,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          47.25717439207787,
+          46.71832017753659
+        ],
+        [
+          51.628039636886854,
+          49.146392872436984
+        ],
+        [
+          50.414003289436664,
+          51.331825494841475
+        ],
+        [
+          46.04313804462768,
+          48.90375279994108
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0001"
+      }
+    },
+    {
+      "id": "obj_0010",
+      "source": {
+        "facility_index": 1,
+        "facility_type": "core",
+        "category": "operational",
+        "kind": "accessory",
+        "parent_id": "obj_0002",
+        "accessory_type": "floodlight"
+      },
+      "prefab": {
+        "name": "SM_FloodlightTower03",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_FloodlightTower03.prefab",
+        "construction_class": "light",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 2.1487,
+          "y": 11.8591,
+          "z": 2.8312
+        },
+        "prefab_bbox_size": {
+          "x": 2.1487,
+          "y": 11.8591,
+          "z": 2.8312
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.25,
+        "placement_notes": "visual enrichment accessory"
+      },
+      "transform": {
+        "position": {
+          "x": 86.4283014508788,
+          "y": 0.0,
+          "z": 39.77553518477321
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 30.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          86.205687058323,
+          38.012414623175964
+        ],
+        [
+          88.06651584343463,
+          39.08676462317596
+        ],
+        [
+          86.65091584343462,
+          41.53865574637046
+        ],
+        [
+          84.79008705832298,
+          40.464305746370464
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0002"
+      }
+    },
+    {
+      "id": "obj_0011",
+      "source": {
+        "facility_index": 2,
+        "facility_type": "crane",
+        "category": "equipment",
+        "kind": "accessory",
+        "parent_id": "obj_0003",
+        "accessory_type": "traffic_cone"
+      },
+      "prefab": {
+        "name": "SM_TrafficCone",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_TrafficCone.prefab",
+        "construction_class": "road_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "prefab_bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.25,
+        "placement_notes": "visual enrichment accessory"
+      },
+      "transform": {
+        "position": {
+          "x": 66.58700494867765,
+          "y": 0.0,
+          "z": 62.30234321903576
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          66.44695494867764,
+          62.16229321903576
+        ],
+        [
+          66.72705494867765,
+          62.16229321903576
+        ],
+        [
+          66.72705494867765,
+          62.442393219035765
+        ],
+        [
+          66.44695494867764,
+          62.442393219035765
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0003"
+      }
+    },
+    {
+      "id": "obj_0012",
+      "source": {
+        "facility_index": 2,
+        "facility_type": "crane",
+        "category": "equipment",
+        "kind": "accessory",
+        "parent_id": "obj_0003",
+        "accessory_type": "traffic_cone"
+      },
+      "prefab": {
+        "name": "SM_TrafficCone",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_TrafficCone.prefab",
+        "construction_class": "road_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "prefab_bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.25,
+        "placement_notes": "visual enrichment accessory"
+      },
+      "transform": {
+        "position": {
+          "x": 82.58700494867765,
+          "y": 0.0,
+          "z": 62.30234321903576
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          82.44695494867764,
+          62.16229321903576
+        ],
+        [
+          82.72705494867765,
+          62.16229321903576
+        ],
+        [
+          82.72705494867765,
+          62.442393219035765
+        ],
+        [
+          82.44695494867764,
+          62.442393219035765
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0003"
+      }
+    },
+    {
+      "id": "obj_0013",
+      "source": {
+        "facility_index": 2,
+        "facility_type": "crane",
+        "category": "equipment",
+        "kind": "accessory",
+        "parent_id": "obj_0003",
+        "accessory_type": "traffic_cone"
+      },
+      "prefab": {
+        "name": "SM_TrafficCone",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_TrafficCone.prefab",
+        "construction_class": "road_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "prefab_bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.25,
+        "placement_notes": "visual enrichment accessory"
+      },
+      "transform": {
+        "position": {
+          "x": 66.58700494867765,
+          "y": 0.0,
+          "z": 78.30234321903576
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          66.44695494867764,
+          78.16229321903576
+        ],
+        [
+          66.72705494867765,
+          78.16229321903576
+        ],
+        [
+          66.72705494867765,
+          78.44239321903576
+        ],
+        [
+          66.44695494867764,
+          78.44239321903576
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0003"
+      }
+    },
+    {
+      "id": "obj_0014",
+      "source": {
+        "facility_index": 2,
+        "facility_type": "crane",
+        "category": "equipment",
+        "kind": "accessory",
+        "parent_id": "obj_0003",
+        "accessory_type": "traffic_cone"
+      },
+      "prefab": {
+        "name": "SM_TrafficCone",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_TrafficCone.prefab",
+        "construction_class": "road_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "prefab_bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.25,
+        "placement_notes": "visual enrichment accessory"
+      },
+      "transform": {
+        "position": {
+          "x": 82.58700494867765,
+          "y": 0.0,
+          "z": 78.30234321903576
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          82.44695494867764,
+          78.16229321903576
+        ],
+        [
+          82.72705494867765,
+          78.16229321903576
+        ],
+        [
+          82.72705494867765,
+          78.44239321903576
+        ],
+        [
+          82.44695494867764,
+          78.44239321903576
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0003"
+      }
+    },
+    {
+      "id": "obj_0015",
+      "source": {
+        "facility_index": 2,
+        "facility_type": "crane",
+        "category": "equipment",
+        "kind": "accessory",
+        "parent_id": "obj_0003",
+        "accessory_type": "road_block"
+      },
+      "prefab": {
+        "name": "SM_RoadBlock03",
+        "path": "Assets/ConstructionSite/Prefab/Fence/SM_RoadBlock03.prefab",
+        "construction_class": "fence",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.6255,
+          "y": 0.7655,
+          "z": 4.004
+        },
+        "prefab_bbox_size": {
+          "x": 0.6255,
+          "y": 0.7655,
+          "z": 4.004
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.25,
+        "placement_notes": "visual enrichment accessory"
+      },
+      "transform": {
+        "position": {
+          "x": 74.58700494867765,
+          "y": 0.0,
+          "z": 62.30234321903576
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 90.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          76.58900494867764,
+          61.98959321903576
+        ],
+        [
+          76.58900494867764,
+          62.615093219035764
+        ],
+        [
+          72.58500494867765,
+          62.615093219035764
+        ],
+        [
+          72.58500494867765,
+          61.98959321903576
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0003"
+      }
+    },
+    {
+      "id": "obj_0016",
+      "source": {
+        "facility_index": 2,
+        "facility_type": "crane",
+        "category": "equipment",
+        "kind": "accessory",
+        "parent_id": "obj_0003",
+        "accessory_type": "road_block"
+      },
+      "prefab": {
+        "name": "SM_RoadBlock03",
+        "path": "Assets/ConstructionSite/Prefab/Fence/SM_RoadBlock03.prefab",
+        "construction_class": "fence",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.6255,
+          "y": 0.7655,
+          "z": 4.004
+        },
+        "prefab_bbox_size": {
+          "x": 0.6255,
+          "y": 0.7655,
+          "z": 4.004
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.25,
+        "placement_notes": "visual enrichment accessory"
+      },
+      "transform": {
+        "position": {
+          "x": 74.58700494867765,
+          "y": 0.0,
+          "z": 78.30234321903576
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 90.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          76.58900494867764,
+          77.98959321903577
+        ],
+        [
+          76.58900494867764,
+          78.61509321903576
+        ],
+        [
+          72.58500494867765,
+          78.61509321903576
+        ],
+        [
+          72.58500494867765,
+          77.98959321903577
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0003"
+      }
+    },
+    {
+      "id": "obj_0017",
+      "source": {
+        "facility_index": 3,
+        "facility_type": "storage",
+        "category": "operational",
+        "kind": "accessory",
+        "parent_id": "obj_0004",
+        "accessory_type": "concrete_bag"
+      },
+      "prefab": {
+        "name": "SM_ConcreteBag02",
+        "path": "Assets/ConstructionSite/Prefab/Storage/SM_ConcreteBag02.prefab",
+        "construction_class": "material",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 1.3779,
+          "y": 1.238,
+          "z": 1.1463
+        },
+        "prefab_bbox_size": {
+          "x": 1.3779,
+          "y": 1.238,
+          "z": 1.1463
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.25,
+        "placement_notes": "visual enrichment accessory"
+      },
+      "transform": {
+        "position": {
+          "x": 48.03278241045162,
+          "y": 0.0,
+          "z": 82.14944634496278
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 45.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          47.95089944519022,
+          81.25700687642724
+        ],
+        [
+          48.92522187898716,
+          82.23132931022418
+        ],
+        [
+          48.11466537571302,
+          83.04188581349833
+        ],
+        [
+          47.140342941916074,
+          82.06756337970138
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0004"
+      }
+    },
+    {
+      "id": "obj_0018",
+      "source": {
+        "facility_index": 3,
+        "facility_type": "storage",
+        "category": "operational",
+        "kind": "accessory",
+        "parent_id": "obj_0004",
+        "accessory_type": "concrete_brick"
+      },
+      "prefab": {
+        "name": "SM_ConcreteBrick04",
+        "path": "Assets/ConstructionSite/Prefab/Storage/SM_ConcreteBrick04.prefab",
+        "construction_class": "material",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 1.2885,
+          "y": 1.3385,
+          "z": 1.3181
+        },
+        "prefab_bbox_size": {
+          "x": 1.2885,
+          "y": 1.3385,
+          "z": 1.3181
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.25,
+        "placement_notes": "visual enrichment accessory"
+      },
+      "transform": {
+        "position": {
+          "x": 48.1240780611172,
+          "y": 0.0,
+          "z": 79.31714306969802
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 15.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          47.672355039205286,
+          78.51380548407491
+        ],
+        [
+          48.91695046637875,
+          78.84729382368951
+        ],
+        [
+          48.57580108302912,
+          80.12048065532113
+        ],
+        [
+          47.331205655855655,
+          79.78699231570653
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0004"
+      }
+    },
+    {
+      "id": "obj_0019",
+      "source": {
+        "facility_index": 4,
+        "facility_type": "rest_area",
+        "category": "worker",
+        "kind": "accessory",
+        "parent_id": "obj_0005",
+        "accessory_type": "water_tank"
+      },
+      "prefab": {
+        "name": "SM_WaterTank01",
+        "path": "Assets/ConstructionSite/Prefab/IndustryPropsPack6/SM_WaterTank01.prefab",
+        "construction_class": "small_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 1.2862,
+          "y": 1.468,
+          "z": 1.2519
+        },
+        "prefab_bbox_size": {
+          "x": 1.2862,
+          "y": 1.468,
+          "z": 1.2519
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.25,
+        "placement_notes": "visual enrichment accessory"
+      },
+      "transform": {
+        "position": {
+          "x": 24.056323712732656,
+          "y": 0.0,
+          "z": 64.75064314642776
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          23.413223712732655,
+          64.12469314642776
+        ],
+        [
+          24.699423712732656,
+          64.12469314642776
+        ],
+        [
+          24.699423712732656,
+          65.37659314642777
+        ],
+        [
+          23.413223712732655,
+          65.37659314642777
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0005"
+      }
+    },
+    {
+      "id": "obj_0020",
+      "source": {
+        "facility_index": 4,
+        "facility_type": "rest_area",
+        "category": "worker",
+        "kind": "accessory",
+        "parent_id": "obj_0005",
+        "accessory_type": "traffic_cone"
+      },
+      "prefab": {
+        "name": "SM_TrafficCone",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_TrafficCone.prefab",
+        "construction_class": "road_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "prefab_bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.25,
+        "placement_notes": "visual enrichment accessory"
+      },
+      "transform": {
+        "position": {
+          "x": 13.756323712732655,
+          "y": 0.0,
+          "z": 60.950643146427765
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          13.616273712732655,
+          60.81059314642776
+        ],
+        [
+          13.896373712732656,
+          60.81059314642776
+        ],
+        [
+          13.896373712732656,
+          61.09069314642777
+        ],
+        [
+          13.616273712732655,
+          61.09069314642777
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0005"
+      }
+    },
+    {
+      "id": "obj_0021",
+      "source": {
+        "facility_index": 4,
+        "facility_type": "rest_area",
+        "category": "worker",
+        "kind": "accessory",
+        "parent_id": "obj_0005",
+        "accessory_type": "traffic_cone"
+      },
+      "prefab": {
+        "name": "SM_TrafficCone",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_TrafficCone.prefab",
+        "construction_class": "road_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "prefab_bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.25,
+        "placement_notes": "visual enrichment accessory"
+      },
+      "transform": {
+        "position": {
+          "x": 23.356323712732657,
+          "y": 0.0,
+          "z": 60.950643146427765
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          23.216273712732658,
+          60.81059314642776
+        ],
+        [
+          23.496373712732655,
+          60.81059314642776
+        ],
+        [
+          23.496373712732655,
+          61.09069314642777
+        ],
+        [
+          23.216273712732658,
+          61.09069314642777
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0005"
+      }
+    },
+    {
+      "id": "obj_0022",
+      "source": {
+        "facility_index": 5,
+        "facility_type": "office",
+        "category": "worker",
+        "kind": "accessory",
+        "parent_id": "obj_0006",
+        "accessory_type": "traffic_cone"
+      },
+      "prefab": {
+        "name": "SM_TrafficCone",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_TrafficCone.prefab",
+        "construction_class": "road_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "prefab_bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.25,
+        "placement_notes": "visual enrichment accessory"
+      },
+      "transform": {
+        "position": {
+          "x": 39.821446994915185,
+          "y": 0.0,
+          "z": 28.908172046243955
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          39.68139699491518,
+          28.768122046243956
+        ],
+        [
+          39.96149699491519,
+          28.768122046243956
+        ],
+        [
+          39.96149699491519,
+          29.048222046243954
+        ],
+        [
+          39.68139699491518,
+          29.048222046243954
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0006"
+      }
+    },
+    {
+      "id": "obj_0023",
+      "source": {
+        "facility_index": 5,
+        "facility_type": "office",
+        "category": "worker",
+        "kind": "accessory",
+        "parent_id": "obj_0006",
+        "accessory_type": "traffic_cone"
+      },
+      "prefab": {
+        "name": "SM_TrafficCone",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_TrafficCone.prefab",
+        "construction_class": "road_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "prefab_bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.25,
+        "placement_notes": "visual enrichment accessory"
+      },
+      "transform": {
+        "position": {
+          "x": 53.821446994915185,
+          "y": 0.0,
+          "z": 28.908172046243955
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          53.68139699491518,
+          28.768122046243956
+        ],
+        [
+          53.96149699491519,
+          28.768122046243956
+        ],
+        [
+          53.96149699491519,
+          29.048222046243954
+        ],
+        [
+          53.68139699491518,
+          29.048222046243954
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0006"
+      }
+    },
+    {
+      "id": "obj_0024",
+      "source": {
+        "facility_index": 5,
+        "facility_type": "office",
+        "category": "worker",
+        "kind": "accessory",
+        "parent_id": "obj_0006",
+        "accessory_type": "barrel"
+      },
+      "prefab": {
+        "name": "SM_TrafficBarrel01",
+        "path": "Assets/ConstructionSite/Prefab/IndustryPropsPack6/SM_TrafficBarrel01.prefab",
+        "construction_class": "small_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.8107,
+          "y": 0.954,
+          "z": 0.8107
+        },
+        "prefab_bbox_size": {
+          "x": 0.8107,
+          "y": 0.954,
+          "z": 0.8107
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.25,
+        "placement_notes": "visual enrichment accessory"
+      },
+      "transform": {
+        "position": {
+          "x": 39.821446994915185,
+          "y": 0.0,
+          "z": 38.408172046243955
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          39.416096994915186,
+          38.002822046243956
+        ],
+        [
+          40.22679699491518,
+          38.002822046243956
+        ],
+        [
+          40.22679699491518,
+          38.81352204624395
+        ],
+        [
+          39.416096994915186,
+          38.81352204624395
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0006"
+      }
+    },
+    {
+      "id": "obj_0025",
+      "source": {
+        "facility_index": 5,
+        "facility_type": "office",
+        "category": "worker",
+        "kind": "accessory",
+        "parent_id": "obj_0006",
+        "accessory_type": "wheelbarrow"
+      },
+      "prefab": {
+        "name": "SM_WheelBarrow01",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_WheelBarrow01.prefab",
+        "construction_class": "small_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.5641,
+          "y": 0.621,
+          "z": 1.4111
+        },
+        "prefab_bbox_size": {
+          "x": 0.5641,
+          "y": 0.621,
+          "z": 1.4111
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.25,
+        "placement_notes": "visual enrichment accessory"
+      },
+      "transform": {
+        "position": {
+          "x": 54.02144699491519,
+          "y": 0.0,
+          "z": 38.408172046243955
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 35.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          54.19509201549096,
+          37.66844208752305
+        ],
+        [
+          54.65717568367438,
+          37.99199655526867
+        ],
+        [
+          53.84780197433942,
+          39.14790200496486
+        ],
+        [
+          53.385718306155994,
+          38.82434753721924
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0006"
+      }
+    },
+    {
+      "id": "obj_0026",
+      "source": {
+        "facility_index": 0,
+        "facility_type": "core",
+        "category": "operational",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0001",
+        "accessory_type": "generator"
+      },
+      "prefab": {
+        "name": "SM_MobileGenerator01",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_MobileGenerator01.prefab",
+        "construction_class": "small_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 1.2983,
+          "y": 1.2378,
+          "z": 3.0807
+        },
+        "prefab_bbox_size": {
+          "x": 1.2983,
+          "y": 1.2378,
+          "z": 3.0807
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 56.690174812009346,
+          "y": 0.0,
+          "z": 53.37229269194657
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 120.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          58.348732042728706,
+          53.580287301079906
+        ],
+        [
+          57.6995820427287,
+          54.704648082813236
+        ],
+        [
+          55.031617581289986,
+          53.16429808281323
+        ],
+        [
+          55.68076758128999,
+          52.0399373010799
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0011"
+      }
+    },
+    {
+      "id": "obj_0027",
+      "source": {
+        "facility_index": 0,
+        "facility_type": "core",
+        "category": "operational",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0001",
+        "accessory_type": "hose"
+      },
+      "prefab": {
+        "name": "SM_Hose02",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_Hose02.prefab",
+        "construction_class": "small_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.9922,
+          "y": 0.4178,
+          "z": 0.8063
+        },
+        "prefab_bbox_size": {
+          "x": 0.9922,
+          "y": 0.4178,
+          "z": 0.8063
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 34.774168975913184,
+          "y": 0.0,
+          "z": 54.6004983659161
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 180.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          35.27026897591318,
+          55.0036483659161
+        ],
+        [
+          34.278068975913186,
+          55.0036483659161
+        ],
+        [
+          34.278068975913186,
+          54.197348365916106
+        ],
+        [
+          35.27026897591318,
+          54.197348365916106
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0011"
+      }
+    },
+    {
+      "id": "obj_0028",
+      "source": {
+        "facility_index": 0,
+        "facility_type": "core",
+        "category": "operational",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0001",
+        "accessory_type": "toolbox"
+      },
+      "prefab": {
+        "name": "SM_ToolBox",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_ToolBox.prefab",
+        "construction_class": "small_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.7284,
+          "y": 0.3437,
+          "z": 0.259
+        },
+        "prefab_bbox_size": {
+          "x": 0.7284,
+          "y": 0.3437,
+          "z": 0.259
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 57.00978631270945,
+          "y": 0.0,
+          "z": 57.79733949550011
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 45.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          56.843828351164966,
+          57.448240877628315
+        ],
+        [
+          57.35888493058125,
+          57.9632974570446
+        ],
+        [
+          57.17574427425394,
+          58.14643811337191
+        ],
+        [
+          56.660687694837655,
+          57.631381533955626
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0011"
+      }
+    },
+    {
+      "id": "obj_0029",
+      "source": {
+        "facility_index": 0,
+        "facility_type": "core",
+        "category": "operational",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0001",
+        "accessory_type": "paint_can"
+      },
+      "prefab": {
+        "name": "SM_PaintCan01",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_PaintCan01.prefab",
+        "construction_class": "small_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.2358,
+          "y": 0.2855,
+          "z": 0.2332
+        },
+        "prefab_bbox_size": {
+          "x": 0.2358,
+          "y": 0.2855,
+          "z": 0.2332
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 44.95994948544572,
+          "y": 0.0,
+          "z": 43.40144705545759
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 180.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          45.07784948544572,
+          43.518047055457586
+        ],
+        [
+          44.84204948544572,
+          43.518047055457586
+        ],
+        [
+          44.84204948544572,
+          43.28484705545759
+        ],
+        [
+          45.07784948544572,
+          43.28484705545759
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0011"
+      }
+    },
+    {
+      "id": "obj_0030",
+      "source": {
+        "facility_index": 0,
+        "facility_type": "core",
+        "category": "operational",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0001",
+        "accessory_type": "paint_can"
+      },
+      "prefab": {
+        "name": "SM_PaintCan01",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_PaintCan01.prefab",
+        "construction_class": "small_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.2358,
+          "y": 0.2855,
+          "z": 0.2332
+        },
+        "prefab_bbox_size": {
+          "x": 0.2358,
+          "y": 0.2855,
+          "z": 0.2332
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 41.14805660917987,
+          "y": 0.0,
+          "z": 65.25189854831991
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 45.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          41.14713737036433,
+          65.08608200813167
+        ],
+        [
+          41.31387314936811,
+          65.25281778713547
+        ],
+        [
+          41.14897584799541,
+          65.41771508850816
+        ],
+        [
+          40.98224006899162,
+          65.25097930950436
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0044"
+      }
+    },
+    {
+      "id": "obj_0031",
+      "source": {
+        "facility_index": 0,
+        "facility_type": "core",
+        "category": "operational",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0001",
+        "accessory_type": "dirt_decal"
+      },
+      "prefab": {
+        "name": "Dirt",
+        "path": "Assets/ConstructionSite/Prefab/Decal/Dirt.prefab",
+        "construction_class": "ground_detail",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 2.5
+        },
+        "prefab_bbox_size": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 2.5
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 46.33335181696865,
+          "y": 0.0,
+          "z": 67.15574749143633
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 90.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          47.58335181696865,
+          64.65574749143633
+        ],
+        [
+          47.58335181696865,
+          69.65574749143633
+        ],
+        [
+          45.08335181696865,
+          69.65574749143633
+        ],
+        [
+          45.08335181696865,
+          64.65574749143633
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0044"
+      }
+    },
+    {
+      "id": "obj_0032",
+      "source": {
+        "facility_index": 0,
+        "facility_type": "core",
+        "category": "operational",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0001",
+        "accessory_type": "dirt_decal"
+      },
+      "prefab": {
+        "name": "Dirt",
+        "path": "Assets/ConstructionSite/Prefab/Decal/Dirt.prefab",
+        "construction_class": "ground_detail",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 2.5
+        },
+        "prefab_bbox_size": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 2.5
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 35.988857074977545,
+          "y": 0.0,
+          "z": 62.26068987727215
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 90.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          37.238857074977545,
+          59.76068987727215
+        ],
+        [
+          37.238857074977545,
+          64.76068987727214
+        ],
+        [
+          34.738857074977545,
+          64.76068987727214
+        ],
+        [
+          34.738857074977545,
+          59.76068987727215
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0044"
+      }
+    },
+    {
+      "id": "obj_0033",
+      "source": {
+        "facility_index": 1,
+        "facility_type": "core",
+        "category": "operational",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0002",
+        "accessory_type": "generator"
+      },
+      "prefab": {
+        "name": "SM_MobileGenerator01",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_MobileGenerator01.prefab",
+        "construction_class": "small_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 1.2983,
+          "y": 1.2378,
+          "z": 3.0807
+        },
+        "prefab_bbox_size": {
+          "x": 1.2983,
+          "y": 1.2378,
+          "z": 3.0807
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 64.56124142654517,
+          "y": 0.0,
+          "z": 25.641161080321037
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 120.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          66.21979865726452,
+          25.849155689454367
+        ],
+        [
+          65.57064865726453,
+          26.973516471187704
+        ],
+        [
+          62.90268419582581,
+          25.433166471187707
+        ],
+        [
+          63.551834195825805,
+          24.30880568945437
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0011"
+      }
+    },
+    {
+      "id": "obj_0034",
+      "source": {
+        "facility_index": 1,
+        "facility_type": "core",
+        "category": "operational",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0002",
+        "accessory_type": "hose"
+      },
+      "prefab": {
+        "name": "SM_Hose02",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_Hose02.prefab",
+        "construction_class": "small_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.9922,
+          "y": 0.4178,
+          "z": 0.8063
+        },
+        "prefab_bbox_size": {
+          "x": 0.9922,
+          "y": 0.4178,
+          "z": 0.8063
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 80.25693906826861,
+          "y": 0.0,
+          "z": 20.522741278888205
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 120.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          80.8541272098043,
+          20.29468107607074
+        ],
+        [
+          80.35802720980429,
+          21.153951481705665
+        ],
+        [
+          79.65975092673291,
+          20.75080148170567
+        ],
+        [
+          80.15585092673292,
+          19.891531076070745
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0041"
+      }
+    },
+    {
+      "id": "obj_0035",
+      "source": {
+        "facility_index": 1,
+        "facility_type": "core",
+        "category": "operational",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0002",
+        "accessory_type": "hose"
+      },
+      "prefab": {
+        "name": "SM_Hose02",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_Hose02.prefab",
+        "construction_class": "small_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.9922,
+          "y": 0.4178,
+          "z": 0.8063
+        },
+        "prefab_bbox_size": {
+          "x": 0.9922,
+          "y": 0.4178,
+          "z": 0.8063
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 78.18681978663908,
+          "y": 0.0,
+          "z": 42.55337602599867
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 240.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          78.0857316451034,
+          43.18458622881613
+        ],
+        [
+          77.58963164510338,
+          42.325315823181214
+        ],
+        [
+          78.28790792817476,
+          41.92216582318122
+        ],
+        [
+          78.78400792817477,
+          42.78143622881613
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0041"
+      }
+    },
+    {
+      "id": "obj_0036",
+      "source": {
+        "facility_index": 1,
+        "facility_type": "core",
+        "category": "operational",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0002",
+        "accessory_type": "floodlight_stand"
+      },
+      "prefab": {
+        "name": "SM_FloodlightStand",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_FloodlightStand.prefab",
+        "construction_class": "light",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.7064,
+          "y": 1.4859,
+          "z": 0.615
+        },
+        "prefab_bbox_size": {
+          "x": 0.7064,
+          "y": 1.4859,
+          "z": 0.615
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 78.66744600247122,
+          "y": 0.0,
+          "z": 13.427218190267691
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          78.31424600247122,
+          13.119718190267692
+        ],
+        [
+          79.02064600247122,
+          13.119718190267692
+        ],
+        [
+          79.02064600247122,
+          13.73471819026769
+        ],
+        [
+          78.31424600247122,
+          13.73471819026769
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0041"
+      }
+    },
+    {
+      "id": "obj_0037",
+      "source": {
+        "facility_index": 1,
+        "facility_type": "core",
+        "category": "operational",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0002",
+        "accessory_type": "ladder"
+      },
+      "prefab": {
+        "name": "SM_Ladder",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_Ladder.prefab",
+        "construction_class": "small_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.6748,
+          "y": 1.7229,
+          "z": 1.2334
+        },
+        "prefab_bbox_size": {
+          "x": 0.6748,
+          "y": 1.7229,
+          "z": 1.2334
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 74.17718538228337,
+          "y": 0.0,
+          "z": 42.8638450040977
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 240.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          73.8118075157695,
+          43.464391975334564
+        ],
+        [
+          73.4744075157695,
+          42.879998032860826
+        ],
+        [
+          74.54256324879724,
+          42.26329803286083
+        ],
+        [
+          74.87996324879724,
+          42.84769197533457
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0041"
+      }
+    },
+    {
+      "id": "obj_0038",
+      "source": {
+        "facility_index": 1,
+        "facility_type": "core",
+        "category": "operational",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0002",
+        "accessory_type": "concrete_mixer"
+      },
+      "prefab": {
+        "name": "SM_ConcreteMixer01",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_ConcreteMixer01.prefab",
+        "construction_class": "small_equipment",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.6597,
+          "y": 1.3343,
+          "z": 1.939
+        },
+        "prefab_bbox_size": {
+          "x": 0.6597,
+          "y": 1.3343,
+          "z": 1.939
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 82.23393385040251,
+          "y": 0.0,
+          "z": 43.272584484406025
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          81.90408385040251,
+          42.30308448440603
+        ],
+        [
+          82.5637838504025,
+          42.30308448440603
+        ],
+        [
+          82.5637838504025,
+          44.24208448440602
+        ],
+        [
+          81.90408385040251,
+          44.24208448440602
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0041"
+      }
+    },
+    {
+      "id": "obj_0039",
+      "source": {
+        "facility_index": 1,
+        "facility_type": "core",
+        "category": "operational",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0002",
+        "accessory_type": "construction_lift"
+      },
+      "prefab": {
+        "name": "SM_ConstructionLift05",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_ConstructionLift05.prefab",
+        "construction_class": "site_equipment",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 2.9099,
+          "y": 4.9108,
+          "z": 2.7911
+        },
+        "prefab_bbox_size": {
+          "x": 2.9099,
+          "y": 4.9108,
+          "z": 2.7911
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 67.53154184305843,
+          "y": 0.0,
+          "z": 35.40224958940227
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 30.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          66.96929318182225,
+          33.46619283715089
+        ],
+        [
+          69.4893405042946,
+          34.92114283715089
+        ],
+        [
+          68.09379050429462,
+          37.33830634165364
+        ],
+        [
+          65.57374318182227,
+          35.883356341653645
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0011"
+      }
+    },
+    {
+      "id": "obj_0040",
+      "source": {
+        "facility_index": 2,
+        "facility_type": "crane",
+        "category": "equipment",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0003",
+        "accessory_type": "traffic_cone"
+      },
+      "prefab": {
+        "name": "SM_TrafficCone",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_TrafficCone.prefab",
+        "construction_class": "road_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "prefab_bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 82.84826238470689,
+          "y": 0.0,
+          "z": 68.9070218610559
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 90.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          82.98831238470689,
+          68.7669718610559
+        ],
+        [
+          82.98831238470689,
+          69.0470718610559
+        ],
+        [
+          82.70821238470688,
+          69.0470718610559
+        ],
+        [
+          82.70821238470688,
+          68.7669718610559
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0038"
+      }
+    },
+    {
+      "id": "obj_0041",
+      "source": {
+        "facility_index": 2,
+        "facility_type": "crane",
+        "category": "equipment",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0003",
+        "accessory_type": "barrel"
+      },
+      "prefab": {
+        "name": "SM_TrafficBarrel01",
+        "path": "Assets/ConstructionSite/Prefab/IndustryPropsPack6/SM_TrafficBarrel01.prefab",
+        "construction_class": "small_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.8107,
+          "y": 0.954,
+          "z": 0.8107
+        },
+        "prefab_bbox_size": {
+          "x": 0.8107,
+          "y": 0.954,
+          "z": 0.8107
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 79.46824794350974,
+          "y": 0.0,
+          "z": 61.452275933373436
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          79.06289794350974,
+          61.04692593337344
+        ],
+        [
+          79.87359794350974,
+          61.04692593337344
+        ],
+        [
+          79.87359794350974,
+          61.857625933373434
+        ],
+        [
+          79.06289794350974,
+          61.857625933373434
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0038"
+      }
+    },
+    {
+      "id": "obj_0042",
+      "source": {
+        "facility_index": 2,
+        "facility_type": "crane",
+        "category": "equipment",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0003",
+        "accessory_type": "traffic_cone"
+      },
+      "prefab": {
+        "name": "SM_TrafficCone",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_TrafficCone.prefab",
+        "construction_class": "road_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "prefab_bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 70.7784734101085,
+          "y": 0.0,
+          "z": 62.15476998641133
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 180.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          70.9185234101085,
+          62.29481998641133
+        ],
+        [
+          70.6384234101085,
+          62.29481998641133
+        ],
+        [
+          70.6384234101085,
+          62.01471998641133
+        ],
+        [
+          70.9185234101085,
+          62.01471998641133
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0028"
+      }
+    },
+    {
+      "id": "obj_0043",
+      "source": {
+        "facility_index": 2,
+        "facility_type": "crane",
+        "category": "equipment",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0003",
+        "accessory_type": "traffic_cone"
+      },
+      "prefab": {
+        "name": "SM_TrafficCone",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_TrafficCone.prefab",
+        "construction_class": "road_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "prefab_bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 75.05887805606957,
+          "y": 0.0,
+          "z": 82.28620306634456
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 45.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          75.05887805606957,
+          82.0881424569342
+        ],
+        [
+          75.25693866547994,
+          82.28620306634456
+        ],
+        [
+          75.05887805606957,
+          82.48426367575492
+        ],
+        [
+          74.86081744665921,
+          82.28620306634456
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0007"
+      }
+    },
+    {
+      "id": "obj_0044",
+      "source": {
+        "facility_index": 2,
+        "facility_type": "crane",
+        "category": "equipment",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0003",
+        "accessory_type": "barrel"
+      },
+      "prefab": {
+        "name": "SM_TrafficBarrel01",
+        "path": "Assets/ConstructionSite/Prefab/IndustryPropsPack6/SM_TrafficBarrel01.prefab",
+        "construction_class": "small_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.8107,
+          "y": 0.954,
+          "z": 0.8107
+        },
+        "prefab_bbox_size": {
+          "x": 0.8107,
+          "y": 0.954,
+          "z": 0.8107
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 63.93851096756426,
+          "y": 0.0,
+          "z": 71.28549799028853
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 180.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          64.34386096756427,
+          71.69084799028853
+        ],
+        [
+          63.533160967564264,
+          71.69084799028853
+        ],
+        [
+          63.533160967564264,
+          70.88014799028853
+        ],
+        [
+          64.34386096756427,
+          70.88014799028853
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0007"
+      }
+    },
+    {
+      "id": "obj_0045",
+      "source": {
+        "facility_index": 3,
+        "facility_type": "storage",
+        "category": "operational",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0004",
+        "accessory_type": "log_tarp"
+      },
+      "prefab": {
+        "name": "SM_Log02Tarp",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/SM_Log02Tarp.prefab",
+        "construction_class": "material",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 1.5019,
+          "y": 1.4678,
+          "z": 6.5331
+        },
+        "prefab_bbox_size": {
+          "x": 1.5019,
+          "y": 1.4678,
+          "z": 6.5331
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 35.11644613020358,
+          "y": 0.0,
+          "z": 75.67799195468788
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 180.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          35.86739613020358,
+          78.94454195468788
+        ],
+        [
+          34.365496130203574,
+          78.94454195468788
+        ],
+        [
+          34.365496130203574,
+          72.41144195468789
+        ],
+        [
+          35.86739613020358,
+          72.41144195468789
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0030"
+      }
+    },
+    {
+      "id": "obj_0046",
+      "source": {
+        "facility_index": 3,
+        "facility_type": "storage",
+        "category": "operational",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0004",
+        "accessory_type": "barrel"
+      },
+      "prefab": {
+        "name": "SM_TrafficBarrel01",
+        "path": "Assets/ConstructionSite/Prefab/IndustryPropsPack6/SM_TrafficBarrel01.prefab",
+        "construction_class": "small_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.8107,
+          "y": 0.954,
+          "z": 0.8107
+        },
+        "prefab_bbox_size": {
+          "x": 0.8107,
+          "y": 0.954,
+          "z": 0.8107
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 53.944699022227546,
+          "y": 0.0,
+          "z": 79.05107306374848
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 45.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          53.944699022227546,
+          78.47782159624055
+        ],
+        [
+          54.517950489735476,
+          79.05107306374848
+        ],
+        [
+          53.944699022227546,
+          79.6243245312564
+        ],
+        [
+          53.371447554719616,
+          79.05107306374848
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0044"
+      }
+    },
+    {
+      "id": "obj_0047",
+      "source": {
+        "facility_index": 3,
+        "facility_type": "storage",
+        "category": "operational",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0004",
+        "accessory_type": "barrel"
+      },
+      "prefab": {
+        "name": "SM_TrafficBarrel01",
+        "path": "Assets/ConstructionSite/Prefab/IndustryPropsPack6/SM_TrafficBarrel01.prefab",
+        "construction_class": "small_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.8107,
+          "y": 0.954,
+          "z": 0.8107
+        },
+        "prefab_bbox_size": {
+          "x": 0.8107,
+          "y": 0.954,
+          "z": 0.8107
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 46.89720877957999,
+          "y": 0.0,
+          "z": 88.75088123522434
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 30.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          46.74884038215597,
+          88.19716283780032
+        ],
+        [
+          47.45092717700401,
+          88.60251283780032
+        ],
+        [
+          47.04557717700401,
+          89.30459963264836
+        ],
+        [
+          46.34349038215597,
+          88.89924963264836
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0031"
+      }
+    },
+    {
+      "id": "obj_0048",
+      "source": {
+        "facility_index": 3,
+        "facility_type": "storage",
+        "category": "operational",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0004",
+        "accessory_type": "trash_decal"
+      },
+      "prefab": {
+        "name": "TrashDecal02",
+        "path": "Assets/ConstructionSite/Prefab/Decal/TrashDecal02.prefab",
+        "construction_class": "ground_detail",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 2.0,
+          "y": 0.0,
+          "z": 2.0
+        },
+        "prefab_bbox_size": {
+          "x": 2.0,
+          "y": 0.0,
+          "z": 2.0
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 53.51939035012684,
+          "y": 0.0,
+          "z": 84.63141606844218
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 90.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          54.51939035012684,
+          83.63141606844218
+        ],
+        [
+          54.51939035012684,
+          85.63141606844218
+        ],
+        [
+          52.51939035012684,
+          85.63141606844218
+        ],
+        [
+          52.51939035012684,
+          83.63141606844218
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0013"
+      }
+    },
+    {
+      "id": "obj_0049",
+      "source": {
+        "facility_index": 3,
+        "facility_type": "storage",
+        "category": "operational",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0004",
+        "accessory_type": "toolbox"
+      },
+      "prefab": {
+        "name": "SM_ToolBox",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_ToolBox.prefab",
+        "construction_class": "small_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.7284,
+          "y": 0.3437,
+          "z": 0.259
+        },
+        "prefab_bbox_size": {
+          "x": 0.7284,
+          "y": 0.3437,
+          "z": 0.259
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 46.34204522869835,
+          "y": 0.0,
+          "z": 73.26444582563258
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 60.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          46.27209551848844,
+          72.88428937357428
+        ],
+        [
+          46.63629551848844,
+          73.51510227769087
+        ],
+        [
+          46.411994938908265,
+          73.64460227769088
+        ],
+        [
+          46.04779493890827,
+          73.01378937357428
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0031"
+      }
+    },
+    {
+      "id": "obj_0050",
+      "source": {
+        "facility_index": 4,
+        "facility_type": "rest_area",
+        "category": "worker",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0005",
+        "accessory_type": "water_tank"
+      },
+      "prefab": {
+        "name": "SM_WaterTank01",
+        "path": "Assets/ConstructionSite/Prefab/IndustryPropsPack6/SM_WaterTank01.prefab",
+        "construction_class": "small_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 1.2862,
+          "y": 1.468,
+          "z": 1.2519
+        },
+        "prefab_bbox_size": {
+          "x": 1.2862,
+          "y": 1.468,
+          "z": 1.2519
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 16.150523817856026,
+          "y": 0.0,
+          "z": 71.42771241258475
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 180.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          16.793623817856027,
+          72.05366241258476
+        ],
+        [
+          15.507423817856026,
+          72.05366241258476
+        ],
+        [
+          15.507423817856026,
+          70.80176241258475
+        ],
+        [
+          16.793623817856027,
+          70.80176241258475
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "obj_0024"
+      }
+    },
+    {
+      "id": "obj_0051",
+      "source": {
+        "facility_index": 5,
+        "facility_type": "office",
+        "category": "worker",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0006",
+        "accessory_type": "traffic_cone"
+      },
+      "prefab": {
+        "name": "SM_TrafficCone",
+        "path": "Assets/ConstructionSite/Prefab/ConstructionSite/Props/SM_TrafficCone.prefab",
+        "construction_class": "road_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "prefab_bbox_size": {
+          "x": 0.2801,
+          "y": 0.5015,
+          "z": 0.2801
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 37.4550459726024,
+          "y": 0.0,
+          "z": 30.709957477634354
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 60.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          37.506307830402406,
+          30.51864561983434
+        ],
+        [
+          37.64635783040241,
+          30.761219335434365
+        ],
+        [
+          37.40378411480239,
+          30.901269335434367
+        ],
+        [
+          37.26373411480239,
+          30.658695619834344
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "entrance_02"
+      }
+    },
+    {
+      "id": "obj_0052",
+      "source": {
+        "facility_index": 5,
+        "facility_type": "office",
+        "category": "worker",
+        "kind": "rule_scatter",
+        "parent_id": "obj_0006",
+        "accessory_type": "barrel"
+      },
+      "prefab": {
+        "name": "SM_TrafficBarrel01",
+        "path": "Assets/ConstructionSite/Prefab/IndustryPropsPack6/SM_TrafficBarrel01.prefab",
+        "construction_class": "small_prop",
+        "relation_role": "dependent",
+        "suggested_support_type": "grounded",
+        "selection_score": 1.0,
+        "assembly_type": "single_prefab",
+        "children": []
+      },
+      "placement": {
+        "pivot_type": "bottom_centered",
+        "snap_to_ground": true,
+        "bbox_size": {
+          "x": 0.8107,
+          "y": 0.954,
+          "z": 0.8107
+        },
+        "prefab_bbox_size": {
+          "x": 0.8107,
+          "y": 0.954,
+          "z": 0.8107
+        },
+        "scale_policy": "native_prefab_size",
+        "clearance_radius_m": 0.35,
+        "placement_notes": "rule-based scene enrichment: near parent, avoid roads/entrances/boundary/objects"
+      },
+      "transform": {
+        "position": {
+          "x": 48.45596022243084,
+          "y": 0.0,
+          "z": 44.250429349047664
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 120.0,
+          "z": 0.0
+        },
+        "scale": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        }
+      },
+      "footprint": [
+        [
+          49.00967861985486,
+          44.10206095162364
+        ],
+        [
+          48.60432861985486,
+          44.804147746471685
+        ],
+        [
+          47.90224182500682,
+          44.398797746471686
+        ],
+        [
+          48.30759182500682,
+          43.69671095162364
+        ]
+      ],
+      "anchors": {
+        "support_id": "ground_00",
+        "functional_id": "entrance_02"
+      }
+    }
+  ],
+  "relations": {
+    "support": [
+      {
+        "support_id": "scene_root",
+        "dependent_id": "ground_00",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0001",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0002",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0003",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0004",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0005",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0006",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0007",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0008",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0009",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0010",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0011",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0012",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0013",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0014",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0015",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0016",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0017",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0018",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0019",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0020",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0021",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0022",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0023",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0024",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0025",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0026",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0027",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0028",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0029",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0030",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0031",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0032",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0033",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0034",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0035",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0036",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0037",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0038",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0039",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0040",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0041",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0042",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0043",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0044",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0045",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0046",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0047",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0048",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0049",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0050",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0051",
+        "relation": "support"
+      },
+      {
+        "support_id": "ground_00",
+        "dependent_id": "obj_0052",
+        "relation": "support"
+      }
+    ],
+    "functional": [
+      {
+        "anchor_id": "obj_0011",
+        "dependent_id": "obj_0001",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0041",
+        "dependent_id": "obj_0002",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0028",
+        "dependent_id": "obj_0003",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0031",
+        "dependent_id": "obj_0004",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0024",
+        "dependent_id": "obj_0005",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "entrance_02",
+        "dependent_id": "obj_0006",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0001",
+        "dependent_id": "obj_0007",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0001",
+        "dependent_id": "obj_0008",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0001",
+        "dependent_id": "obj_0009",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0002",
+        "dependent_id": "obj_0010",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0003",
+        "dependent_id": "obj_0011",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0003",
+        "dependent_id": "obj_0012",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0003",
+        "dependent_id": "obj_0013",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0003",
+        "dependent_id": "obj_0014",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0003",
+        "dependent_id": "obj_0015",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0003",
+        "dependent_id": "obj_0016",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0004",
+        "dependent_id": "obj_0017",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0004",
+        "dependent_id": "obj_0018",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0005",
+        "dependent_id": "obj_0019",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0005",
+        "dependent_id": "obj_0020",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0005",
+        "dependent_id": "obj_0021",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0006",
+        "dependent_id": "obj_0022",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0006",
+        "dependent_id": "obj_0023",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0006",
+        "dependent_id": "obj_0024",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0006",
+        "dependent_id": "obj_0025",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0011",
+        "dependent_id": "obj_0026",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0011",
+        "dependent_id": "obj_0027",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0011",
+        "dependent_id": "obj_0028",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0011",
+        "dependent_id": "obj_0029",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0044",
+        "dependent_id": "obj_0030",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0044",
+        "dependent_id": "obj_0031",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0044",
+        "dependent_id": "obj_0032",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0011",
+        "dependent_id": "obj_0033",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0041",
+        "dependent_id": "obj_0034",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0041",
+        "dependent_id": "obj_0035",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0041",
+        "dependent_id": "obj_0036",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0041",
+        "dependent_id": "obj_0037",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0041",
+        "dependent_id": "obj_0038",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0011",
+        "dependent_id": "obj_0039",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0038",
+        "dependent_id": "obj_0040",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0038",
+        "dependent_id": "obj_0041",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0028",
+        "dependent_id": "obj_0042",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0007",
+        "dependent_id": "obj_0043",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0007",
+        "dependent_id": "obj_0044",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0030",
+        "dependent_id": "obj_0045",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0044",
+        "dependent_id": "obj_0046",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0031",
+        "dependent_id": "obj_0047",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0013",
+        "dependent_id": "obj_0048",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0031",
+        "dependent_id": "obj_0049",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "obj_0024",
+        "dependent_id": "obj_0050",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "entrance_02",
+        "dependent_id": "obj_0051",
+        "relation": "functional"
+      },
+      {
+        "anchor_id": "entrance_02",
+        "dependent_id": "obj_0052",
+        "relation": "functional"
+      }
+    ],
+    "tuples": [
+      {
+        "dependent_id": "obj_0001",
+        "support_id": "ground_00",
+        "functional_id": "obj_0011",
+        "relation_source": "primary:core"
+      },
+      {
+        "dependent_id": "obj_0002",
+        "support_id": "ground_00",
+        "functional_id": "obj_0041",
+        "relation_source": "primary:core"
+      },
+      {
+        "dependent_id": "obj_0003",
+        "support_id": "ground_00",
+        "functional_id": "obj_0028",
+        "relation_source": "primary:crane"
+      },
+      {
+        "dependent_id": "obj_0004",
+        "support_id": "ground_00",
+        "functional_id": "obj_0031",
+        "relation_source": "primary:storage"
+      },
+      {
+        "dependent_id": "obj_0005",
+        "support_id": "ground_00",
+        "functional_id": "obj_0024",
+        "relation_source": "primary:rest_area"
+      },
+      {
+        "dependent_id": "obj_0006",
+        "support_id": "ground_00",
+        "functional_id": "entrance_02",
+        "relation_source": "primary:office"
+      },
+      {
+        "dependent_id": "obj_0007",
+        "support_id": "ground_00",
+        "functional_id": "obj_0001",
+        "relation_source": "accessory:core"
+      },
+      {
+        "dependent_id": "obj_0008",
+        "support_id": "ground_00",
+        "functional_id": "obj_0001",
+        "relation_source": "accessory:core"
+      },
+      {
+        "dependent_id": "obj_0009",
+        "support_id": "ground_00",
+        "functional_id": "obj_0001",
+        "relation_source": "accessory:core"
+      },
+      {
+        "dependent_id": "obj_0010",
+        "support_id": "ground_00",
+        "functional_id": "obj_0002",
+        "relation_source": "accessory:core"
+      },
+      {
+        "dependent_id": "obj_0011",
+        "support_id": "ground_00",
+        "functional_id": "obj_0003",
+        "relation_source": "accessory:crane"
+      },
+      {
+        "dependent_id": "obj_0012",
+        "support_id": "ground_00",
+        "functional_id": "obj_0003",
+        "relation_source": "accessory:crane"
+      },
+      {
+        "dependent_id": "obj_0013",
+        "support_id": "ground_00",
+        "functional_id": "obj_0003",
+        "relation_source": "accessory:crane"
+      },
+      {
+        "dependent_id": "obj_0014",
+        "support_id": "ground_00",
+        "functional_id": "obj_0003",
+        "relation_source": "accessory:crane"
+      },
+      {
+        "dependent_id": "obj_0015",
+        "support_id": "ground_00",
+        "functional_id": "obj_0003",
+        "relation_source": "accessory:crane"
+      },
+      {
+        "dependent_id": "obj_0016",
+        "support_id": "ground_00",
+        "functional_id": "obj_0003",
+        "relation_source": "accessory:crane"
+      },
+      {
+        "dependent_id": "obj_0017",
+        "support_id": "ground_00",
+        "functional_id": "obj_0004",
+        "relation_source": "accessory:storage"
+      },
+      {
+        "dependent_id": "obj_0018",
+        "support_id": "ground_00",
+        "functional_id": "obj_0004",
+        "relation_source": "accessory:storage"
+      },
+      {
+        "dependent_id": "obj_0019",
+        "support_id": "ground_00",
+        "functional_id": "obj_0005",
+        "relation_source": "accessory:rest_area"
+      },
+      {
+        "dependent_id": "obj_0020",
+        "support_id": "ground_00",
+        "functional_id": "obj_0005",
+        "relation_source": "accessory:rest_area"
+      },
+      {
+        "dependent_id": "obj_0021",
+        "support_id": "ground_00",
+        "functional_id": "obj_0005",
+        "relation_source": "accessory:rest_area"
+      },
+      {
+        "dependent_id": "obj_0022",
+        "support_id": "ground_00",
+        "functional_id": "obj_0006",
+        "relation_source": "accessory:office"
+      },
+      {
+        "dependent_id": "obj_0023",
+        "support_id": "ground_00",
+        "functional_id": "obj_0006",
+        "relation_source": "accessory:office"
+      },
+      {
+        "dependent_id": "obj_0024",
+        "support_id": "ground_00",
+        "functional_id": "obj_0006",
+        "relation_source": "accessory:office"
+      },
+      {
+        "dependent_id": "obj_0025",
+        "support_id": "ground_00",
+        "functional_id": "obj_0006",
+        "relation_source": "accessory:office"
+      },
+      {
+        "dependent_id": "obj_0026",
+        "support_id": "ground_00",
+        "functional_id": "obj_0011",
+        "relation_source": "rule_scatter:core"
+      },
+      {
+        "dependent_id": "obj_0027",
+        "support_id": "ground_00",
+        "functional_id": "obj_0011",
+        "relation_source": "rule_scatter:core"
+      },
+      {
+        "dependent_id": "obj_0028",
+        "support_id": "ground_00",
+        "functional_id": "obj_0011",
+        "relation_source": "rule_scatter:core"
+      },
+      {
+        "dependent_id": "obj_0029",
+        "support_id": "ground_00",
+        "functional_id": "obj_0011",
+        "relation_source": "rule_scatter:core"
+      },
+      {
+        "dependent_id": "obj_0030",
+        "support_id": "ground_00",
+        "functional_id": "obj_0044",
+        "relation_source": "rule_scatter:core"
+      },
+      {
+        "dependent_id": "obj_0031",
+        "support_id": "ground_00",
+        "functional_id": "obj_0044",
+        "relation_source": "rule_scatter:core"
+      },
+      {
+        "dependent_id": "obj_0032",
+        "support_id": "ground_00",
+        "functional_id": "obj_0044",
+        "relation_source": "rule_scatter:core"
+      },
+      {
+        "dependent_id": "obj_0033",
+        "support_id": "ground_00",
+        "functional_id": "obj_0011",
+        "relation_source": "rule_scatter:core"
+      },
+      {
+        "dependent_id": "obj_0034",
+        "support_id": "ground_00",
+        "functional_id": "obj_0041",
+        "relation_source": "rule_scatter:core"
+      },
+      {
+        "dependent_id": "obj_0035",
+        "support_id": "ground_00",
+        "functional_id": "obj_0041",
+        "relation_source": "rule_scatter:core"
+      },
+      {
+        "dependent_id": "obj_0036",
+        "support_id": "ground_00",
+        "functional_id": "obj_0041",
+        "relation_source": "rule_scatter:core"
+      },
+      {
+        "dependent_id": "obj_0037",
+        "support_id": "ground_00",
+        "functional_id": "obj_0041",
+        "relation_source": "rule_scatter:core"
+      },
+      {
+        "dependent_id": "obj_0038",
+        "support_id": "ground_00",
+        "functional_id": "obj_0041",
+        "relation_source": "rule_scatter:core"
+      },
+      {
+        "dependent_id": "obj_0039",
+        "support_id": "ground_00",
+        "functional_id": "obj_0011",
+        "relation_source": "rule_scatter:core"
+      },
+      {
+        "dependent_id": "obj_0040",
+        "support_id": "ground_00",
+        "functional_id": "obj_0038",
+        "relation_source": "rule_scatter:crane"
+      },
+      {
+        "dependent_id": "obj_0041",
+        "support_id": "ground_00",
+        "functional_id": "obj_0038",
+        "relation_source": "rule_scatter:crane"
+      },
+      {
+        "dependent_id": "obj_0042",
+        "support_id": "ground_00",
+        "functional_id": "obj_0028",
+        "relation_source": "rule_scatter:crane"
+      },
+      {
+        "dependent_id": "obj_0043",
+        "support_id": "ground_00",
+        "functional_id": "obj_0007",
+        "relation_source": "rule_scatter:crane"
+      },
+      {
+        "dependent_id": "obj_0044",
+        "support_id": "ground_00",
+        "functional_id": "obj_0007",
+        "relation_source": "rule_scatter:crane"
+      },
+      {
+        "dependent_id": "obj_0045",
+        "support_id": "ground_00",
+        "functional_id": "obj_0030",
+        "relation_source": "rule_scatter:storage"
+      },
+      {
+        "dependent_id": "obj_0046",
+        "support_id": "ground_00",
+        "functional_id": "obj_0044",
+        "relation_source": "rule_scatter:storage"
+      },
+      {
+        "dependent_id": "obj_0047",
+        "support_id": "ground_00",
+        "functional_id": "obj_0031",
+        "relation_source": "rule_scatter:storage"
+      },
+      {
+        "dependent_id": "obj_0048",
+        "support_id": "ground_00",
+        "functional_id": "obj_0013",
+        "relation_source": "rule_scatter:storage"
+      },
+      {
+        "dependent_id": "obj_0049",
+        "support_id": "ground_00",
+        "functional_id": "obj_0031",
+        "relation_source": "rule_scatter:storage"
+      },
+      {
+        "dependent_id": "obj_0050",
+        "support_id": "ground_00",
+        "functional_id": "obj_0024",
+        "relation_source": "rule_scatter:rest_area"
+      },
+      {
+        "dependent_id": "obj_0051",
+        "support_id": "ground_00",
+        "functional_id": "entrance_02",
+        "relation_source": "rule_scatter:office"
+      },
+      {
+        "dependent_id": "obj_0052",
+        "support_id": "ground_00",
+        "functional_id": "entrance_02",
+        "relation_source": "rule_scatter:office"
+      }
+    ]
+  },
+  "generation_order": {
+    "support_bfs": [
+      "ground_00",
+      "obj_0001",
+      "obj_0002",
+      "obj_0003",
+      "obj_0004",
+      "obj_0005",
+      "obj_0006",
+      "obj_0007",
+      "obj_0008",
+      "obj_0009",
+      "obj_0010",
+      "obj_0011",
+      "obj_0012",
+      "obj_0013",
+      "obj_0014",
+      "obj_0015",
+      "obj_0016",
+      "obj_0017",
+      "obj_0018",
+      "obj_0019",
+      "obj_0020",
+      "obj_0021",
+      "obj_0022",
+      "obj_0023",
+      "obj_0024",
+      "obj_0025",
+      "obj_0026",
+      "obj_0027",
+      "obj_0028",
+      "obj_0029",
+      "obj_0030",
+      "obj_0031",
+      "obj_0032",
+      "obj_0033",
+      "obj_0034",
+      "obj_0035",
+      "obj_0036",
+      "obj_0037",
+      "obj_0038",
+      "obj_0039",
+      "obj_0040",
+      "obj_0041",
+      "obj_0042",
+      "obj_0043",
+      "obj_0044",
+      "obj_0045",
+      "obj_0046",
+      "obj_0047",
+      "obj_0048",
+      "obj_0049",
+      "obj_0050",
+      "obj_0051",
+      "obj_0052"
+    ],
+    "functional_dfs": [
+      "obj_0001",
+      "obj_0007",
+      "obj_0043",
+      "obj_0044",
+      "obj_0030",
+      "obj_0045",
+      "obj_0031",
+      "obj_0004",
+      "obj_0017",
+      "obj_0018",
+      "obj_0047",
+      "obj_0049",
+      "obj_0032",
+      "obj_0046",
+      "obj_0008",
+      "obj_0009",
+      "obj_0002",
+      "obj_0010",
+      "obj_0003",
+      "obj_0011",
+      "obj_0026",
+      "obj_0027",
+      "obj_0028",
+      "obj_0042",
+      "obj_0029",
+      "obj_0033",
+      "obj_0039",
+      "obj_0012",
+      "obj_0013",
+      "obj_0048",
+      "obj_0014",
+      "obj_0015",
+      "obj_0016",
+      "obj_0005",
+      "obj_0019",
+      "obj_0020",
+      "obj_0021",
+      "obj_0006",
+      "obj_0022",
+      "obj_0023",
+      "obj_0024",
+      "obj_0050",
+      "obj_0025",
+      "obj_0034",
+      "obj_0035",
+      "obj_0036",
+      "obj_0037",
+      "obj_0038",
+      "obj_0040",
+      "obj_0041",
+      "obj_0051",
+      "obj_0052"
+    ],
+    "serialized": [
+      "obj_0001",
+      "obj_0007",
+      "obj_0043",
+      "obj_0044",
+      "obj_0030",
+      "obj_0045",
+      "obj_0031",
+      "obj_0004",
+      "obj_0017",
+      "obj_0018",
+      "obj_0047",
+      "obj_0049",
+      "obj_0032",
+      "obj_0046",
+      "obj_0008",
+      "obj_0009",
+      "obj_0002",
+      "obj_0010",
+      "obj_0003",
+      "obj_0011",
+      "obj_0026",
+      "obj_0027",
+      "obj_0028",
+      "obj_0042",
+      "obj_0029",
+      "obj_0033",
+      "obj_0039",
+      "obj_0012",
+      "obj_0013",
+      "obj_0048",
+      "obj_0014",
+      "obj_0015",
+      "obj_0016",
+      "obj_0005",
+      "obj_0019",
+      "obj_0020",
+      "obj_0021",
+      "obj_0006",
+      "obj_0022",
+      "obj_0023",
+      "obj_0024",
+      "obj_0050",
+      "obj_0025",
+      "obj_0034",
+      "obj_0035",
+      "obj_0036",
+      "obj_0037",
+      "obj_0038",
+      "obj_0040",
+      "obj_0041",
+      "obj_0051",
+      "obj_0052"
+    ]
+  },
+  "scene_enrichment": {
+    "enabled": true,
+    "seed": 19275,
+    "accepted_count": 27,
+    "attempt_count": 65,
+    "rejected_count": 38,
+    "rules": {
+      "core": [
+        {
+          "accessory_choices": [
+            "generator"
+          ],
+          "target_count_range_per_parent": [
+            0,
+            1
+          ],
+          "probability": 0.85,
+          "radius_padding_m": [
+            5.0,
+            10.0
+          ],
+          "min_spacing_m": 3.0
+        },
+        {
+          "accessory_choices": [
+            "hose"
+          ],
+          "target_count_range_per_parent": [
+            1,
+            2
+          ],
+          "probability": 0.9,
+          "radius_padding_m": [
+            3.0,
+            7.0
+          ],
+          "min_spacing_m": 2.0
+        },
+        {
+          "accessory_choices": [
+            "floodlight_stand"
+          ],
+          "target_count_range_per_parent": [
+            1,
+            2
+          ],
+          "probability": 0.9,
+          "radius_padding_m": [
+            6.0,
+            12.0
+          ],
+          "min_spacing_m": 4.0
+        },
+        {
+          "accessory_choices": [
+            "ladder",
+            "toolbox",
+            "paint_can",
+            "concrete_mixer"
+          ],
+          "target_count_range_per_parent": [
+            1,
+            3
+          ],
+          "probability": 0.9,
+          "radius_padding_m": [
+            2.5,
+            7.0
+          ],
+          "min_spacing_m": 1.5
+        },
+        {
+          "accessory_choices": [
+            "dirt_decal",
+            "trash_decal"
+          ],
+          "target_count_range_per_parent": [
+            0,
+            2
+          ],
+          "probability": 0.75,
+          "radius_padding_m": [
+            2.0,
+            8.0
+          ],
+          "min_spacing_m": 1.0
+        },
+        {
+          "accessory_choices": [
+            "construction_lift"
+          ],
+          "target_count_range_per_parent": [
+            0,
+            1
+          ],
+          "probability": 0.35,
+          "radius_padding_m": [
+            4.0,
+            8.0
+          ],
+          "min_spacing_m": 4.0
+        }
+      ],
+      "crane": [
+        {
+          "accessory_choices": [
+            "traffic_cone",
+            "barrel"
+          ],
+          "target_count_range_per_parent": [
+            3,
+            6
+          ],
+          "probability": 1.0,
+          "radius_padding_m": [
+            4.0,
+            8.0
+          ],
+          "min_spacing_m": 1.2
+        },
+        {
+          "accessory_choices": [
+            "barrel"
+          ],
+          "target_count_range_per_parent": [
+            0,
+            2
+          ],
+          "probability": 0.7,
+          "radius_padding_m": [
+            5.0,
+            10.0
+          ],
+          "min_spacing_m": 2.0
+        },
+        {
+          "accessory_choices": [
+            "road_closure",
+            "dirt_decal"
+          ],
+          "target_count_range_per_parent": [
+            0,
+            2
+          ],
+          "probability": 0.65,
+          "radius_padding_m": [
+            5.0,
+            11.0
+          ],
+          "min_spacing_m": 2.0
+        }
+      ],
+      "storage": [
+        {
+          "accessory_choices": [
+            "storage_pipe",
+            "plywood_stack",
+            "plank_stack",
+            "stock_stack",
+            "log_tarp",
+            "pallet",
+            "concrete_bag",
+            "concrete_brick"
+          ],
+          "target_count_range_per_parent": [
+            1,
+            4
+          ],
+          "probability": 1.0,
+          "radius_padding_m": [
+            3.0,
+            8.0
+          ],
+          "min_spacing_m": 3.0
+        },
+        {
+          "accessory_choices": [
+            "barrel",
+            "traffic_cone"
+          ],
+          "target_count_range_per_parent": [
+            0,
+            3
+          ],
+          "probability": 0.75,
+          "radius_padding_m": [
+            2.0,
+            6.0
+          ],
+          "min_spacing_m": 2.0
+        },
+        {
+          "accessory_choices": [
+            "toolbox",
+            "ladder",
+            "trash_decal"
+          ],
+          "target_count_range_per_parent": [
+            0,
+            2
+          ],
+          "probability": 0.7,
+          "radius_padding_m": [
+            2.0,
+            5.0
+          ],
+          "min_spacing_m": 1.2
+        }
+      ],
+      "office": [
+        {
+          "accessory_choices": [
+            "traffic_cone",
+            "barrel"
+          ],
+          "target_count_range_per_parent": [
+            1,
+            3
+          ],
+          "probability": 0.9,
+          "radius_padding_m": [
+            2.0,
+            5.0
+          ],
+          "min_spacing_m": 1.0
+        },
+        {
+          "accessory_choices": [
+            "workbench",
+            "generator",
+            "toolbox"
+          ],
+          "target_count_range_per_parent": [
+            0,
+            1
+          ],
+          "probability": 0.75,
+          "radius_padding_m": [
+            3.0,
+            6.0
+          ],
+          "min_spacing_m": 3.0
+        },
+        {
+          "accessory_choices": [
+            "floodlight_stand"
+          ],
+          "target_count_range_per_parent": [
+            0,
+            1
+          ],
+          "probability": 0.8,
+          "radius_padding_m": [
+            4.0,
+            8.0
+          ],
+          "min_spacing_m": 4.0
+        },
+        {
+          "accessory_choices": [
+            "trash_decal",
+            "paint_can",
+            "hose"
+          ],
+          "target_count_range_per_parent": [
+            0,
+            2
+          ],
+          "probability": 0.6,
+          "radius_padding_m": [
+            2.0,
+            5.0
+          ],
+          "min_spacing_m": 1.0
+        }
+      ],
+      "rest_area": [
+        {
+          "accessory_choices": [
+            "barrel",
+            "hose",
+            "water_tank"
+          ],
+          "target_count_range_per_parent": [
+            1,
+            2
+          ],
+          "probability": 0.9,
+          "radius_padding_m": [
+            2.0,
+            5.0
+          ],
+          "min_spacing_m": 2.0
+        },
+        {
+          "accessory_choices": [
+            "trash_decal",
+            "paint_can"
+          ],
+          "target_count_range_per_parent": [
+            0,
+            1
+          ],
+          "probability": 0.6,
+          "radius_padding_m": [
+            1.5,
+            4.0
+          ],
+          "min_spacing_m": 1.0
+        }
+      ]
+    },
+    "constraints": [
+      "inside site boundary",
+      "outside road/exclusion polygons",
+      "minimum distance from entrances",
+      "no padded AABB overlap with existing objects"
+    ]
+  },
+  "validation_report": {
+    "status": "pass",
+    "issue_count": 0,
+    "issues": [],
+    "notes": [
+      "Boundary-polygon checks require every footprint corner to be inside the site polygon.",
+      "Exclusion-zone checks currently flag objects whose footprint center falls inside a zone.",
+      "Collision checks currently use conservative axis-aligned bounding boxes."
+    ]
+  },
+  "stats": {
+    "facility_count": 6,
+    "object_count": 52,
+    "primary_count": 6,
+    "accessory_count": 19,
+    "rule_scatter_count": 27
+  }
+}
