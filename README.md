@@ -1,5 +1,34 @@
 # CEXO to Unity
 
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat&logo=streamlit&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green)
+
+## Project Overview
+
+CEXO-to-Unity is a prototype 2D-to-3D construction-site scene generation workflow. It demonstrates how quality-diverse layout optimisation can be connected with Unity-based 3D visualisation to support rapid generation, browsing, and previewing of construction-site layout alternatives.
+
+This repository provides:
+1. A **web-based Streamlit application** for defining construction-site layout requirements, running CEXO layout generation, and browsing generated layout solutions.
+2. A **layout-to-scene conversion pipeline** for transforming CEXO layout JSON outputs into Unity-ready scene JSON files.
+3. A **Unity importer package** for loading generated scene JSON files into Unity and visualising them as 3D construction-site scenes.
+
+For detailed information please refer to [CEXO](https://github.com/ClanPing/CEXO.git) repository.
+
+## 📁 Project Structure
+
+## 🚀 Quick Start
+
+1. Clone the repository
+2. Install dependencies
+3. Run the dashboard
+
+## 📊 Preview Results
+[Insert image]
+
+## Unity flow steps
+---
+
 CEXO to Unity is a prototype workflow for generating construction-site layout
 alternatives and previewing selected layouts as Unity 3D scenes.
 
