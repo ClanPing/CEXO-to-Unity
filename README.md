@@ -1,8 +1,10 @@
-# CEXO to Unity
+# CEXO-to-Unity
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat&logo=streamlit&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green)
+
+**Automatic Construction-Site Scene Generation Prototype**
 
 ## Project Overview
 
