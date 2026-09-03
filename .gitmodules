@@ -1,0 +1,3 @@
+[submodule "submodules/cexo"]
+	path = submodules/cexo
+	url = https://github.com/ClanPing/CEXO.git
