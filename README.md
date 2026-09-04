@@ -23,14 +23,14 @@ For detailed information please refer to [CEXO](https://github.com/ClanPing/CEXO
 
 ## 🚀 Quick Start
 
-1. Clone the repository
+### 1. Clone the repository
 
 ```bash
 git clone --recursive https://github.com/ClanPing/CEXO-to-Unity.git
 cd CEXO-to-Unity
 ```
 
-2. Install dependencies
+### 2. Install dependencies
 
 ```bash
 cd submodules/cexo
@@ -38,14 +38,13 @@ pip install -r requirements.txt
 cd ../..
 ```
 
-3. Run the dashboard
+### 3. Run the dashboard
 
 ```bash
 python run_app.py
-
-# The app will load automatically. If not, load it in the browser manually:
-http://localhost:8501
 ```
+
+The app will load automatically. If not, load it in the browser manually `http://localhost:8501`.
 
 ## 📊 Preview Results
 
@@ -55,7 +54,7 @@ http://localhost:8501
 
 ## 📟 Unity
 
-1) Create a Unity project
+### 1) Create a Unity project
 
 The Unity importer package was tested with:
 
@@ -65,7 +64,7 @@ Project Template: SRP High Definition 3D
 Render Pipeline: HDRP
 ```
 
-2) Import Unity package
+### 2) Import Unity package
 
 Unity package can be found here:
 
@@ -73,14 +72,14 @@ Unity package can be found here:
 CEXO-to-Unity/unity/StreamingAssets/CEXOToUnityImporter.unitypackage
 ```
 
-3) Import assets
+### 3) Import assets
 
 The generated scenes were developed using the following Unity Asset Store Package. [Link](https://assetstore.unity.com/packages/3d/environments/industrial/construction-site-silvertm-154967)
 
 This repository **does not** contain the paid asset pack.
 [info on manual usage]
 
-4) Usage
+### 4) Usage
 
 ```text
 Tools > CEXO to Unity > Scene Browser
