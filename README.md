@@ -69,7 +69,7 @@ Render Pipeline: HDRP
 Unity package can be found here:
 
 ```text
-CEXO-to-Unity/unity/StreamingAssets/CEXOToUnityImporter.unitypackage
+unity/CEXOToUnityImporter.unitypackage
 ```
 
 ### 3) Import assets
