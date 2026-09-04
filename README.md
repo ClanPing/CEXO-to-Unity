@@ -11,7 +11,7 @@
 CEXO-to-Unity is a prototype 2D-to-3D construction-site scene generation workflow. It demonstrates how quality-diverse layout optimisation can be connected with Unity-based 3D visualisation to support rapid generation, browsing, and previewing of construction-site layout alternatives.
 
 <p align="center">
-<img src="model.png" alt="Model preview"/>
+<img src="assets/model.png" alt="Model preview"/>
 </p>
 
 This repository provides:
@@ -50,7 +50,7 @@ http://localhost:8501
 ## 📊 Preview Results
 
 <p align="center">
-<img src="image.png" alt="Streamlit app preview"/>
+<img src="assets/image.png" alt="Streamlit app preview"/>
 </p>
 
 ## 📟 Unity
