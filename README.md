@@ -46,12 +46,6 @@ python run_app.py
 
 The app will load automatically. If not, load it in the browser manually `http://localhost:8501`.
 
-## 📊 Preview Results
-
-<p align="center">
-<img src="assets/image.png" alt="Streamlit app preview"/>
-</p>
-
 ## 📟 Unity
 
 ### 1) Create a Unity project
@@ -106,3 +100,13 @@ Tools > CEXO to Unity > Scene Browser
 ```
 
 Use `Import Scene JSON...` to load one downloaded scene JSON directly, or use `Generated Scene Folder` to browse a catalogue of `*_unity_scene*.json` files.
+
+## 📊 Preview Results
+
+<p align="center">
+<img src="assets/image.png" alt="Streamlit app preview"/>
+</p>
+
+<p align="center">
+<img src="assets/image2.png" alt="Unity preview"/>
+</p>
