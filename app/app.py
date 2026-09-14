@@ -534,7 +534,7 @@ def run_generation_with_progress(definition: dict[str, Any], count: int, seed: i
             str(seed),
             "--export-count",
             str(count),
-            "--skip-visual-pipeline",
+            "--no-export-pngs",
         ]
         stage1_cwd = cexo_root / "examples" / "bulleen_study"
         stage1_status = "Running official Bulleen CEXO pipeline"
