@@ -33,6 +33,10 @@ cd CEXO-to-Unity
 ### 2. Install dependencies
 
 ```bash
+pip install -r requirements.txt
+```
+AND
+```bash
 cd submodules/cexo
 pip install -r requirements.txt
 cd ../..
