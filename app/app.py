@@ -486,6 +486,13 @@ def score_line(layout: dict[str, Any]) -> str:
     )
 
 
+def definition_site_dimensions(definition: dict[str, Any]) -> tuple[float, float]:
+    return (
+        float(definition.get("site_width_m", 100.0)),
+        float(definition.get("site_length_m", 100.0)),
+    )
+
+
 def run_generation_with_progress(definition: dict[str, Any], count: int, seed: int, candidates: int, preset: str) -> Path:
     run_dir = unique_run_dir(str(definition.get("project_name", "")))
     layout_dir = run_dir / "layouts"
@@ -495,6 +502,7 @@ def run_generation_with_progress(definition: dict[str, Any], count: int, seed: i
 
     optimisation = definition.get("optimisation", {})
     initial_population = int(optimisation.get("initial_population", 500))
+    site_width_m, site_length_m = definition_site_dimensions(definition)
     cexo_root = find_cexo_root() if preset in {PRESET_STANDARD, PRESET_BULLEEN} else None
 
     if preset == PRESET_STANDARD:
@@ -537,9 +545,9 @@ def run_generation_with_progress(definition: dict[str, Any], count: int, seed: i
             "--export-count",
             str(count),
             "--site-width-m",
-            str(site_width),
+            str(site_width_m),
             "--site-length-m",
-            str(site_length),
+            str(site_length_m),
             "--output",
             str(layout_dir),
         ]
@@ -688,7 +696,14 @@ def render_setup_page(defaults: dict[str, Any], presets: dict[str, Any]) -> None
 
     st.markdown("---")
     st.subheader("Run Optimisation")
-    run_mode = st.radio("Run length", ["Quick", "Balanced", "Thorough"], index=1, horizontal=True, key=f"run_mode_{preset}")
+    default_run_index = 0 if preset == PRESET_BULLEEN else 1
+    run_mode = st.radio(
+        "Run length",
+        ["Quick", "Balanced", "Thorough"],
+        index=default_run_index,
+        horizontal=True,
+        key=f"run_mode_{preset}",
+    )
 
     cexo_iterations = int(algo.get("iterations", 15000))
     mode_defaults = {
@@ -722,7 +737,10 @@ def render_setup_page(defaults: dict[str, Any], presets: dict[str, Any]) -> None
     if preset == PRESET_STANDARD:
         st.caption("Standard mode runs the official CEXO optimiser and forwards the selected facility counts as a facility mix.")
     elif preset == PRESET_BULLEEN:
-        st.caption("Bulleen mode runs the official Bulleen CEXO pipeline with fixed case-study boundary, entrances, and road exclusions.")
+        st.caption(
+            "Bulleen mode runs the official optimiser with fixed case-study boundary, entrances, and road exclusions. "
+            "Use Quick for dashboard preview; Balanced and Thorough can take much longer because they run learned-descriptor optimisation."
+        )
 
     if st.button("Run Optimisation", type="primary", use_container_width=True, disabled=definition is None):
         run_definition = dict(definition)
@@ -909,3 +927,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

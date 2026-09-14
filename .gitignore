@@ -1,0 +1,44 @@
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Local/editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.agents/
+
+# Local generated outputs and datasets
+output/*
+!output/.gitkeep
+data/*
+!data/.gitkeep
+
+# Temporary/reference folders used during development
+_external/
+tmp/
+scene_pipeline/
+_local_archive/
+
+# Unity project cache/build folders
+*.csproj
+*.sln
+Library/
+Temp/
+Obj/
+Build/
+Builds/
+Logs/
+UserSettings/
+
+# Large future checkpoints or exported models
+*.ckpt
+*.onnx
+
+# Experiment logs
+runs/
+wandb/
