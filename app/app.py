@@ -523,9 +523,11 @@ def run_generation_with_progress(definition: dict[str, Any], count: int, seed: i
         layout_dir = run_dir / "bulleen_results"
         stage1_command = [
             sys.executable,
-            str(cexo_root / "examples" / "bulleen_study" / "run_bulleen_cexo_pipeline.py"),
-            "--output",
-            str(layout_dir),
+            str(cexo_root / "examples" / "bulleen_study" / "main.py"),
+            "--practical-bulleen",
+            "--bulleen-boundary",
+            "--bulleen-entrances",
+            "--bulleen-roads",
             "--iterations",
             str(candidates),
             "--initial-pop",
@@ -534,9 +536,15 @@ def run_generation_with_progress(definition: dict[str, Any], count: int, seed: i
             str(seed),
             "--export-count",
             str(count),
+            "--site-width-m",
+            str(site_width),
+            "--site-length-m",
+            str(site_length),
+            "--output",
+            str(layout_dir),
         ]
         stage1_cwd = cexo_root / "examples" / "bulleen_study"
-        stage1_status = "Running official Bulleen CEXO pipeline"
+        stage1_status = "Running official Bulleen CEXO optimiser"
         expected_seconds = max(30.0, min(360.0, candidates / 45.0))
     else:
         stage1_command = [
