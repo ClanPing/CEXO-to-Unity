@@ -71,6 +71,7 @@ def find_cexo_root() -> Path:
         candidates.append(Path(env_root))
     candidates.extend(
         [
+            REPO_ROOT / "submodules" / "cexo",
             REPO_ROOT.parent / "CEXO",
             REPO_ROOT / "CEXO",
         ]
@@ -83,8 +84,9 @@ def find_cexo_root() -> Path:
     searched = "\n".join(f"- {path}" for path in candidates)
     raise RuntimeError(
         "Could not find the official CEXO optimisation repository. "
-        f"Clone https://github.com/ClanPing/CEXO beside this repository or set "
-        f"the {CEXO_ENV_VAR} environment variable to the CEXO repo folder.\n\n"
+        f"Initialise submodules, clone https://github.com/ClanPing/CEXO beside "
+        f"this repository, or set the {CEXO_ENV_VAR} environment variable to "
+        "the CEXO repo folder.\n\n"
         f"Searched:\n{searched}"
     )
 
