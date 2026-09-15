@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import importlib.util
 import os
 import re
 import shutil
@@ -396,8 +397,42 @@ def layout_dir_for_run(run_dir: Path) -> Path:
     return run_dir
 
 
-def rebuild_layout_gallery(layout_dir: Path, limit: int = 9) -> None:
+def rebuild_bulleen_gallery_with_cexo_renderer(layout_dir: Path, limit: int = 9) -> bool:
+    try:
+        cexo_root = find_cexo_root()
+    except RuntimeError:
+        return False
+
+    bulleen_dir = cexo_root / "examples" / "bulleen_study"
+    renderer_path = bulleen_dir / "run_bulleen_cexo_pipeline.py"
+    if not renderer_path.exists():
+        return False
+
+    try:
+        sys.path.insert(0, str(bulleen_dir))
+        spec = importlib.util.spec_from_file_location("cexo_bulleen_pipeline_renderer", renderer_path)
+        if spec is None or spec.loader is None:
+            return False
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        diverse_ids = module.showcase_layout_ids(layout_dir, limit)
+        best_ids = module.selected_layout_ids(layout_dir, 1)
+        if not diverse_ids or not best_ids:
+            return False
+        module.generate_styled_main_layouts(layout_dir, best_ids[0], diverse_ids, dpi=110)
+        return (layout_dir / "diverse_layouts.png").exists()
+    except Exception:
+        return False
+    finally:
+        while str(bulleen_dir) in sys.path:
+            sys.path.remove(str(bulleen_dir))
+
+
+def rebuild_layout_gallery(layout_dir: Path, limit: int = 9, preset: str | None = None) -> None:
     """Keep the summary gallery consistent with the exported layout previews."""
+    if preset == PRESET_BULLEEN and rebuild_bulleen_gallery_with_cexo_renderer(layout_dir, limit=limit):
+        return
+
     preview_paths = sorted(layout_dir.glob("cslpelite_layout_*.png"))[:limit]
     if not preview_paths:
         return
@@ -656,7 +691,7 @@ def run_generation_with_progress(definition: dict[str, Any], count: int, seed: i
         layout_dir = latest_result_child(run_dir / "official_cexo", "cexo")
     else:
         layout_dir = layout_dir_for_run(run_dir)
-    rebuild_layout_gallery(layout_dir)
+    rebuild_layout_gallery(layout_dir, preset=preset)
 
     progress.progress(66, text="Compiling selected layouts into Unity scene JSONs")
     status.caption("Running Stage 2: prefab, accessory, and scene-graph enrichment.")
