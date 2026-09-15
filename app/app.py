@@ -396,6 +396,66 @@ def layout_dir_for_run(run_dir: Path) -> Path:
     return run_dir
 
 
+def rebuild_layout_gallery(layout_dir: Path, limit: int = 9) -> None:
+    """Keep the summary gallery consistent with the exported layout previews."""
+    preview_paths = sorted(layout_dir.glob("cslpelite_layout_*.png"))[:limit]
+    if not preview_paths:
+        return
+
+    try:
+        from PIL import Image, ImageDraw, ImageFont
+    except ImportError:
+        return
+
+    cell_width = 520
+    cell_height = 520
+    title_height = 72
+    caption_height = 34
+    gap = 24
+    columns = min(3, len(preview_paths))
+    rows = (len(preview_paths) + columns - 1) // columns
+    canvas_width = columns * cell_width + (columns + 1) * gap
+    canvas_height = title_height + rows * (cell_height + caption_height) + (rows + 1) * gap
+
+    canvas = Image.new("RGB", (canvas_width, canvas_height), "white")
+    draw = ImageDraw.Draw(canvas)
+    try:
+        title_font = ImageFont.truetype("arial.ttf", 28)
+        caption_font = ImageFont.truetype("arial.ttf", 18)
+    except OSError:
+        title_font = ImageFont.load_default()
+        caption_font = ImageFont.load_default()
+
+    title = f"Exported Layout Catalogue (showing {len(preview_paths)} layouts)"
+    draw.text((canvas_width / 2, 36), title, anchor="mm", fill=(20, 20, 20), font=title_font)
+    resampling = getattr(getattr(Image, "Resampling", Image), "LANCZOS")
+
+    for index, path in enumerate(preview_paths):
+        row, column = divmod(index, columns)
+        x = gap + column * (cell_width + gap)
+        y = title_height + gap + row * (cell_height + caption_height + gap)
+
+        with Image.open(path) as source:
+            image = source.convert("RGB")
+            image.thumbnail((cell_width, cell_height), resampling)
+            offset_x = x + (cell_width - image.width) // 2
+            offset_y = y + (cell_height - image.height) // 2
+            canvas.paste(image, (offset_x, offset_y))
+
+        draw.text(
+            (x + cell_width / 2, y + cell_height + 20),
+            path.stem,
+            anchor="mm",
+            fill=(20, 20, 20),
+            font=caption_font,
+        )
+
+    gallery_path = layout_dir / "diverse_layouts.png"
+    temporary_path = layout_dir / "diverse_layouts.tmp.png"
+    canvas.save(temporary_path)
+    temporary_path.replace(gallery_path)
+
+
 def scene_output_root_for_run(run_dir: Path) -> Path:
     return run_dir / "unity_scenes"
 
@@ -596,6 +656,7 @@ def run_generation_with_progress(definition: dict[str, Any], count: int, seed: i
         layout_dir = latest_result_child(run_dir / "official_cexo", "cexo")
     else:
         layout_dir = layout_dir_for_run(run_dir)
+    rebuild_layout_gallery(layout_dir)
 
     progress.progress(66, text="Compiling selected layouts into Unity scene JSONs")
     status.caption("Running Stage 2: prefab, accessory, and scene-graph enrichment.")
@@ -927,4 +988,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
