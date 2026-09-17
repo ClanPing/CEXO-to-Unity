@@ -70,6 +70,7 @@
     "zone.rotation_y"
   ],
   "label_names": [
+    "COMPOSITE_ConstructionCore",
     "COMPOSITE_ConstructionCore_Lift",
     "COMPOSITE_ConstructionCore_Walls",
     "COMPOSITE_TowerCrane",
