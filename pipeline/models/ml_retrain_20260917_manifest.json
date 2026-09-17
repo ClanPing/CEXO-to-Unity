@@ -1,0 +1,67 @@
+{
+  "run_id": "ml_retrain_20260917",
+  "purpose": "Retrain ML-guided scene enrichment models using mixed standard and Bulleen case-study data.",
+  "training_scene_source": {
+    "standard_rule_scenes": "output/ml_retrain_20260917/standard_rule_scenes/scenes",
+    "bulleen_rule_scenes": "output/ml_retrain_20260917/bulleen_rule_scenes/scenes",
+    "clean_training_scenes": 98,
+    "excluded_scenes": 2,
+    "excluded_reason": "validation_status was needs_review due to primary facility AABB overlap"
+  },
+  "datasets": {
+    "zone_asset_dataset": {
+      "scene_count": 98,
+      "record_count": 1354,
+      "unique_asset_label_count": 40,
+      "path": "output/ml_retrain_20260917/zone_asset_dataset"
+    },
+    "zone_asset_placement_dataset": {
+      "scene_count": 98,
+      "record_count": 9886,
+      "unique_asset_label_count": 22,
+      "path": "output/ml_retrain_20260917/zone_asset_placement_dataset"
+    }
+  },
+  "models": {
+    "zone_asset_mlp": {
+      "path": "pipeline/models/zone_asset_mlp/zone_asset_mlp.pt",
+      "feature_count": 68,
+      "label_count": 40,
+      "test_micro_f1": 0.5725518227305217,
+      "test_top_k_recall": 0.7810858371126228
+    },
+    "zone_asset_placement_mlp_accessory": {
+      "path": "pipeline/models/zone_asset_placement_mlp_accessory/zone_asset_placement_mlp.pt",
+      "feature_count": 109,
+      "source_kind_filter": "accessory",
+      "test_mean_position_error_m": 1.9113925695419312,
+      "test_median_position_error_m": 0.8297621607780457,
+      "test_mae_yaw_deg": 6.617860317230225
+    }
+  },
+  "post_training_validation": {
+    "standard": {
+      "scene_count": 50,
+      "validation_pass": 50,
+      "ml_proposed_added_count": 177,
+      "ml_retained_added_count": 176,
+      "ml_fallback_accepted_count": 37,
+      "ml_fallback_rejected_count": 1
+    },
+    "bulleen": {
+      "scene_count": 50,
+      "validation_pass": 48,
+      "validation_needs_review": 2,
+      "needs_review_reason": "existing primary-facility AABB overlap in cslpelite_layout_002.json and cslpelite_layout_048.json",
+      "ml_proposed_added_count": 1015,
+      "ml_retained_added_count": 997,
+      "ml_fallback_accepted_count": 632,
+      "ml_fallback_rejected_count": 18
+    }
+  },
+  "notes": [
+    "The previous standard failure was caused by models trained only on Bulleen-scale site dimensions.",
+    "The retrained checkpoints include both 100m x 100m standard layouts and 300m x 250m Bulleen layouts, so site-size features are no longer constant.",
+    "Inference still keeps geometric validation and fallback placement as safeguards."
+  ]
+}

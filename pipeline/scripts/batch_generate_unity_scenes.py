@@ -104,6 +104,8 @@ def scene_record(
                 "ml_incompatible_count": asset_selection.get("incompatible_count", 0),
                 "ml_placement_accepted_count": placement.get("accepted_count", 0),
                 "ml_placement_rejected_count": placement.get("rejected_count", 0),
+                "ml_fallback_accepted_count": placement.get("fallback_accepted_count", 0),
+                "ml_fallback_rejected_count": placement.get("fallback_rejected_count", 0),
             }
         )
     return record

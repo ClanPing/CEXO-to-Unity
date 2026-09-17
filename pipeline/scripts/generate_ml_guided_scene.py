@@ -110,6 +110,11 @@ def build_feature_vector(features: dict[str, float], feature_names: list[str]) -
     return torch.tensor([[features.get(name, 0.0) for name in feature_names]], dtype=torch.float32)
 
 
+def standardize_for_inference(x: torch.Tensor, mean: torch.Tensor, std: torch.Tensor, clamp: float = 6.0) -> torch.Tensor:
+    """Standardize inference features while limiting out-of-domain spikes."""
+    return torch.clamp((x - mean) / std, min=-clamp, max=clamp)
+
+
 def load_asset_model(model_path: Path) -> tuple[ZoneAssetMLP, dict[str, Any]]:
     checkpoint = torch.load(model_path, map_location="cpu")
     model = ZoneAssetMLP(len(checkpoint["feature_names"]), len(checkpoint["label_names"]))
@@ -183,7 +188,7 @@ def predict_zone_assets(
     for row in export_zone_asset_rows(scene_path.resolve()):
         features = asset_row_features(row)
         x = build_feature_vector(features, feature_names)
-        x = (x - mean) / std
+        x = standardize_for_inference(x, mean, std)
         with torch.no_grad():
             probs = torch.sigmoid(asset_model(x)).squeeze(0)
         top = probs.topk(min(top_k, len(label_names)))
@@ -297,7 +302,7 @@ def predict_relative_placement(
 ) -> tuple[float, float, float]:
     features = placement_row_features(row)
     x = build_feature_vector(features, checkpoint["feature_names"])
-    x = (x - checkpoint["x_mean"]) / checkpoint["x_std"]
+    x = standardize_for_inference(x, checkpoint["x_mean"], checkpoint["x_std"])
     with torch.no_grad():
         pred = placement_model(x).squeeze(0)
     pred = pred * checkpoint["y_std"] + checkpoint["y_mean"]
@@ -322,6 +327,53 @@ def update_object_transform_from_prediction(obj: dict[str, Any], zone: dict[str,
     )
 
 
+def fallback_relative_placements(zone: dict[str, Any], obj: dict[str, Any], rel_yaw: float) -> list[tuple[float, float, float]]:
+    zone_bbox = zone.get("placement", {}).get("bbox_size", {})
+    obj_bbox = obj.get("placement", {}).get("bbox_size", {})
+    half_x = float(zone_bbox.get("x", 1.0)) * 0.5
+    half_z = float(zone_bbox.get("z", 1.0)) * 0.5
+    obj_half_x = float(obj_bbox.get("x", 0.5)) * 0.5
+    obj_half_z = float(obj_bbox.get("z", 0.5)) * 0.5
+    base_radius = max(half_x + obj_half_x, half_z + obj_half_z) + 1.0
+    candidates: list[tuple[float, float, float]] = []
+    for radius in (base_radius, base_radius + 1.5, base_radius + 3.0):
+        for angle in (0.0, 45.0, 90.0, 135.0, 180.0, 225.0, 270.0, 315.0):
+            theta = math.radians(angle)
+            candidates.append((math.cos(theta) * radius, math.sin(theta) * radius, rel_yaw))
+    return candidates
+
+
+def try_fallback_placement(
+    obj: dict[str, Any],
+    zone: dict[str, Any],
+    placed_without_candidate: list[dict[str, Any]],
+    site: dict[str, Any],
+    entrances: list[dict[str, Any]],
+    min_spacing: float,
+    rel_yaw: float,
+) -> bool:
+    for fallback_x, fallback_z, fallback_yaw in fallback_relative_placements(zone, obj, rel_yaw):
+        candidate = copy.deepcopy(obj)
+        update_object_transform_from_prediction(candidate, zone, fallback_x, fallback_z, fallback_yaw)
+        if layout_to_scene.is_valid_scatter_position(
+            candidate,
+            placed_without_candidate,
+            site,
+            entrances,
+            min_spacing=min_spacing,
+            allowed_overlap_ids={zone["id"]},
+        ):
+            update_object_transform_from_prediction(obj, zone, fallback_x, fallback_z, fallback_yaw)
+            obj["source"]["placement_source"] = "ml_zone_asset_model"
+            obj["source"]["placement_strategy"] = "validated_fallback_ring"
+            obj["placement"]["placement_notes"] = (
+                "ML-selected accessory kept with validated local fallback placement "
+                "after the placement MLP predicted an invalid position"
+            )
+            return True
+    return False
+
+
 def apply_ml_placements(
     scene: dict[str, Any],
     scene_path: Path,
@@ -335,6 +387,8 @@ def apply_ml_placements(
     objects = scene["objects"]
     accepted = 0
     rejected = 0
+    fallback_accepted = 0
+    fallback_rejected = 0
     remove_ids: set[str] = set()
     predictions = []
 
@@ -374,9 +428,23 @@ def apply_ml_placements(
                 kept = True
             else:
                 rejected += 1
-                if obj.get("source", {}).get("placement_source") == "ml_zone_asset_model":
-                    remove_ids.add(obj["id"])
-                kept = False
+                is_ml_added = obj.get("source", {}).get("placement_source") == "ml_zone_asset_model"
+                if is_ml_added and try_fallback_placement(
+                    obj,
+                    zone,
+                    placed_without_candidate,
+                    site,
+                    entrances,
+                    min_spacing,
+                    rel_yaw,
+                ):
+                    fallback_accepted += 1
+                    kept = True
+                else:
+                    if is_ml_added:
+                        remove_ids.add(obj["id"])
+                        fallback_rejected += 1
+                    kept = False
             predictions.append(
                 {
                     "zone_id": zone["id"],
@@ -386,6 +454,7 @@ def apply_ml_placements(
                     "relative_z": round(rel_z, 3),
                     "relative_yaw": round(rel_yaw, 2),
                     "accepted": kept,
+                    "fallback": obj.get("source", {}).get("placement_strategy") == "validated_fallback_ring",
                 }
             )
 
@@ -396,6 +465,8 @@ def apply_ml_placements(
         "attempted_count": accepted + rejected,
         "accepted_count": accepted,
         "rejected_count": rejected,
+        "fallback_accepted_count": fallback_accepted,
+        "fallback_rejected_count": fallback_rejected,
         "removed_ml_added_count": len(remove_ids),
         "min_spacing_m": min_spacing,
         "predictions": predictions[:80],
